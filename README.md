@@ -3,6 +3,8 @@
 
 **This code is changing rapidly. This file might not be up to date.**
 
+You might also consider looking at the file merge-me-readme.md.
+
 
 The scripts and binaries in this package facilitate the preparation of files to use as input for,
 and the analysis of files resulting from, glycan-antibody docking experiments run using Vina-Carb.
