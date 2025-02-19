@@ -46,8 +46,8 @@ if [ ${result} != "0" ] ; then
 	exit 1
 fi
 
-echo "INFO: Evaluating the workdir: ${WORKDIR}." >> ${ADLOG}
 cd ${WORKDIR}
+echo "INFO: Evaluating the workdir: ${WORKDIR}." >> ${ADLOG}
 source ad2config
 if [ ! -d "tmpFiles" ] ; then
         mkdir tmpFiles
