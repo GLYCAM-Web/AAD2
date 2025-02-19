@@ -35,7 +35,7 @@ cp  0.configure/setup_AD_Directory \
     5.analyze_results/reorderpdb \
     5.analyze_results/write_output \
     6.check_status/get_AD_docking_status \
-    6.check_status/Check_Status.sh \
+    6.check_status/Check_Status \
     AD_Evaluate  \
     AD_Get_Status  \
     AD_Run_AD  \
