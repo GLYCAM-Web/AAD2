@@ -1,5 +1,5 @@
-GLYLIB = /programs/src/AD2_GLYLIB/lib
-GLYINC = /programs/src/AD2_GLYLIB/inc
+GLYLIB = /programs/src/AAD2_GLYLIB/lib
+GLYINC = /programs/src/AAD2_GLYLIB/inc
 FLAGS = -I$(GLYINC) -L$(GLYLIB) -lglylib -Wall -lm
 SOURCE = align.c
 FUNCTION = align_antibody.c

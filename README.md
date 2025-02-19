@@ -1,5 +1,11 @@
 # Utilities for Automated Antibody Docking 2
 
+
+**This code is changing rapidly. This file might not be up to date.**
+
+You might also consider looking at the file merge-me-readme.md.
+
+
 The scripts and binaries in this package facilitate the preparation of files to use as input for,
 and the analysis of files resulting from, glycan-antibody docking experiments run using Vina-Carb.
 
@@ -69,6 +75,7 @@ based on each executable's needs.
 
 For details on the special environment, see below.
 
+This tree is out of date...
       ├── 0.configure
       ├── 1.prepare_antibody
       │   ├── align_antibody
@@ -83,13 +90,11 @@ For details on the special environment, see below.
       │   └── run.bash
       ├── 5.analyze_results
     X │   ├── cluster
-    X │   ├── extract_ringatoms
     X │   ├── reorderpdb
     X │   └── write_output
-      ├── Check_Status.sh
-    X ├── Compile.bash
-      ├── Install.bash
-      └── Start_Jobs.sh
+      ├── Check_Status
+    X ├── Compile
+      ├── Install
 
 If you run `Install.bash` with the option `nonspecial`, it will only copy files that do not require the 
 special environment into the specified path. 
