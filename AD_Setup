@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+## Evaluate PDB files for use with Automated Antibody Docking
+
+UGAGE="""
+Usage:
+
+        AD_Setup <working directory>
+	
+"""
+if [ -z "${1}" ] ; then
+	echo "The working directory must be specified on the command line." 
+	exit 1
+fi
+if [ ! -d "${1}" ] ; then
+	echo "The name given is not a directory." 
+	exit 1
+fi
+
+WORKDIR="${1}"
+
+( cd ${WORKDIR} && ./setup_AD_Directory )
+

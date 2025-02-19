@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+
+if [ -z "${1}" ] ; then
+	echo "Must supply working directory as an argument. Exiting."
+	exit 1
+fi
+WORKDIR="${1}"
+cd ${WORKDIR}
+source ad2config
+
+write_output ${Number_of_Replicas}
+reorderpdb
+clustering
+plot_results

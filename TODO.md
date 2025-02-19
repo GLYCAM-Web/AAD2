@@ -1,0 +1,11 @@
+-[X] Move writing of the config file for the docking up to the utils part.
+-[X] Move everything except for the actual docking run over to AD2 Utils.
+-[X] Implement the config file for AD2 Utils.
+-[X] Separate parts that require a special environment from the other parts.
+-[ ] Make a setup script to handle example configs, or to build configs, etc.
+-[ ] For now, have the config run the cycle detection if possible
+-[ ] Set the special parts to be treated differently based on compute mode.
+-[ ] Set up workflow for managing batch submissions in modes local and batch.
+-[X] Have all temporary files be written to a temporary directory.
+-[ ] Make it possible to save the temporary files.
+-[ ] Stitch everything back together.

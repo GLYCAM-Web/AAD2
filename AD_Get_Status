@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+
+## Run one or more Antibody Docking experiments
+
+UGAGE="""
+Usage:
+
+        AD_Status <working directory>
+	
+	Return:
+
+	    - This should indicate the status of batch submissions 
+	      - queued, running, finishing, or finished
+	    - For any status other than queued, it should return an indication of the current
+	      progress of the run.
+	    - If all goes well, the working directory should eventually contain one directory
+	      for each replica. They will be named 'rN' where N is the replica number.
+            - Each rN directory should contain a file 'docking_output.pdbqt'.
+	      The directory might contain other files, including logs, batch output, etc.
+	    - The working directory should contain these files among others:
+	      - all_docking_output.pdbqt - output from all replicas in one file
+	      - allmodels.pdb - pdb file containing all the models output by the docking
+	      - input_gplt.txt - clustering-derived input for gnuplot
+	      - histogram_sorted.png - graphical display of relevant results
+	      - When all is complete, there should also be a tgz (?) file to download.
+	      - Antibody_Docking_Results.tgz (zip?).
+
+        Notes:
+
+	    - The return format is negotiable.
+	    - There will be a log file for more complete information.
+	    - Any of the files in the working directory can be returned.
+
+"""
+WORKDIR="${1}"
+cd ${WORKDIR}
+
+## Read job numbers from file & check status in queue
+
+## For any that are no longer queued (or held, etc.), figure out how the run is going.
+
+## Write log info to a file
+
+## Return info for the website to act on
+
+
+

@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+source ad2config
+JOB_LOG='job.log'
+echo "Vina-Carb docking job started at: $(date)" > ${JOB_LOG}
+
+if [[ -z "${VINA_CARB}" ]] ; then
+    VINA_CARB='/programs/src/VC_1_0'
+    echo "VINA_CARB not defined; setting it to: ${VINA_CARB}" >> ${JOB_LOG}
+else
+    echo "VINA_CARB already defined as: ${VINA_CARB}" >> ${JOB_LOG}
+fi
+export VINA_CARB=${VINA_CARB}
+
+COMMAND="vina-carb --config vcconfig --out docking_output.pdbqt --log docking.log"
+echo """
+Using this command:
+    ${COMMAND}
+""" >>${JOB_LOG}
+eval ${COMMAND}
+
+monitor="output"
+echo "job ended at $(date)" >> ${JOB_LOG}
+if grep -q "$monitor" docking.log ; then
+  echo "Job appears to have completed." >> ${JOB_LOG}
+else
+  echo "Error: job might not have completed properly." >> ${JOB_LOG}
+fi
+

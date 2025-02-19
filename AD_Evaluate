@@ -1,0 +1,105 @@
+#!/usr/bin/env bash
+
+## Evaluate PDB files for use with Automated Antibody Docking
+
+UGAGE="""
+Usage:
+
+        AD_Evaluate <working directory>
+	
+	The working directory should contain these things:
+
+	    - The antibody PDB file 
+	    - The glycan PDB file
+	    - An initial configuration file
+	    - If Use_Docker=True, there should also be a docker config file
+
+	Return:
+
+	    - If all goes well, the working directory should contain two files:
+              - protein.pdbqt
+              - ligand.pdbqt
+              There might be other files present.	      
+	    - The format is negotiable.
+	    - For each file, success or failure will be indicated.
+	    - This code does not expect that any files will be returned.
+	    - There will be a log file for more complete information.
+
+        Notes:
+
+	    - The two PDB files do not have name restrictions. 
+	    - Their names should be in the configuration file.
+	    - The files derived from the PDB files will all have standardized names.
+	    - For the evaluation, the code will produce a partially-flexible pdbqt for the glycan.
+	      This is chosen because it is the more complicated method.
+	      During the run, the user's preference will overwrite the ligand.pdbqt file.
+"""
+ADLOG="ad.log"
+WORKDIR="${1}"
+#echo "About to call validate"
+COMMAND="AD_Validate ${WORKDIR}"
+#echo "The command is $COMMAND"
+eval ${COMMAND} 
+result=$?
+if [ ${result} != "0" ] ; then
+	echo "There was a problem validating the working directory." 
+	exit 1
+fi
+
+echo "INFO: Evaluating the workdir: ${WORKDIR}." >> ${ADLOG}
+cd ${WORKDIR}
+source ad2config
+if [ ! -d "tmpFiles" ] ; then
+        mkdir tmpFiles
+fi
+
+#echo "The antibody file name is ${Antibody_File_Name}"
+ERRORS="0"
+align ${Antibody_File_Name}
+result=$?
+#echo "The result of aligning is >>>${result}<<<"
+if [ "${result}" == "0" ] ; then
+#	echo "about to generate antibody pdbqt file."
+        generate_antibody_pdbqt scfv_aligned.pdb
+        result=$?
+#        echo "The result of that is >>>${result}<<<"
+	if [ ${result} != "0" ] ; then
+		echo "ERROR: There was a problem generating the antibody pdbqt file." >> ${ADLOG}
+		ERRORS=$((ERRORS+1))
+	fi
+else
+	echo "ERROR: There was a problem aligning the antibody pdb file" >> ${ADLOG}
+	ERRORS=$((ERRORS+1))
+fi
+if [ -e glycan.pdb ] ; then
+        echo "WARNING: Found an existing glycan.pdb and removing it." >> ${ADLOG}
+	rm glycan.pdb
+fi
+LastLine="$($ tail -1 ${Glycan_File_Name})"
+if [[ "${LastLine}" != "END"* ]] ; then
+        echo "INFO: Found glycan file without terminal END card. Adding it to the glycan.pdb version." >> ${ADLOG}
+	cp ${Glycan_File_Name} glycan.pdb
+	echo "END" >> glycan.pdb
+else
+        echo "INFO: Making symbolic link between provided glycan file and glycan.pdb." >> ${ADLOG}
+	ln -s ${Glycan_File_Name} glycan.pdb
+fi
+case ${Glycan_Flexibility} in
+	"Rigid")  
+		GFlex=1
+		;;
+	"Partial")
+		GFlex=2
+		;;
+	"Flexible")
+		GFlex=3
+		;;
+esac
+
+generate_glycan_pdbqt ${GFlex}
+if [ ${result} != "0" ] ; then
+	echo "ERROR: There was a problem generating the glycan pdbqt file." >> ${ADLOG}
+	ERRORS=$((ERRORS+1))
+fi
+
+echo "Finished AD_Evaluate with ${ERRORS} error(s)."

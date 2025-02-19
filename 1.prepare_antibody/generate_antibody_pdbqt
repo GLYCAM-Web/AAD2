@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+# Call this from within the docking project directory, where the file scfv_aligned.pdb is.
+
+# pythonsh should be on antibodydocking's path
+# This seems to work, but I don't have files I can use to check the output.
+pythonsh \
+  /programs/MGLToolsPckgs/AutoDockTools/Utilities24/prepare_receptor4.py \
+  -r scfv_aligned.pdb -A hydrogens -U nphs_lps -o protein.pdbqt
+
+## Call from old C code
+#sprintf(ptnfile,"ssh eliot /programs/e12/mgltools_x86_64Linux2_1.5.6/bin/pythonsh /programs/e12/mgltools_x86_64Linux2_1.5.6/MGLToolsPckgs/AutoDockTools/Utilities24/prepare_receptor4.py -r docking/%s/scfv_aligned.pdb -A hydrogens -U nphs_lps -o docking/%s/protein.pdbqt",Dset.N,Dset.N);
+
+
+

@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+
+USAGE="""
+Usage: 
+
+    Install.bash <install path>
+
+    For example, 
+
+        Install.bash /usr/local
+
+    will install the executables into /usr/local/bin.
+"""
+
+if [[ -z "${1}" ]] ; then
+	echo "Must supply location for installation."
+	echo "${USAGE}"
+	exit 1
+fi
+
+if [ ! -d "${1}/bin" ] ; then 
+	mkdir ${1}/bin || echo "Cannot make directory ${1}/bin." && exit 1
+fi
+
+cp  0.configure/setup_AD_Directory.bash \
+    1.prepare_antibody/align_antibody/align  \
+    1.prepare_antibody/generate_antibody_pdbqt.bash  \
+    2.prepare_glycan/generate_glycan_pdbqt.bash \
+    2.prepare_glycan/get_flexible_bond_info \
+    3.prepare_docking_directories/prepare_AD_docking_directory.bash \
+    4.run_docking/run_AD_docking.bash \
+    4.run_docking/start_all_docking_jobs.bash \
+    5.analyze_results/clustering \
+    5.analyze_results/plot_results.bash \
+    5.analyze_results/reorderpdb \
+    5.analyze_results/write_output \
+    6.check_status/get_AD_docking_status.bash \
+    6.check_status/Check_Status.sh \
+    AD_Evaluate.bash  \
+    AD_Get_Status.bash  \
+    AD_Run_AD.bash  \
+    AD_Validate.bash \
+    AD_Analyze.bash \
+    ${1}/bin
+

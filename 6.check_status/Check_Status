@@ -1,0 +1,250 @@
+#!/usr/bin/env bash
+
+int i,atom_num,inact_size=0;
+char dum[1000];
+int *inactive_atoms;
+inactive_atoms=(int*)calloc(0,sizeof(int));
+Lset.N=strdup(argv[1]);
+Tset.N = strdup(argv[2]);
+Eset.N = strdup(argv[3]);
+Dset.N=strdup(argv[4]);
+
+
+## Write the docking config file into the job directory
+CONFIG="""
+receptor = protein.pdbqt
+ligand = ligand.pdbqt
+center_x = 0.0
+center_y = 0.0
+center_z = 11.0
+size_x = 32.0
+size_y = 32.0
+size_z = 36.0
+energy_range = 10
+num_modes = 20
+chi_coeff=1
+chi_cutoff=2
+"""
+echo "${CONFIG}" >> config
+
+// Write the required number of batch submission scripts.
+// Submit the batch job to to scheduler
+// Check on the job status
+// This is all very specific to PBSTorque submissions
+char *pbs_filename = NULL;
+pbs_filename = (char*)calloc(50+strlen(Dset.N),sizeof(char));
+sprintf(pbs_filename,"/scratch1/webdev/docking/%s/Docking.pbs",Dset.N);
+PBset.N=strdup(pbs_filename);
+
+
+
+int e=0,f=0;
+if(strstr(Eset.N,"1")!= NULL){
+	f=5;
+}
+else{
+	f=1;
+}
+for(e=0;e<f;e++){
+PBset.F=myfopen(PBset.N,"w");
+fprintf(PBset.F,"#!/bin/bash\n");
+fprintf(PBset.F,"#PBS -N Dockingjob\n");
+fprintf(PBset.F,"#PBS -l nodes=1:ppn=2\n");
+fprintf(PBset.F,"export PBS_O_WORKDIR='/scratch1/webdev/docking/%s'\n",Dset.N);
+fprintf(PBset.F,"export AUTODOCKVINA='/programs/e12/VC_1_0/autodock_vina_1_1_2/build/linux/release/'\n");
+fprintf(PBset.F,"cd $PBS_O_WORKDIR\n");
+fprintf(PBset.F,"starttime=`date`\n");
+fprintf(PBset.F,"echo \"job started at $starttime\">>timestamp\n");
+fprintf(PBset.F,"$AUTODOCKVINA/vina-carb --config config --out docking_output_%d.pdbqt --log log.txt\n",e+1);
+fprintf(PBset.F,"monitor=\"output\"\n");
+fprintf(PBset.F,"endtime=`date`\n");
+fprintf(PBset.F,"echo \"job ended at $endtime\">>timestamp\n");
+fprintf(PBset.F,"if grep -q \"$monitor\" log.txt;then\n");
+fprintf(PBset.F,"time=`date`\n");
+fprintf(PBset.F,"echo \"found output at $time\">>timestamp\n");
+fprintf(PBset.F,"fi\n");
+fclose(PBset.F);
+char *run_docking= NULL;
+run_docking=(char*)calloc(200+strlen(Dset.N)+strlen(Dset.N),sizeof(char));
+sprintf(run_docking,"ssh eliot qsub -q docking /scratch1/webdev/docking/%s/Docking.pbs > /scratch1/webdev/docking/%s/outfile",Dset.N,Dset.N);
+system(run_docking);
+char *out=NULL;
+out=(char*)calloc(50+strlen(Dset.N),sizeof(char*));
+sprintf(out,"/scratch1/webdev/docking/%s/outfile",Dset.N);
+fileset outset;
+outset.N=strdup(out);
+fileslurp oslurp;
+oslurp=slurp_file(outset);
+int num;
+for(i=0;i<oslurp.n;i++){
+	sscanf(oslurp.L[i],"%i.%[^.].%[^.].%[^.]",&num,dum,dum,dum);
+}
+char *jobstatus=NULL;
+jobstatus=(char*)calloc(75+strlen(Dset.N),sizeof(char));
+sprintf(jobstatus,"ssh eliot qstat -f %d > /scratch1/webdev/docking/%s/job_status",num,Dset.N);
+system(jobstatus);
+i=0;
+fileset jobset;
+fileslurp jobslurp;
+char *job_file= NULL;
+job_file=(char*)calloc(50+strlen(Dset.N),sizeof(char));
+sprintf(job_file,"/scratch1/webdev/docking/%s/job_status",Dset.N);
+jobset.N=strdup(job_file);
+jobslurp=slurp_file(jobset);
+char *sleep;
+sleep=(char*)calloc(10,sizeof(char));
+sprintf(sleep,"sleep 60");
+int r_check=0,c_check=0;
+while(i<jobslurp.n){
+	//printf("%s\n",jobslurp.L[i]);
+	r_check=0;
+        if(strstr(jobslurp.L[i],"job_state")!= NULL){
+                sscanf(jobslurp.L[i],"%[^=]=%s",dum,dum);
+                //printf("job_state is %s\n",dum);
+		 if(strstr(dum,"R")!= NULL || strstr(dum,"Q")!= NULL){
+			r_check=1;
+			system(sleep);
+                        remove(job_file);
+                        system(jobstatus);
+                        free(jobset.N);
+                        jobset.N=strdup(job_file);
+			jobslurp=slurp_file(jobset);
+                        //printf("number of lines are %d\n",jobslurp.n);
+			i=-1;
+                }
+                else{
+                        if(strstr(dum,"C")!= NULL){
+				i=jobslurp.n;
+				c_check=1;
+                        }
+                }
+        }
+	if(r_check==1 && c_check==0){
+			//printf("job might have finished\n");
+	}
+
+i++;
+}
+// 
+char *t_file=NULL;
+t_file=(char*)calloc(50+strlen(Dset.N),sizeof(char));
+sprintf(t_file,"/scratch1/webdev/docking/%s/timestamp",Dset.N);	
+fileset TSset;
+fileslurp TSslurp;
+TSset.N=strdup(t_file);
+TSslurp=slurp_file(TSset);
+int j=0,exit_status=0,o_check=0;
+char start_time[10],end_time[10];
+i=0;
+while(i<TSslurp.n){
+	for(j=0;j<TSslurp.n;j++){
+		if(strstr(TSslurp.L[j],"started") != NULL){
+			sscanf(TSslurp.L[j],"%s%s%s%s%s%s%s%s%s",dum,dum,dum,dum,dum,dum,start_time,dum,dum);
+			//printf("%s\n",start_time);	
+		}
+		if(strstr(TSslurp.L[j],"ended") != NULL){
+			sscanf(TSslurp.L[j],"%s%s%s%s%s%s%s%s%s",dum,dum,dum,dum,dum,dum,end_time,dum,dum);
+                        //printf("%s\n",start_time); 
+		}
+		if(strstr(TSslurp.L[j],"output") != NULL){
+			o_check=1;	
+		}
+	}
+	if(strstr(start_time,end_time)!= NULL && o_check==1){
+		exit_status=1;
+	}
+	i=TSslurp.n;
+}	
+if(exit_status==1){
+	fileset LFset;
+	fileslurp LFslurp;
+	i=0;
+	int k=0;
+	char *logfile = NULL;
+	logfile=(char*)calloc(50+strlen(Dset.N),sizeof(char));
+	sprintf(logfile,"/scratch1/webdev/docking/%s/log.txt",Dset.N);
+	//printf("%s\n",logfile);
+	LFset.N=strdup(logfile);
+	LFset.F=myfopen(LFset.N,"r");	
+	LFslurp=slurp_file(LFset);
+	int check_log=0;
+	//printf( "LFslurp .n is %d\n",LFslurp.n);
+	//printf("j is %d\n",j);
+	if(LFslurp.n > 0){
+		//printf("inside second if\n");
+		i=0;
+		while(i<LFslurp.n){
+			for(k=0;k<LFslurp.n;k++){
+				if(strstr(LFslurp.L[k],"output") != NULL){
+					//printf("%s\n",LFslurp.L[i]);
+					//printf("inside logfile loop\n");
+					//printf("job done\n");
+					check_log=1;
+					i=LFslurp.n;
+				}
+			}
+		i++;
+		}
+	}
+	else{
+		//printf("job was not finished successfully\n");
+	}
+}
+remove(out);
+remove(job_file);
+remove(t_file);
+}
+
+
+// Most of the following is very script-like.
+// But, it should remain an executable inside the docking repo.
+write_ofile(Eset.N,Dset.N);
+
+
+// Re-order the atoms and residues to be sane.
+// This needs to be an executable bc the logic is complicated.
+// But, it will need to be called from a script.
+int mnum=0;
+char *ifile;
+ifile=(char*)calloc(500+strlen(Dset.N),sizeof(char));
+sprintf(ifile,"/scratch1/webdev/docking/%s/docking_output.pdbqt",Dset.N);
+mnum=reorder(Dset.N,ifile);
+
+
+// Detect ring atoms and export them to a file.
+// This uses a call to a script in gems.
+// It should be a script.
+char *bashfile= NULL;
+bashfile=(char*)calloc(500+strlen(Dset.N),sizeof(char));
+sprintf(bashfile,"/scratch1/webdev/docking/%s/ring.sh",Dset.N);
+fileset Bset;
+Bset.N=strdup(bashfile);
+Bset.F=myfopen(Bset.N,"w");
+fprintf(Bset.F,"#!/bin/bash\n");
+fprintf(Bset.F,"export python=/usr/local/bin/python2.7\n");
+fprintf(Bset.F,"export GEMSHOME=/programs/temp/gems_docking_2016Feb17/gems\n");
+fprintf(Bset.F,"PATH=$PATH:$GEMSHOME\n");
+fprintf(Bset.F,"export LD_LIBRARY_PATH=/programs/lib:/user/local/bin:$LD_LIBRARY_PATH\n");
+fprintf(Bset.F,"/usr/local/bin/python2.7 /programs/temp/gems_docking_2016Feb17/gems/testbin/cycle.py -amino_libs /programs/temp/gems_docking_2016Feb17/gems/gmml/dat/CurrentParams/leaprc.ff12SB_2014-04-24/amino12.lib -pdb /scratch1/webdev/docking/%s/%s > /scratch1/webdev/docking/%s/temp_input_file\n",Dset.N,Lset.N,Dset.N);
+fclose(Bset.F);
+// Here is where the script being written above is getting called.
+char *ring_atoms=NULL;
+ring_atoms=(char*)calloc(1000+strlen(Dset.N)+strlen(Dset.N)+strlen(Lset.N),sizeof(char));
+sprintf(ring_atoms,"bash /scratch1/webdev/docking/%s/ring.sh",Dset.N);
+system(ring_atoms);
+
+
+// This can remain an executable.
+// It extracts atom info into a file for the next bit.
+extract_ringatoms(Dset.N);
+
+// This needs to be split.
+// Most of it is math doing work on science output. 
+// But, part of it is writing and running a gnuplot file.
+clustering(Dset.N);
+
+
+
+return 0;
+
+}

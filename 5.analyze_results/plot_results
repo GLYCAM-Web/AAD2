@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+## Plot the histogram
+## Requires ymodel, csize, Iset.N (input file)
+
+GPLT_FILE="script_histogram.gplt"
+
+YMODEL="$(cat input_gplt.txt | tr "\t" "\n" | sort -n | tail -1)"
+CSIZE="$(cat input_gplt.txt | tr "\t" "\n" | sort -n | wc -l)"
+ISETN="input_gplt.txt"
+
+if [ "${YMODEL}" -lt "5" ] ; then
+	numYtics="1"
+elif [ "${YMODEL}" -lt "10" ] ; then
+	numYtics="2"
+else
+	numYtics="5"
+fi
+
+echo """#!/usr/bin/env gnuplot
+#gnuplot input
+set yrange [0:${YMODEL}]
+set ytics ${numYtics} nomirror
+set xrange [1:]
+set ylabel \"Number of members\" font \"Calibri Bold,28\" offset 2,0
+set xlabel \"Average Interaction Energy\" font \"Calibri Bold,28\"
+set border 3 lc rgb \"#000000\"
+set style data histograms
+set style histogram cluster gap 0.0
+set style fill solid border -1
+set boxwidth 1.0
+#set xtics 1 border in  font \"Calibri Bold,22\" nomirror
+unset xtics
+set label \"Total Clusters-${CSIZE}\" at 0.4,23
+unset key
+set terminal postscript eps enhanced color solid font \"Calibri-Bold,26\"
+set output \"histogram_sorted.eps\"
+plot '${ISETN}' using 1 lc rgb \"#0000FF\"
+#, for[i=2:${CSIZE}] '' using i lc rgb \"#0000FF\"  notitle
+""" > ${GPLT_FILE}
+
+gnuplot ${GPLT_FILE}
+convert -density 300 histogram_sorted.eps histogram_sorted.png
+

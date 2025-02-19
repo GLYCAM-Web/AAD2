@@ -1,0 +1,109 @@
+#!/usr/bin/env bash
+
+## Validate the contents of the working directory for Automated Antibody Docking
+
+LOGF="ad2_setup.log"
+
+WE_ARE_DONE_WHEN="""
+When fully set up, the working directory should contain these things:
+
+    - The antibody PDB file 
+
+    - The glycan PDB file
+
+    - The glycan ring atoms file called 'glycan_ring_atoms.txt'
+
+    - An AD2 configuration file
+
+    - A VC configuration file
+
+    - If Use_Docker is set to True, there should also be a docker config file
+"""
+
+UGAGE="""
+Usage:
+
+        ${0} [working directory] 
+
+	If the working directory is omitted, the current working directory will be used.
+
+	The script doesn't do much more right now than give directions.
+	
+	Return:
+
+	    - Indication of success or failure and more info written to a log file.
+
+        Notes:
+
+	    - The two PDB files do not have name restrictions. 
+"""
+## Set the defaults for config file contents.
+
+Example_AD2_Config="""
+MGLToolsPckgs_Location="/programs/MGLToolsPckgs" # works in AD docker
+Vina_Carb_Source_Location="/programs/src/VC_1_0" # works in AD docker
+Python_2_7_Location="/programs/include/python2.7" # works in AD docker
+Antibody_File_Name="SomeAntibody.pdb" # CHANGE ME (unless this is the actual name)
+Glycan_File_Name="SomeGlycan.pdb" # CHANGE ME (unless this is the actual name)
+Glycan_Flexibility="Partial" # works in AD docker
+Number_of_Replicas="5" # works in AD docker
+Computing_Mode="Local_Host_Serial" # works from inside AD docker
+Use_Docker="False" # works from inside AD docker
+AD2_Docking_Batch_Script="submit_my_docking_job.bash" # if you need to submit docking to a cluster
+AD2_Setup_Batch_Script="submit_my_docking_setup.bash" # if you need to submit setup to a cluster
+AD2_Analysis_Batch_Script="submit_my_docking_analysis.bash" # if you need to submit analysis to a cluster
+"""
+
+Example_Docker_Configuration="""
+Image="antibody-docking:2025-02-14-00-54-blf" # Replace with actual name and tag
+Internal_Top_Directory="/antibodydocking/AD2" # where inside the docker container you want your directory mounted
+"""
+
+Standard_Vina_Carb_Configuration="""
+receptor = protein.pdbqt
+ligand = ligand.pdbqt
+center_x = 0.0
+center_y = 0.0
+center_z = 11.0
+size_x = 32.0
+size_y = 32.0
+size_z = 36.0
+energy_range = 10
+num_modes = 20
+chi_coeff=1
+chi_cutoff=2
+"""
+
+if [ -z "${1}" ] ; then
+	WORKDIR="$(pwd)"
+elif [ ! -d "${1}" ] ; then
+        echo "The supplied name must be a directory. Exiting with error."
+	echo "The supplied name is: "
+	echo "        ${1}  "
+        exit 1
+else
+	WORKDIR="${1}"
+fi
+echo "Starting the AD2 setup log at: $(date)" > ${LOGF}
+echo "Setting the working directory to: ${WORKDIR}" >> ${LOGF}
+if [ ! -e "${WORKDIR}/ad2config" ] ; then
+        echo "The supplied directory does not contain an ad2config file." >> ${LOGF}
+	echo "Writing an example file to the directory." >> ${LOGF}
+	echo "${Example_AD2_Config}" > ${WORKDIR}/ad2config.example
+	echo "In case you are also using docker, writing an example config for that, too." >> ${LOGF}
+	echo "${Example_Docker_Configuration}" > ad2dockerconfig.example
+fi
+if [ -e "vcconfig" ] ; then
+	echo "Found existing vcconfig. Not clobbering it." >> ${LOGF}
+else 
+	echo "Generating a standard vcconfig." >> ${LOGF}
+	echo "${Standard_Vina_Carb_Configuration}" > vcconfig
+fi
+echo """Setup finished.
+
+If there are files ending in .example in this directory, you need to fill the proper values 
+into them and remove any values that are not relevant to you. Then, remove '.example' from 
+the filenames. Don't forget to add all the needed files to the working directory.
+""" >> ${LOGF}
+
+echo "${WE_ARE_DONE_WHEN}" >> ${LOGF}

@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+# Compile the executables
+
+( cd 1.prepare_antibody/align_antibody/ && make )
+( cd 2.prepare_glycan/ && make )
+( cd 5.analyze_results/ && make )
+

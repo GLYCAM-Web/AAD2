@@ -1,0 +1,78 @@
+#!/usr/bin/env bash
+
+## Run one or more Antibody Docking experiments
+
+UGAGE="""
+Usage:
+
+        AD_Run_AD.bash <working directory>
+	
+	The working directory should contain these things:
+
+	    - The antibody PDBQT file: protein.pdbqt
+	    - The glycan PDBQT file: ligand.pdbqt
+	    - A configuration file for AD2
+	    - If Use_Docker=True, there should also be a docker config file
+
+	Return:
+
+	    - If there are errors during the setup phase, these will be returned.
+	      But, unless serial execution is specified, the docking replicas will
+	      be spun off as daemons. To learn their fate, use AD_Status.bash.
+	    - If all goes well, the working directory should eventually contain one directory
+	      for each replica. They will be named 'rN' where N is the replica number.
+            - Each rN directory should contain a file 'docking_output.pdbqt'.
+	      The directory might contain other files, including logs, batch output, etc.
+	    - The working directory should contain these files among others:
+	      - all_docking_output.pdbqt - output from all replicas in one file
+	      - allmodels.pdb - pdb file containing all the models output by the docking
+	      - input_gplt.txt - clustering-derived input for gnuplot
+	      - histogram_sorted.png - graphical display of relevant results
+
+        Notes:
+
+	    - The return format is negotiable.
+	    - For each action, success or failure will be indicated.
+	    - There will be a log file for more complete information.
+	    - Any of the files in the working directory can be returned.
+
+"""
+if [ -z "${1}" ] ; then
+	echo "Must supply working directory as an argument. Exiting."
+	exit 1
+fi
+WORKDIR="${1}"
+cd ${WORKDIR}
+source ad2config
+
+## Set up the working directory and sub-directories
+prepare_AD_docking_directory ${Number_of_Replicas}
+
+## Adjust behavior based on compute mode
+
+## Run the docking
+start_all_docking_jobs
+
+
+
+  ## capture the return value to send back up.
+  ## capture output and error to return
+  ## send output also to batch.err and batch.out for viewing later
+
+## Do simple check for run status
+
+
+
+
+## Spawn the script that will run and monitor the jobs (if the last part worked)
+##   This script will also run the post-processing analyses
+
+## Return info for the website to act on
+
+
+
+
+
+
+
+

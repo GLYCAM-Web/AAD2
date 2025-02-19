@@ -1,0 +1,98 @@
+#!/usr/bin/env bash
+
+## Validate the contents of the working directory for Automated Antibody Docking
+
+UGAGE="""
+Usage:
+
+        ADValidate <working directory>
+	
+	The working directory should contain these things:
+
+	    - The antibody PDB file 
+	    - The glycan PDB file
+	    - An initial configuration file
+	    - If Use_Docker=True, there should also be a docker config file
+
+	Return:
+
+	    - The format is negotiable.
+	    - Indication of success or failure and more info written to a log file.
+
+        Notes:
+
+	    - The two PDB files do not have name restrictions. 
+	    - Their names should be in the configuration file.
+"""
+## Set the defaults for config file contents.
+
+MGLToolsPckgs_Location="/programs/MGLToolsPckgs"
+Vina_Carb_Source_Location="/programs/src/VC_1_0"
+Python_2_7_Location="/programs/include/python2.7"
+Antibody_File_Name=""
+Glycan_File_Name=""
+Number_of_Replicas=""
+Glycan_Flexibility="Partial"
+Computing_Mode="Local_Host_Serial"
+Use_Docker="False"
+Docking_Batch_Script="None"
+AD2_Batch_Setup="None"
+AD2_Batch_Analysis="None"
+
+## Docker Configuration
+Image=""
+Internal_Top_Directory=""
+
+if [ -z "${1}" ] ; then
+	echo "A working directory must be specified."
+	echo "${USAGE}"
+	exit 1
+fi
+if [ ! -d "${1}" ] ; then
+        echo "The supplied name is not a directory."
+	echo "The supplied name is: "
+	echo "        ${1}  "
+        echo "${USAGE}"
+        exit 1
+fi
+if [ ! -e "${1}/ad2config" ] ; then
+        echo "The supplied directory does not contain an ad2config file."
+	echo "The supplied name is: "
+	echo "        ${1}  "
+        echo "${USAGE}"
+        exit 1
+fi
+export WORKDIR="${1}"
+#echo "Workdir in validate is ${WORKDIR}"
+export AD2CONFIG="${WORKDIR}/ad2config"
+source "${AD2CONFIG}"
+if [ -z "Antibody_File_Name" ] ; then
+        echo "The ad2config file does not contain the name of the antibody file."
+	echo "${USAGE}"
+	exit 1
+fi
+if [ -z "Glycan_File_Name" ] ; then
+        echo "The ad2config file does not contain the name of the glycan file."
+	echo "${USAGE}"
+	exit 1
+fi
+
+if [ "${Use_Docker}" == "True" ] ; then
+	if [ ! -e "${1}/ad2dockerconfig" ] ; then
+		echo "Use_Docker is set to True, but no ad2dockerconfig file is found."
+                echo "${USAGE}"
+                exit 1
+	fi
+	source "${1}/ad2dockerconfig"
+	if [ -z "${Image}" ] ; then
+		echo "Use_Docker is set to True, but no Image name is specified."
+                echo "${USAGE}"
+                exit 1
+	fi
+	if [ -z "${Internal_Top_Directory}" ] ; then
+		echo "Use_Docker is set to True, but no Internal working directory is specified."
+                echo "${USAGE}"
+                exit 1
+	fi
+fi
+
