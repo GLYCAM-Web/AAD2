@@ -9,7 +9,7 @@ case "${Computing_Mode}" in
 		Run_Command="${Docking_Batch_Script}  > batch.out 2> batch.err"
 		;;
 	"Local_Host_Serial")
-		Run_Command="run_AD_docking.bash > ad2dock.out 2> ad2dock.err"
+		Run_Command="run_AD_docking > ad2dock.out 2> ad2dock.err"
 		;;
 esac
 

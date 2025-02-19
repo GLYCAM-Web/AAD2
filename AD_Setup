@@ -19,5 +19,5 @@ fi
 
 WORKDIR="${1}"
 
-( cd ${WORKDIR} && ./setup_AD_Directory )
+( cd ${WORKDIR} && setup_AD_Directory )
 

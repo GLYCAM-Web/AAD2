@@ -75,7 +75,7 @@ if [ -e glycan.pdb ] ; then
         echo "WARNING: Found an existing glycan.pdb and removing it." >> ${ADLOG}
 	rm glycan.pdb
 fi
-LastLine="$($ tail -1 ${Glycan_File_Name})"
+LastLine="$(tail -1 ${Glycan_File_Name})"
 if [[ "${LastLine}" != "END"* ]] ; then
         echo "INFO: Found glycan file without terminal END card. Adding it to the glycan.pdb version." >> ${ADLOG}
 	cp ${Glycan_File_Name} glycan.pdb
