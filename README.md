@@ -1,9 +1,24 @@
 # Utilities for Automated Antibody Docking 2
 
+TL;DR (because not much point reading it now anyway):
+
+The simplest way to learn to use this repo is to use these commands, and then learn what they do. 
+You will need Docker.
+
+```
+git clone --recurse-submodules  https://github.com/GLYCAM-Web/AAD2_Docker.git
+cd AAD2_Docker/
+bash build.bash
+bash run_test.bash
+```
+
+End of tl;dr.
 
 **This code is changing rapidly. This file might not be up to date.**
 
 You might also consider looking at the file merge-me-readme.md.
+
+
 
 
 The scripts and binaries in this package facilitate the preparation of files to use as input for,
