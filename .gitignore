@@ -1,2 +1,14 @@
+## Specific files
+
+# Compiled binaries
+1.prepare_antibody/align_antibody/align
+2.prepare_glycan/get_flexible_bond_info
+5.analyze_results/clustering
+5.analyze_results/reorderpdb
+5.analyze_results/write_output
+
+## General patterns
+
 *.swp
 *git-ignore-me*
+
