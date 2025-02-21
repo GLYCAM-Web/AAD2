@@ -40,23 +40,33 @@ Usage:
 ## Set the defaults for config file contents.
 
 Example_AD2_Config="""
-MGLToolsPckgs_Location="/programs/MGLToolsPckgs" # works in AD docker
-Vina_Carb_Source_Location="/programs/src/VC_1_0" # works in AD docker
-Python_2_7_Location="/programs/include/python2.7" # works in AD docker
-Antibody_File_Name="SomeAntibody.pdb" # CHANGE ME (unless this is the actual name)
-Glycan_File_Name="SomeGlycan.pdb" # CHANGE ME (unless this is the actual name)
-Glycan_Flexibility="Partial" # works in AD docker
-Number_of_Replicas="5" # works in AD docker
-Computing_Mode="Local_Host_Serial" # works from inside AD docker
-Use_Docker="False" # works from inside AD docker
-AD2_Docking_Batch_Script="submit_my_docking_job.bash" # if you need to submit docking to a cluster
-AD2_Setup_Batch_Script="submit_my_docking_setup.bash" # if you need to submit setup to a cluster
-AD2_Analysis_Batch_Script="submit_my_docking_analysis.bash" # if you need to submit analysis to a cluster
+MGLToolsPckgs_Location=\"/programs/MGLToolsPckgs\" # works in AD docker
+Vina_Carb_Source_Location=\"/programs/src/VC_1_0\" # works in AD docker
+Python_2_7_Location=\"/programs/include/python2.7\" # works in AD docker
+Antibody_File_Name=\"SomeAntibody.pdb\" # CHANGE ME (unless this is the actual name)
+Glycan_File_Name=\"SomeGlycan.pdb\" # CHANGE ME (unless this is the actual name)
+Glycan_Flexibility=\"Partial\" # works in AD docker
+Number_of_Replicas=\"5\" # works in AD docker
+Computing_Mode=\"Local_Host_Serial\" # works from inside AD docker
+Use_Docker=\"False\" # works from inside AD docker
+Log_File=\"ad2.log\"
+AD2_Docking_Batch_Script=\"submit_my_docking_job.bash\" # if you need to submit docking to a cluster
+AD2_Setup_Batch_Script=\"submit_my_docking_setup.bash\" # if you need to submit setup to a cluster
+AD2_Analysis_Batch_Script=\"submit_my_docking_analysis.bash\" # if you need to submit analysis to a cluster
+AD2_Random_Seeds=(
+	[1]=\"112345\"
+	[2]=\"212345\"
+	[3]=\"312345\"
+	[4]=\"412345\"
+	[5]=\"512345\"
+) # Use this if you want deterministic behavior for proving repeatable results.
+# Substitute your random number seeds.
+# Ensure that the number of entries matches the Number_of_Replicas, above.
 """
 
 Example_Docker_Configuration="""
-Image="antibody-docking:2025-02-14-00-54-blf" # Replace with actual name and tag
-Internal_Top_Directory="/antibodydocking/AD2" # where inside the docker container you want your directory mounted
+Image=\"antibody-docking:2025-02-14-00-54-blf\" # Replace with actual name and tag
+Internal_Top_Directory=\"/antibodydocking/AD2\" # where inside the docker container you want your directory mounted
 """
 
 Standard_Vina_Carb_Configuration="""
@@ -99,6 +109,10 @@ else
 	echo "Generating a standard vcconfig." >> ${LOGF}
 	echo "${Standard_Vina_Carb_Configuration}" > vcconfig
 fi
+echo """If you have set random number seeds, they will be put in place later in the process unless you
+have already made the subdirectories and placed vcconfig files there. In that case, these scripts will
+not overwrite them.
+""" >> ${LOGF}
 echo """Setup finished.
 
 If there are files ending in .example in this directory, you need to fill the proper values 

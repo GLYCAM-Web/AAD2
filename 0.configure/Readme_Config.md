@@ -2,7 +2,7 @@
 
 The user should generate a configuration file and place it in the top-level docking directory.
 
-The configuration file should be named `AD2_Config`.
+The configuration file should be named `ad2config`.
 
 A sample file is included in this directory.
 
@@ -49,6 +49,19 @@ Configuration options:
 `AD2_Batch_Setup` - The script to use if the setup needs to be submitted to a cluster. Default is "None".
 
 `AD2_Batch_Analysis` - The script to use if the analysis needs to be submitted to a cluster. Default is "None".
+
+`AD2_Random_Seeds` - An array (BASH array) of random number seeds to use. 
+The array should contain `Number_of_Replicas` of them.
+Here is an example of a properly formatted array. Note that the random number seeds can be negative.
+```
+AD2_Random_Seeds=(
+        [1]="1770199568"
+        [2]="-342100090"
+        [3]="1840569422"
+        [4]="-271726951"
+        [5]="1910945648"
+)
+```
 
 
 ## Docker Configuration

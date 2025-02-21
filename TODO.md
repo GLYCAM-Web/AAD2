@@ -1,11 +1,6 @@
--[X] Move writing of the config file for the docking up to the utils part.
--[X] Move everything except for the actual docking run over to AD2 Utils.
--[X] Implement the config file for AD2 Utils.
--[X] Separate parts that require a special environment from the other parts.
--[ ] Make a setup script to handle example configs, or to build configs, etc.
--[ ] For now, have the config run the cycle detection if possible
+-[ ] Save random number seed for comparison later.
+-[ ] Make cycle detection do smarter things when there are untreatable glycans.
+-[ ] Make a utility for cycle detection.
 -[ ] Set the special parts to be treated differently based on compute mode.
--[ ] Set up workflow for managing batch submissions in modes local and batch.
--[X] Have all temporary files be written to a temporary directory.
--[ ] Make it possible to save the temporary files.
+-[ ] Make it possible to remove the temporary files (save by default).
 -[ ] Stitch everything back together.

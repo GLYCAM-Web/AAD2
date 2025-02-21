@@ -1,30 +1,50 @@
 #!/usr/bin/env bash
+declare -A AD2_Random_Seeds
 source ad2config
 if [ -z "${Number_of_Replicas}" ] ; then
 	echo "Number of replicas not specified. Exiting"
 	exit 1
 fi
-
+if [ -z "${Log_File}" ] ; then
+	Log_File="ad2.log"
+fi
 
 ## set up directories for each replica to be run
 i="1"
 while [ "${i}" -le "${Number_of_Replicas}" ] ; do
 	if [ ! -d "r${i}" ] ; then
 		mkdir "r${i}"
+	else
+		echo "INFO: Found preexisting directory for replica ${i}. Not clobbering."  >> ${Log_File}
 	fi
 	## set symbolic links inside the directories
 	cd "r${i}" 
 	if [ ! -e "vcconfig" ] ; then
-		ln -s ../vcconfig
+		if [ -z "${AD2_Random_Seeds[${i}]}" ] ; then
+			echo "INFO: Using default vcconfig for replica ${i}."  >> ${Log_File}
+			ln -s ../vcconfig
+		else
+			echo "INFO: Setting random seed for replica ${i} to ${AD2_Random_Seeds[${i}]}" >> ${Log_File}
+			cp ../vcconfig .
+			echo "seed=${AD2_Random_Seeds[${i}]}" >> vcconfig
+		fi
+	else
+		echo "INFO: Found preexisting vcconfig for replica ${i}. Not clobbering." >> ${Log_File}
 	fi
 	if [ ! -e "ad2config" ] ; then
 		ln -s ../ad2config
+	else
+		echo "INFO: Found preexisting ad2config for replica ${i}. Not clobbering." >> ${Log_File}
 	fi
 	if [ ! -e "protein.pdbqt" ] ; then
 		ln -s ../protein.pdbqt
+	else
+		echo "INFO: Found preexisting protein.pdbqt for replica ${i}. Not clobbering." >> ${Log_File}
 	fi
 	if [ ! -e "ligand.pdbqt" ] ; then
 		ln -s ../ligand.pdbqt
+	else
+		echo "INFO: Found preexisting ligand.pdbqt for replica ${i}. Not clobbering." >> ${Log_File}
 	fi
 	# TODO - link the submission script if in batch mode. 
         cd ../
