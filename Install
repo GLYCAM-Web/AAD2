@@ -38,7 +38,9 @@ cp  0.configure/setup_AD_Directory \
     6.check_status/Check_Status \
     AD_Evaluate  \
     AD_Get_Status  \
+    AD_Help  \
     AD_Run_AD  \
+    AD_Run_Core_Serial  \
     AD_Setup  \
     AD_Validate \
     AD_Analyze \
