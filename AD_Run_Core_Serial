@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+if [ -z "${1}" ] ; then
+	echo "Must provide working directory on command line. Exiting."
+	exit 1
+fi
+if [ ! -d "${1}" ] ; then
+	echo "String providedlis not a directory. Exiting."
+	exit 1
+fi
+
+WORKDIR="${1}"
+
+write_error_and_exit() {
+	echo "There was an error running the previous command. Exiting."
+	exit 1
+}
+
+for i in AD_Evaluate AD_Run_AD AD_Analyze ; do
+        echo "Running: ${i} ${WORKDIR}"
+	${i} ${WORKDIR} || write_error_and_exit
+done

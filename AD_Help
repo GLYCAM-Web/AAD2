@@ -1,0 +1,72 @@
+#!/usr/bin/env bash
+
+echo """
+Help for Automated Antibody Docking 2
+
+Note: This code is evolving rapidly. The help herein might be out of date. Some executables might 
+      not work yet or might not work well.
+
+WD = working directory
+
+The general workflow goes like:
+
+- AD_Setup <WD>
+  - Checks for very basic content in the working directory and writes information to the directory
+    if certain information is missing.
+  - Optional, but recommened unless you are very familiar with how the code works.
+- AD_Validate <WD>
+  - Checks that all the needed files are present in the working directory. 
+  - Optional.
+  - This is always called by AD_Evaluate.
+- AD_Evaluate <WD>
+  - Generates the docking input files from the files you placed in the working directory.
+  - Strongly recommended unless you are doing something unusual.
+  - If this finishes successfully, then the specified number of docking run replicas should work.
+- AD_Run_AD <WD>
+  - Sets up and runs the specified number of docking run replicas.
+  - Recommended for most users.
+  - If you need very specialized control over how the docking happens, there are other options.
+- AD_Analyze <WD>
+  - Runs some analyses on the docking run replicas.
+  - Recommended for most users.
+  - This is probably convenient even if you plan to do custom analyses, but you don't have to use it.
+
+If you are running everything in serial:
+
+- AD_Run_Core_Serial <WD>
+  - Runs the following in serial:
+    - AD_Evaluate <WD>
+    - AD_Run_AD <WD>
+    - AD_Analyze <WD>
+  - This is what gets run when you test your docker image.
+
+You can run these at any time:
+
+- AD_Help
+  - You probably ran this in order to be reading these words.
+- AD_Get_Status <WD>
+  - This will attempt to determine the status of a project, including its replicas.
+
+If you need fine control, see the contents of these directories:
+
+- 0.configure
+- 1.prepare_antibody
+- 2.prepare_glycan
+- 3.prepare_docking_directories
+- 4.run_docking
+- 5.analyze_results
+- 6.check_status
+
+These should be run before trying to use any of the code in this tree. Most folks will probably need 
+to preface them with './', for example, "./Compile". The installation step is recommended for most
+users because the executables expect the other executables to be on the user's PATH.
+
+- Compile
+  - This will compile any binaries needed for AAD2.
+  - It produces binaries, as needed, inside the directories mentioned just above.
+- Install </install/dir>
+  - This will copy all the executable files into the installation directory ("/install/dir").
+  - If the installation directory is not specified, the executables will be installed into the AAD2
+    top-level directory, e.g., into a "/path/to/AAD2/bin" directory.
+""" 
+ 
