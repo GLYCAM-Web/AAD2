@@ -4,9 +4,7 @@ source ad2config
 
 case "${Computing_Mode}" in
 	"Batch")
-		echo "go write the batch bits now."
-		exit 1
-		Run_Command="${Docking_Batch_Script}  > batch.out 2> batch.err"
+		Run_Command="${AD2_Docking_Batch_Script}  > batch.out 2> batch.err"
 		;;
 	"Local_Host_Serial")
 		Run_Command="run_AD_docking > ad2dock.out 2> ad2dock.err"
