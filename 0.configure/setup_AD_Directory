@@ -65,8 +65,29 @@ AD2_Random_Seeds=(
 """
 
 Example_Docker_Configuration="""
+# Configuration file for using AAD2 inside a docker container
+# Values initially written into this file are the defaults.
+#
+# The image name and tag are likely to be out of date. Please check.
 Image=\"antibody-docking:2025-02-14-00-54-blf\" # Replace with actual name and tag
-Internal_Top_Directory=\"/antibodydocking/AD2\" # where inside the docker container you want your directory mounted
+#
+# The following has essentially no impact on function. 
+# If you need a directory path to be named a specific thing, you can make it be that.
+# Avoid using system paths (/bin, /usr, /etc and so forth).
+# Avoid using anything inside /programs as well.
+# Do NOT set it to /home/antibodydocking because you will clobber an internal script that must run.
+# If you want to be safe, use something like \"/myAAD2\". The default is also safe.
+Internal_Top_Directory=\"/home/antibodydocking/workdir\" # where inside the docker container you want your directory mounted
+#
+# If you need to run a script before using docker, put its path here.
+# Things you might need in such a script:
+#    modules to load
+#    checks for image presence or loading of images into the local repo
+#    setting environment paths, changing user, etc.
+# Do not use string \"/path/to/your/script\".
+# Note also that the code here can be included in the batch script if submitting to a node.
+#    For more on that, see the regular ad2config file.
+Pre_Docker_Setup_Script=\"/path/to/your/script\" # replace with the path to your script - this default means 'unset'
 """
 
 Standard_Vina_Carb_Configuration="""
