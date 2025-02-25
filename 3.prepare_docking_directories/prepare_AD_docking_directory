@@ -49,7 +49,7 @@ while [ "${i}" -le "${Number_of_Replicas}" ] ; do
 	#  link the submission script if in batch mode. 
 	if [ ! -z "${AD2_Docking_Batch_Script}" ] ; then
 		echo "INFO: linking to the indicated script for batch processing." >> ${Log_File}
-		ln -s ${AD2_Docking_Batch_Script}
+		ln -s ../${AD2_Docking_Batch_Script}
 	fi
         cd ../
 	i=$((i+1))
