@@ -20,36 +20,35 @@ while [ "${i}" -le "${Number_of_Replicas}" ] ; do
 	## set symbolic links inside the directories
 	cd "r${i}" 
 	if [ ! -e "vcconfig" ] ; then
+		cp ../vcconfig .
 		if [ -z "${AD2_Random_Seeds[${i}]}" ] ; then
 			echo "INFO: Using default vcconfig for replica ${i}."  >> ${Log_File}
-			ln -s ../vcconfig
 		else
 			echo "INFO: Setting random seed for replica ${i} to ${AD2_Random_Seeds[${i}]}" >> ${Log_File}
-			cp ../vcconfig .
 			echo "seed=${AD2_Random_Seeds[${i}]}" >> vcconfig
 		fi
 	else
 		echo "INFO: Found preexisting vcconfig for replica ${i}. Not clobbering." >> ${Log_File}
 	fi
 	if [ ! -e "ad2config" ] ; then
-		ln -s ../ad2config
+		cp ../ad2config .
 	else
 		echo "INFO: Found preexisting ad2config for replica ${i}. Not clobbering." >> ${Log_File}
 	fi
 	if [ ! -e "protein.pdbqt" ] ; then
-		ln -s ../protein.pdbqt
+		cp ../protein.pdbqt .
 	else
 		echo "INFO: Found preexisting protein.pdbqt for replica ${i}. Not clobbering." >> ${Log_File}
 	fi
 	if [ ! -e "ligand.pdbqt" ] ; then
-		ln -s ../ligand.pdbqt
+		cp ../ligand.pdbqt .
 	else
 		echo "INFO: Found preexisting ligand.pdbqt for replica ${i}. Not clobbering." >> ${Log_File}
 	fi
 	#  link the submission script if in batch mode. 
 	if [ ! -z "${AD2_Docking_Batch_Script}" ] ; then
 		echo "INFO: linking to the indicated script for batch processing." >> ${Log_File}
-		ln -s ../${AD2_Docking_Batch_Script}
+		cp ../${AD2_Docking_Batch_Script} .
 	fi
         cd ../
 	i=$((i+1))
