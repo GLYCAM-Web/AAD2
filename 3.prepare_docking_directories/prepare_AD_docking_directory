@@ -45,10 +45,15 @@ while [ "${i}" -le "${Number_of_Replicas}" ] ; do
 	else
 		echo "INFO: Found preexisting ligand.pdbqt for replica ${i}. Not clobbering." >> ${Log_File}
 	fi
-	#  link the submission script if in batch mode. 
+	#  copy the submission script if in batch mode. 
 	if [ ! -z "${AD2_Docking_Batch_Script}" ] ; then
-		echo "INFO: linking to the indicated script for batch processing." >> ${Log_File}
+		echo "INFO: copying the indicated script for batch processing." >> ${Log_File}
 		cp ../${AD2_Docking_Batch_Script} .
+	fi
+	#  copy the submission config if in batch mode. 
+	if [ ! -z "${AD2_Docking_Local_Script}" ] ; then
+		echo "INFO: copying the local config script for batch processing." >> ${Log_File}
+		cp ../${AD2_Docking_Local_Script} .
 	fi
         cd ../
 	i=$((i+1))
