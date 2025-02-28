@@ -3,13 +3,30 @@
 USAGE="""
 Usage: 
 
-    Install <install path>
+    Install <install path> [what to install]
 
     For example, 
 
         Install /usr/local
 
+        Install /programs no-S
+
+        Install ./  only-S
+
     will install the executables into /usr/local/bin.
+
+    What to Install:
+
+        Some executables are able to run on modern machines that are used as controllers for the jobs
+        that will run on machines with older code. Some executables depend on the older code.
+
+           no-S  -  Do not install executables that needs the special, older, operating environment.
+
+         only-S  -  Only install executables that needs the special, older, operating environment.
+
+        [empty]  -  Same as 'all'.
+
+            all  -  Install all the executables.
 """
 
 if [[ -z "${1}" ]] ; then
@@ -22,27 +39,62 @@ if [ ! -d "${1}/bin" ] ; then
 	mkdir ${1}/bin || echo "Cannot make directory ${1}/bin." && exit 1
 fi
 
-cp  0.configure/setup_AD_Directory \
-    1.prepare_antibody/align_antibody/align  \
+if [ -z "${2}" ] ; then
+	toInstall='all'
+elif [ "${2}" == "all" ] ; then
+	toInstall='all'
+elif [ "${2}" == "only-S" ] ; then
+	toInstall='only-S'
+elif [ "${2}" == "no-S" ] ; then
+	toInstall='no-S'
+else
+	echo "Unknown install option: ${2}"
+        echo "${USAGE}"
+        exit 1
+fi
+
+noS="    0.configure/setup_AD_Directory \
+    3.prepare_docking_directories/prepare_AD_docking_directory \
+    4.run_docking/start_all_docking_jobs \
+    6.check_status/get_AD_docking_status \
+    6.check_status/Check_Status \
+    AD_Get_Status  \
+    AD_Help  \
+    AD_Setup  \
+    AD_Validate "
+
+onlyS=" 1.prepare_antibody/align_antibody/align  \
     1.prepare_antibody/generate_antibody_pdbqt  \
     2.prepare_glycan/generate_glycan_pdbqt \
     2.prepare_glycan/get_flexible_bond_info \
-    3.prepare_docking_directories/prepare_AD_docking_directory \
     4.run_docking/run_AD_docking \
-    4.run_docking/start_all_docking_jobs \
     5.analyze_results/clustering \
     5.analyze_results/plot_results \
     5.analyze_results/reorderpdb \
     5.analyze_results/write_output \
-    6.check_status/get_AD_docking_status \
-    6.check_status/Check_Status \
     AD_Evaluate  \
-    AD_Get_Status  \
-    AD_Help  \
     AD_Run_AD  \
     AD_Run_Core_Serial  \
-    AD_Setup  \
-    AD_Validate \
-    AD_Analyze \
-    ${1}/bin
+    AD_Analyze "
 
+if [ "${toInstall}" == "only-S" ] ; then
+	copyMe="${onlyS}"
+elif [ "${toInstall}" == "no-S" ] ; then
+	copyMe="${noS}"
+else
+	copyMe="${noS} \
+${onlyS}"
+fi
+
+#COMMAND=" cp \\
+#${copyMe}
+#${1}/bin"
+
+#echo "Command is"
+#echo "${COMMAND}"
+
+#eval ${COMMAND}
+
+cp \
+${copyMe} \
+${1}/bin
