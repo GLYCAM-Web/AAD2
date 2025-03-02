@@ -11,9 +11,7 @@ void get_rmsd(char *reffile,char* allmodels,char *ringatomsfile){
 
 fileset Cset,Pset,Oset;
 assembly *Reference_PDB;
-int i,j,k;
-
-//printf("just inside get_rmsd\n");
+int i=0;
 
 Cset.N=strdup(reffile);
 Reference_PDB=load_pdb(Cset.N);
@@ -23,27 +21,14 @@ if(Reference_PDB[0].nm>1){
     printf("      The reference file name is: %s \n",reffile);
 }
 //printf("just loaded %s The number of residues in this molecule are %d\n",reffile,Reference_PDB[0].m[0][0].nr);
-//coord_3D ref[Reference_PDB[0].m[0][0].nr*6];
-//int ref_size=0;
 
 fileslurp Islurp;
 fileset Iset;
 Iset.N=strdup(ringatomsfile);
 Islurp=slurp_file(Iset);
-i=0;
-j=0;
-k=0;
-//char *atom;
-//atom=(char*)calloc(4,sizeof(char));
-//char **names;
-//names=(char**)calloc(Reference_PDB[0].m[0][0].nr*6,sizeof(char*));
-//int numrings=0;
-//int *ringsize;
-//ringsize=(int*)calloc(Reference_PDB[0].m[0][0].nr,sizeof(int));
 coord_3D **ring;
 ring=(coord_3D**)calloc(6,sizeof(coord_3D*));
 
-//printf("starting on the ring sets for the reference structure\n");
 ring_set *Reference_Set;
 int nRings=0;
 //printf("Counting the number of residues with rings\n");
@@ -78,39 +63,31 @@ while(i<Islurp.n){
     i++;
 }
 
-
 i=0;
 nr=0;
 int na=0;
 char dum[50];
 while(i<Islurp.n){
-        if(strstr(Islurp.L[i],"RES") != NULL){
+    if(strstr(Islurp.L[i],"RES") != NULL){
         //printf("Islurp.L[%d] is >>>%s<<<\n",i,Islurp.L[i]);
         sscanf(Islurp.L[i],"%s %d",dum,&Reference_Set[nr].resNum);
-                //printf("dum is >>>%s<<< and Reference_Set[nr].resNum is %d\n",dum, Reference_Set[nr].resNum);
-                i++;
-        na=0;
-                while(strstr(Islurp.L[i],"END") == NULL){
-            //printf("Islurp.L[%d] is >>>%s<<<\n",i,Islurp.L[i]);
-                        sscanf(Islurp.L[i],"%s",dum);
-            Reference_Set[nr].Name[na]=strdup(dum);
-                    //printf("dum is >%s< and Reference_Set[%d].Name[%d] is >>>%s<<<\n",dum,nr,na, Reference_Set[nr].Name[na]);
-                        i++;
-            na++;
-                }
-        nr++;
-        }
         i++;
+        na=0;
+        while(strstr(Islurp.L[i],"END") == NULL){
+            //printf("Islurp.L[%d] is >>>%s<<<\n",i,Islurp.L[i]);
+            sscanf(Islurp.L[i],"%s",dum);
+            Reference_Set[nr].Name[na]=strdup(dum);
+            //printf("dum is >%s< and Reference_Set[%d].Name[%d] is >>>%s<<<\n",dum,nr,na, Reference_Set[nr].Name[na]);
+            i++;
+            na++;
+        }
+        nr++;
+    }
+i++;
 }
 
 int nrc=0; // comparison ring counter
 for(nr=0;nr<nRings;nr++){
-    /**
-    printf("Residue number  %d  has these atoms:  \n",Reference_Set[nr].resNum);
-    for(na=0;na<Reference_Set[nr].nA;na++){
-        printf("   >>>%s<<< \n",Reference_Set[nr].Name[na]);
-    }
-    **/
     for(nrc=nr+1; nrc<nRings; nrc++){ 
         if(Reference_Set[nr].resNum == Reference_Set[nrc].resNum){
             printf("ERROR: In get_rmsd, duplicate residue numbers are not allowed in the glycan.\n");
@@ -119,8 +96,6 @@ for(nr=0;nr<nRings;nr++){
         }
     }
 }
-
-//printf("done with part 1\n");
 
 
 // Copy the coordinates from the Reference_PDB into the Reference_Set
@@ -159,9 +134,7 @@ for ( nr=0 ; nr<nRings ; nr ++ ){
     }
 }
 / **/
-//printf("done with part 2\n");
 
-/**/
 Pset.N=strdup(allmodels);
 char *allfile;
 allfile=(char*)calloc(50,sizeof(char));
@@ -234,7 +207,5 @@ for(i=0;i<Model_PDB[0].nm;i++){
 } // close loop over models (molecules)
 
 fclose(Oset.F);
-
-/**/
 
 }
