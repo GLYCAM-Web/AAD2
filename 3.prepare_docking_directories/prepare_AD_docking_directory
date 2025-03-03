@@ -19,6 +19,7 @@ while [ "${i}" -le "${Number_of_Replicas}" ] ; do
 	fi
 	## set symbolic links inside the directories
 	cd "r${i}" 
+	echo "INFO: AD2 log of docking replica run started on $(date)" > ${Log_File}
 	if [ ! -e "vcconfig" ] ; then
 		cp ../vcconfig .
 		if [ -z "${AD2_Random_Seeds[${i}]}" ] ; then

@@ -9,28 +9,29 @@ if [ -z "${JOB_LOG}" ] ; then
     JOB_LOG="ad2_job.log"
 fi
 
-echo "Replica status requested on $(date)." | tee >> ${Log_File}
+echo "Replica status requested on $(date)." 2>&1 | tee -a ${Log_File}
 	
 if [ ! -e "${JOB_LOG}" ] ; then
-	echo "The job has not started yet." | tee >> ${Log_File}
+	echo "The job has not started yet."  2>&1 | tee -a ${Log_File}
 	exit 0
 fi
 
-if grep -q "ERROR:" ${JOB_LOG} ; then
-	echo "The job completed with an error." | tee >> ${Log_File}
-	echo "See the file ${JOB_LOG} for more information." | tee >> ${Log_File}
-	exit 0
+if grep -q "ERROR" ${JOB_LOG} ; then
+	echo "The job completed with an error."  2>&1 | tee -a ${Log_File}
+	echo "See the file ${JOB_LOG} for more information."  2>&1 | tee -a ${Log_File}
+	exit 1
 fi
 
 if grep -q "Job appears to have completed." ${JOB_LOG} ; then
-	echo "The job appears to have completed successfully." | tee >> ${Log_File}
+	echo "The job appears to have completed successfully."  2>&1 | tee -a ${Log_File}
 	exit 0
 fi
 
 if grep -q "Vina-Carb docking job started at" ${JOB_LOG} ; then
-	echo "The job has started."  | tee >> ${Log_File}
+	echo "The job has started."   2>&1 | tee -a ${Log_File}
 	exit 0
 fi
 
 # Still here?  At least say something.
-echo "Unable to complete status request. Try again in a few seconds."   | tee >> ${Log_File}
+echo "Unable to complete status request. Try again in a few seconds."    2>&1 | tee -a ${Log_File}
+exit 1

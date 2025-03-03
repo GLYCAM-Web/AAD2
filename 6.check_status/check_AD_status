@@ -1,0 +1,155 @@
+#!/usr/bin/env bash
+
+# Checks the overall status of an AAD2 automated docking project
+# This script should be run from the top-level working directory
+
+Overall_Status="Unable to get a status."
+exitcode=0
+
+if [ -e "ad2config" ] ; then
+	source ad2config
+else
+	echo "AD2 status requested on $(date) for file $(pwd)." 2>&1 | tee -a ad2.log
+	echo "FATAL ERROR: The ad2config file does not exist yet." 2>&1 | tee -a ad2.log
+	echo "Overall Status:  ${Overall_Status}"  2>&1 | tee -a ad2.log
+	exit 1
+fi
+
+if [ -z "${Log_File}" ] ; then
+	Log_File="ad2.log"
+fi
+
+echo "AD2 status requested on $(date) for file $(pwd)." 2>&1 | tee -a ${Log_File}
+
+Overall_Status="The directory contents look ok."
+
+if [ -e "ad2_setup.log" ] ; then
+	if grep -q ERROR ad2_setup.log ; then
+		echo "WARNING: Errors were found in the ad2_setup.log"  2>&1 | tee -a ${Log_File}
+                Overall_Status="The directory contents might have problems."
+		exitcode=1
+	fi
+fi
+
+##  0.3 - If the ad2config file says to use docker, ensure that there is an ad2dockerconfig file.
+##        If not, whine and set a warning that there might be trouble later.
+
+if [ "${Use_Docker}" == "True" ] ; then
+	if [ ! -e "ad2dockerconfig" ] ; then
+		echo "WARNING: the ad2config file says to use docker, but ad2dockerconfig not found."  2>&1 | tee -a ${Log_File}
+                Overall_Status="The directory contents might have problems."
+		exitcode=1
+	fi
+fi
+
+echo "Top-level directory check says: ${Overall_Status}" 2>&1 | tee -a ${Log_File}
+
+# 1 - Check the status of key input files in the top directory.
+
+declare -A Write_if_absent
+declare -A Status_if_absent
+declare -A Action_if_absent
+
+Files_to_check=( 
+	vcconfig 
+	glycan_ring_atoms.txt 
+	${Antibody_File_Name}
+	${Glycan_File_Name}
+	protein.pdbqt 
+	ligand.pdbqt
+)
+
+Write_if_absent=(
+	[glycan_ring_atoms.txt]="ERROR: glycan_ring_atoms.txt file missing"
+	[vcconfig]="ERROR: vcconfig file missing."
+	["${Antibody_File_Name}"]="ERROR: antibody input file, ${Antibody_File_Name}, missing."
+	["${Glycan_File_Name}"]="ERROR: glycan input file, ${Glycan_File_Name}, missing."
+	[protein.pdbqt]=""
+	[ligand.pdbqt]=""
+)
+Status_if_absent=(
+	[glycan_ring_atoms.txt]="Docking cannot run."
+	[vcconfig]="Docking cannot run."
+	["${Antibody_File_Name}"]="Docking cannot run."
+	["${Glycan_File_Name}"]="Docking cannot run."
+	[protein.pdbqt]="The protein pdbqt file has not yet been created."
+	[ligand.pdbqt]="The ligand pdbqt has not yet been created."
+)
+Action_if_absent=(
+	[glycan_ring_atoms.txt]="exit"
+	[vcconfig]="exit"
+	["${Antibody_File_Name}"]="exit"
+	["${Glycan_File_Name}"]="exit"
+	[protein.pdbqt]="sectionexit"
+	[ligand.pdbqt]="sectionexit"
+)
+
+Overall_Status="The files look ok."
+
+Section_Exit="False"
+for file in "${Files_to_check[@]}" ; do
+	if [ ! -e "${file}" ] ; then
+		if [ ! -z "${Write_if_absent[${file}]}" ] ; then
+			Overall_Status="${Status_if_absent[${file}]}" 
+                        echo "Top-level directory files check says: ${Overall_Status}" 2>&1 | tee -a ${Log_File}
+		else
+			Overall_Status="${Status_if_absent[${file}]}" 
+		fi
+		if [ "${Action_if_absent[${file}]}" == "exit" ] ; then
+		        echo "FATAL ${Write_if_absent[${file}]}"  2>&1 | tee -a ${Log_File}
+			exit 1
+		elif [ "${Action_if_absent[${file}]}" == "sectionexit" ] ; then
+			Section_Exit="True"
+		fi
+	fi
+done
+
+echo "Top-level input files check says: ${Overall_Status}" 2>&1 | tee -a ${Log_File}
+if [ "${Section_Exit}" == "True" ] ; then
+	echo "Progress in the creation of input files is not complete, so not proceeding." 2>&1 | tee -a ${Log_File}
+	exit 0
+fi
+
+# 2. Check each of the replica directories.
+
+Overall_Status="The replica directories look ok."
+completed=0
+rep=1
+while [ "${rep}" -le "${Number_of_Replicas}" ] ; do
+	response="$( cd "r${rep}" && get_AD_docking_replica_status )"
+	#echo "response is >>>>${response}<<<<"
+	returnval="$?"
+	if [ "${returnval}" != "0" ] ; then
+		echo "ERROR: replica ${rep}'s status indicates an error." 2>&1 | tee -a ${Log_File}
+		echo "The return statement is: ${response}"  2>&1 | tee -a ${Log_File}
+		Overall_Status="One or more replica directories have problems."
+		exitcode=1
+	else
+		if [[ "${response}" == *"The job appears to have completed successfully."* ]] ; then
+			completed="$((completed+1))"
+		fi
+	fi
+	rep="$((rep+1))"
+done
+
+echo "The replica directory check says: ${Overall_Status}" 2>&1 | tee -a ${Log_File}
+echo "The number of completed replicas is: ${completed}."  2>&1 | tee -a ${Log_File}
+if [ "${completed}" -lt "${Number_of_Replicas}" ] ; then
+	exit ${exitcode}
+fi
+
+
+# 3. Check the status if key after-replicas files in the top directory.
+
+Overall_Status="Everything appears to have completed."
+
+if [ ! -e "histogram_sorted.png" ] ; then
+	Overall_Status="Preparation of the final report data has not completed."
+fi
+
+if [ ! -e "cluster.txt" ] ; then
+	Overall_Status="Analysis of the replicas has not completed."
+fi
+
+echo "The overall job check says: ${Overall_Status}" 2>&1 | tee -a ${Log_File}
+exit ${exitcode}

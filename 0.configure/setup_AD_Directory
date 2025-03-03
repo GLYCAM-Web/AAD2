@@ -37,8 +37,8 @@ Usage:
 
 	    - The two PDB files do not have name restrictions. 
 """
-## Set the defaults for config file contents.
 
+## Set the defaults for config file contents.
 Example_AD2_Config="""
 MGLToolsPckgs_Location=\"/programs/MGLToolsPckgs\" # works in AD docker
 Vina_Carb_Source_Location=\"/programs/src/VC_1_0\" # works in AD docker
@@ -49,7 +49,10 @@ Glycan_Flexibility=\"Partial\" # works in AD docker
 Number_of_Replicas=\"5\" # works in AD docker
 Computing_Mode=\"Local_Host_Serial\" # works from inside AD docker
 Use_Docker=\"False\" # works from inside AD docker
-Log_File=\"ad2.log\"
+Log_File=\"ad2.log\" # the overall log for the N replica(s), their setup and the output analysis
+DOCKING_REPLICA_OUTPUT_PDBQT=\"docking_output.pdbqt\" # set the name of the output file from each docking replica
+DOCKING_REPLICA_LOG_FILE=\"docking.log\" # set the name of the output from vina-carb for each replica
+DOCKING_REPLICA_JOB_LOG=\"ad2_job.log\"  # the log from AAD2 about an individual docking replica
 AD2_Docking_Batch_Script=\"submit_my_docking_job.bash\" # if you need to submit docking to a cluster
 AD2_Docking_Local_Script=\"mylocalconfig.bash\" # if you need to include another script in your docking dir
 AD2_Setup_Batch_Script=\"submit_my_docking_setup.bash\" # if you need to submit setup to a cluster

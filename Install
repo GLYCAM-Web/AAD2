@@ -56,8 +56,8 @@ fi
 noS="    0.configure/setup_AD_Directory \
     3.prepare_docking_directories/prepare_AD_docking_directory \
     4.run_docking/start_all_docking_jobs \
-    6.check_status/get_AD_docking_status \
-    6.check_status/Check_Status \
+    6.check_status/get_AD_docking_replica_status \
+    6.check_status/check_AD_status \
     AD_Get_Status  \
     AD_Help  \
     AD_Setup  \
