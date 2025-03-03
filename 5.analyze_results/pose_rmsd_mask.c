@@ -1,9 +1,9 @@
 #include <glylib.h>
 
 typedef struct {
-        int resNum; ///< The number assigned to the residue inside the file
-        int nA; ///< Number of atoms in the ring
-        char **Name;///< Names of the atoms in the ring
+    int resNum; ///< The number assigned to the residue inside the file
+    int nA; ///< Number of atoms in the ring
+    char **Name;///< Names of the atoms in the ring
     coord_3D *x; ///< 3D coordinates for each ring atom
 } ring_set; ///< A set of info about a ring
 
@@ -57,7 +57,7 @@ while(i<Islurp.n){
             Reference_Set[nr].nA=nAtoms;
             Reference_Set[nr].Name=(char**)calloc(nAtoms,sizeof(char*));
             Reference_Set[nr].x=(coord_3D*)calloc(nAtoms,sizeof(coord_3D)); ///< 3D coordinates for each ring atom
-            nTotalRingAtoms+=Reference_Set[nr].nA;
+	    nTotalRingAtoms+=Reference_Set[nr].nA; ///< Set total atoms in all rings for use near the end
             nr++;
         }
     i++;
@@ -86,6 +86,7 @@ while(i<Islurp.n){
 i++;
 }
 
+// Ensure that no two residues in the glycan have the same residue number
 int nrc=0; // comparison ring counter
 for(nr=0;nr<nRings;nr++){
     for(nrc=nr+1; nrc<nRings; nrc++){ 
@@ -101,8 +102,8 @@ for(nr=0;nr<nRings;nr++){
 // Copy the coordinates from the Reference_PDB into the Reference_Set
 int      nr_pdb=0; // counter for residues in the pdb file
 int      na_pdb=0; // counter for atoms in residues in the pdb file
-atom *this_pdb_atom;
-residue *this_pdb_res;
+atom *this_pdb_atom; // an atom pointer to make the code more readable
+residue *this_pdb_res; // a residue pointer to make the code more readable
 int      same=1; // 1 is false here
 for ( nr=0 ; nr<nRings ; nr ++ ){
     for ( nr_pdb=0 ; nr_pdb<Reference_PDB[0].m[0][0].nr ; nr_pdb++){
@@ -122,6 +123,7 @@ for ( nr=0 ; nr<nRings ; nr ++ ){
     }
 }
 // Uncomment the next block to test that the coordinates copied correctly
+// The coords typically come from a file with a name format like this:  model1.pdb
 /** /
 for ( nr=0 ; nr<nRings ; nr ++ ){
     printf("RESIDUE NUMBER: %d coordinates\n",Reference_Set[nr].resNum);
@@ -135,13 +137,16 @@ for ( nr=0 ; nr<nRings ; nr ++ ){
 }
 / **/
 
+// Declare and initialize the variables and structures for the set of comparison structures
+// These structures come from the file referenced by "allmodels" in the input.
 Pset.N=strdup(allmodels);
 char *allfile;
 allfile=(char*)calloc(50,sizeof(char));
 sprintf(allfile,"%s",Pset.N);
-//printf("<<<%s>>>\n",allfile);
-assembly *Model_PDB;
-ring_set *Model_Set;
+assembly *Model_PDB;// The assemply that stores each comparison structure (model) as a molecule
+Model_PDB=load_pdb(allfile); 
+//printf("the number of molecules in this assembly are %d\n",Model_PDB[0].nm); // uncomment to test the load_pdb
+ring_set *Model_Set;  // This will hold only the ring coordinates for each comparison structure
 Model_Set = (ring_set*)calloc(nRings,sizeof(ring_set));
 for ( nr=0 ; nr<nRings ; nr++ ) {
     Model_Set[nr].resNum = Reference_Set[nr].resNum;
@@ -154,25 +159,27 @@ for ( nr=0 ; nr<nRings ; nr++ ) {
     }
 }
 
-coord_3D square,crdR,crdM;
-initialize_coord_3D(&square);
-Model_PDB=load_pdb(allfile);
-//printf("the number of molecules in this assembly are %d\n",A[0].nm);
-double sum=0.0, allsum=0.0, rmsd=0.0;
-char *outfile;
+// Set up and initialize the output file
+char    *outfile;
 outfile=(char*)calloc(50,sizeof(char));
 sprintf(outfile,"tmpFiles/out_rmsd.txt");
 Oset.N=strdup(outfile);
 Oset.F=myfopen(Oset.N,"w");
 fprintf(Oset.F,"MODEL\tRMSD\t\n");
 
-// Copy the coordinates from the Model_PDB nto the Model_Set
-int      nr_model=0; // counter for residues in the pdb file
-int      na_model=0; // counter for atoms in residues in the pdb file
-residue *this_model_res;
-atom    *this_model_atom;
+// Set up variables and structures for making comparsion between the reference and each model
+double    sum=0.0, rmsd=0.0; // these do not depend on previous values
+double    allsum=0.0; // this must be reset to 0.0 before each comparison
+int       nr_model=0; // counter for residues in the comparison / model file
+int       na_model=0; // counter for atoms in residues in the comparison / model file
+residue  *this_model_res; // a residue pointer to make the code more readable
+atom     *this_model_atom; // an atom pointer to make the code more readable
+coord_3D  crdR,crdM; // coordinate holders to make the code more readable
+// Loop over each molecule (model) in the comparison PDB file
 for(i=0;i<Model_PDB[0].nm;i++){
-    fprintf(Oset.F,"%d\t",i);
+    fprintf(Oset.F,"%d\t",i); // print the model's index in the assembly
+
+    // Copy the coordinates from the Model_PDB into the Model_Set
     for ( nr=0 ; nr<nRings ; nr ++ ){
         for ( nr_model=0 ; nr_model<Model_PDB[0].m[i][0].nr ; nr_model++){
             this_model_res=&Model_PDB[0].m[i][0].r[nr_model];
@@ -185,24 +192,41 @@ for(i=0;i<Model_PDB[0].nm;i++){
                             Model_Set[nr].x[na] = this_model_atom[0].x ;
 			    break;
 		        } // If the atoms names are the same, copy in the coords to the Model_Set
-		    } // Lopp over the corresponding atoms in the Model_PDB struct
+		    } // Loop over the corresponding atoms in the Model_PDB struct
                 } // Loop over the atoms in the current ring in the Model_Set
             } // Does this model-pdb residue number == the current ring in the Model_Set
-        } // close loop over residues in this model in the Model_PDB
-    } // close loop over rings in the Model_Set.
-    for ( nr=0 ; nr<nRings ; nr ++ ){
+        } // Loop over residues in this model in the Model_PDB
+    } // Loop over rings in the Model_Set.
+
+// Uncomment the next block to test that the coordinates copied correctly
+/** /
+for ( nr=0 ; nr<nRings ; nr ++ ){
+    printf("RESIDUE NUMBER: %d coordinates\n",Model_Set[nr].resNum);
     for ( na=0 ; na<Model_Set[nr].nA ; na++ ) {
-        crdR=Reference_Set[nr].x[na];
-	crdM=Model_Set[nr].x[na];
+	printf("ATOM %s : %4.2lf  %4.2lf  %4.2lf\n",
+            Model_Set[nr].Name[na],
+            Model_Set[nr].x[na].i,
+            Model_Set[nr].x[na].j,
+            Model_Set[nr].x[na].k);
+    }
+}
+/ **/
+      
+    // Calculate the overall rmsd for each ring atom in the current model molecule
+    for ( nr=0 ; nr<nRings ; nr ++ ){
+    for ( na=0 ; na<Model_Set[nr].nA ; na++ ) { // could have also used Reference_Set[nr].nA
+        crdR=Reference_Set[nr].x[na]; // this makes the 'sum' calculation line easier to read
+	crdM=Model_Set[nr].x[na]; // this makes the 'sum' calculation line easier to read
         sum = pow(crdR.i-crdM.i,2) + pow(crdR.j-crdM.j,2) + pow(crdR.k-crdM.k,2); 
         allsum+=sum;
     }}
+    
+    // Take the root of the sum for this model / molecule and write the value to the output file
     //printf("%f\n",allsum);
     rmsd=sqrt(allsum/nTotalRingAtoms); 
     fprintf(Oset.F,"%lf\n",rmsd);
     //printf("%f\n",rmsd);
-    allsum=0.0;
-    rmsd=0.0; // rmsd is over each model
+    allsum=0.0; // rmsd is over each model 
 
 } // close loop over models (molecules)
 
