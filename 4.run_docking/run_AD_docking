@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 source ad2config
-JOB_LOG='job.log'
+if [ -z ${JOB_LOG} ] ; then
+    JOB_LOG='ad2_job.log'
+fi
 echo "Vina-Carb docking job started at: $(date)" > ${JOB_LOG}
 
 if [[ -z "${VINA_CARB}" ]] ; then
@@ -23,6 +25,6 @@ echo "job ended at $(date)" >> ${JOB_LOG}
 if grep -q "$monitor" docking.log ; then
   echo "Job appears to have completed." >> ${JOB_LOG}
 else
-  echo "Error: job might not have completed properly." >> ${JOB_LOG}
+  echo "ERROR: job might not have completed properly." >> ${JOB_LOG}
 fi
 

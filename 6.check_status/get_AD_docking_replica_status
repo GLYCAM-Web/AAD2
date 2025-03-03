@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+
+# Get the status of a docking job
+
+if [ -z "${LOG_FILE}" ] ; then
+    Log_File="ad2.log"
+fi
+if [ -z "${JOB_LOG}" ] ; then
+    JOB_LOG="ad2_job.log"
+fi
+
+echo "Replica status requested on $(date)." | tee >> ${Log_File}
+	
+if [ ! -e "${JOB_LOG}" ] ; then
+	echo "The job has not started yet." | tee >> ${Log_File}
+	exit 0
+fi
+
+if grep -q "ERROR:" ${JOB_LOG} ; then
+	echo "The job completed with an error." | tee >> ${Log_File}
+	echo "See the file ${JOB_LOG} for more information." | tee >> ${Log_File}
+	exit 0
+fi
+
+if grep -q "Job appears to have completed." ${JOB_LOG} ; then
+	echo "The job appears to have completed successfully." | tee >> ${Log_File}
+	exit 0
+fi
+
+if grep -q "Vina-Carb docking job started at" ${JOB_LOG} ; then
+	echo "The job has started."  | tee >> ${Log_File}
+	exit 0
+fi
+
+# Still here?  At least say something.
+echo "Unable to complete status request. Try again in a few seconds."   | tee >> ${Log_File}
