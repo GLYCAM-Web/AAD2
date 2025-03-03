@@ -403,7 +403,7 @@ mol rename top docking_output.pdb
 set viewpoints([molinfo top]) {{{1 0 0 1.70139} {0 1 0 -0.0207196} {0 0 1 9.64509} {0 0 0 1}} {{-0.913157 0.359972 0.19121 0} {0.0639941 -0.336677 0.939442 0} {0.402549 0.870096 0.284403 0} {0 0 0 1}} {{0.0498193 0 0 0} {0 0.0498193 0 0} {0 0 0.0498193 0} {0 0 0 1}} {{1 0 0 0} {0 1 0 0} {0 0 1 0} {0 0 0 1}}}
 lappend viewplist [molinfo top]
 # done with molecule 0
-mol new /home/lachele/Work/Software/AD_update/AD_TESTS/test_mixed_glycan/scfv_aligned.pdb type pdb first 0 last -1 step 1 filebonds 1 autobonds 1 waitfor all
+mol new scfv_aligned.pdb type pdb first 0 last -1 step 1 filebonds 1 autobonds 1 waitfor all
 mol delrep 0 top
 mol representation NewCartoon 0.300000 15.000000 4.100000 0
 mol color Structure
