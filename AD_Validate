@@ -55,6 +55,19 @@ if [ ! -d "${1}" ] ; then
         echo "${USAGE}"
         exit 1
 fi
+
+
+#echo "About to call setup"
+COMMAND="AD_Setup ${1}"
+#echo "The command for calling AD_Setup is $COMMAND"
+eval ${COMMAND} 
+result=$?
+if [ ${result} != "0" ] ; then
+	echo "There was a problem setting up the working directory." 
+	exit 1
+fi
+
+
 if [ ! -e "${1}/ad2config" ] ; then
         echo "The supplied directory does not contain an ad2config file."
 	echo "The supplied name is: "
