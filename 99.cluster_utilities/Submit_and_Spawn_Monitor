@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+# Submits jobs to a cluster's queuing system (or other spawned location) and monitors their output.
+# When the jobs are complete, it calls AD_Analyze on the results.
+
+# Should be called from the top directory - the one above the 'rN' directories.
+
+source ad2config
+if [ -e ad2dockerconfig ] ; then
+    source ad2dockerconfig
+fi
+
+prepare_AD_docking_directory  # this should be on the PATH
+
+N="1"
+while [ "${N}" -le "${Number_of_Replicas}" ] ; do
+        echo "submitting number ${N}"
+	( cd "${WD}/r${N}" && bash ${AD2_Docking_Batch_Script} )
+        N="$((N+1))"
+done
+
+#nohup sleep 60 &
+
