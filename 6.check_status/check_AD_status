@@ -133,7 +133,7 @@ while [ "${rep}" -le "${Number_of_Replicas}" ] ; do
 done
 
 echo "The replica directory check says: ${Overall_Status}" 2>&1 | tee -a ${Log_File}
-echo "The number of completed replicas is: ${completed}."  2>&1 | tee -a ${Log_File}
+echo "The number of completed replicas is: ${completed}"  2>&1 | tee -a ${Log_File}
 if [ "${completed}" -lt "${Number_of_Replicas}" ] ; then
 	exit ${exitcode}
 fi

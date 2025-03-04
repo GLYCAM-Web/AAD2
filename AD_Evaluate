@@ -34,7 +34,7 @@ Usage:
 	      This is chosen because it is the more complicated method.
 	      During the run, the user's preference will overwrite the ligand.pdbqt file.
 """
-ADLOG="ad.log"
+ADLOG="ad2.log"
 WORKDIR="${1}"
 #echo "About to call validate"
 COMMAND="AD_Validate ${WORKDIR}"

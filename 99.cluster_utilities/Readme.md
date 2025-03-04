@@ -54,4 +54,5 @@ When set up correctly, steps 5, 6, and 7 can proceed in an automated manner.
 
 ## CLI Option
 
-`Run_AAD2_from_CLI.bash` will run the entire workflow from start to finish from the command line.
+`Run_Cluster_AAD2_from_CLI.bash` will run the entire workflow from start to finish from the command line.
+This is the same workflow used by GLYCAM-Web. If you use our docker image, you should get identical results.

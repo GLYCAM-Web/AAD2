@@ -10,14 +10,44 @@ if [ -e ad2dockerconfig ] ; then
     source ad2dockerconfig
 fi
 
+if [ -z "${Log_File}" ] ; then
+	Log_File='ad2.log'
+fi
+
+if [ "${Computing_Mode}" != "Batch" ] ; then
+	echo "FATAL: Script requires Computing_Mode to be Batch. Exiting." 2>&1 > ${Log_File}
+	echo "       Name of script called: ${0}" 2>&1 > ${Log_File}
+	exit 1
+fi
+
+if [ -z "${AD2_Docking_Batch_Script}" ] ; then
+	echo "FATAL: Computing_Mode is set to Batch but no submission script defined. Exiting." 2>&1 > ${Log_File}
+	exit 1
+fi
+
 prepare_AD_docking_directory  # this should be on the PATH
 
 N="1"
+errors="False"
 while [ "${N}" -le "${Number_of_Replicas}" ] ; do
         echo "submitting number ${N}"
 	( cd "${WD}/r${N}" && bash ${AD2_Docking_Batch_Script} )
+	the_returnval="$?"
+	if [ "${the_returnval}" != "0" ] ; then
+		echo "ERROR: Non-zero return value from submission of job r${N}" 2>&1 > ${Log_File}
+		errors="True"
+	fi
         N="$((N+1))"
 done
 
-#nohup sleep 60 &
+if [ "${errors}" == "True" ] ; then
+	echo "WARNING: Submission returned errors. Proceeding to Monitor anyway." 2>&1 > ${Log_File}
+	echo "         Check the monitoring log for details.." 2>&1 > ${Log_File}
+fi
 
+nohup Monitor_and_Analyze ${WD} &
+
+
+if [ "${errors}" == "True" ] ; then
+	exit 1
+fi

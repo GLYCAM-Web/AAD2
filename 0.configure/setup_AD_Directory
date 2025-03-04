@@ -53,10 +53,10 @@ Log_File=\"ad2.log\" # the overall log for the N replica(s), their setup and the
 DOCKING_REPLICA_OUTPUT_PDBQT=\"docking_output.pdbqt\" # set the name of the output file from each docking replica
 DOCKING_REPLICA_LOG_FILE=\"docking.log\" # set the name of the output from vina-carb for each replica
 DOCKING_REPLICA_JOB_LOG=\"ad2_job.log\"  # the log from AAD2 about an individual docking replica
-AD2_Docking_Batch_Script=\"submit_my_docking_job.bash\" # if you need to submit docking to a cluster
-AD2_Docking_Local_Script=\"mylocalconfig.bash\" # if you need to include another script in your docking dir
-AD2_Setup_Batch_Script=\"submit_my_docking_setup.bash\" # if you need to submit setup to a cluster
-AD2_Analysis_Batch_Script=\"submit_my_docking_analysis.bash\" # if you need to submit analysis to a cluster
+AD2_Docking_Batch_Script=\"\" # if you need to submit docking to a cluster
+AD2_Docking_Local_Script=\"\" # if you need to include/source another script in your docking dir
+AD2_Setup_Batch_Script=\"\" # if you need to submit setup to a cluster
+AD2_Analysis_Batch_Script=\"\" # if you need to submit analysis to a cluster
 AD2_Random_Seeds=(
 	[1]=\"112345\"
 	[2]=\"212345\"
@@ -69,6 +69,8 @@ AD2_Random_Seeds=(
 """
 
 Example_Docker_Configuration="""
+# Let AAD2 know where the docker utils are.
+AAD2_DOCKER_HOME=/path/to/AAD2_Docker
 # Configuration file for using AAD2 inside a docker container
 # Values initially written into this file are the defaults.
 #

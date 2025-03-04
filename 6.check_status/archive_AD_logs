@@ -1,0 +1,65 @@
+#!/usr/bin/env bash
+
+# Archive existing logs and start with new ones.
+# This script should be run from the top-level working directory
+# 
+# This script is useful if something went wrong during a run, but
+# you fixed it and would like to start over. 
+#
+# The old logs are preserved, with time stamp, in the directory
+# 'log_archive' in each directory.
+
+ARCHIVE='log_archive'
+
+if [ -e "ad2config" ] ; then
+	source ad2config
+else
+	echo "FATAL ERROR: ${0} cannot find ad2config file." 2>&1 | tee -a ad2.log
+	exit 1
+fi
+
+if [ -z "${Log_File}" ] ; then
+	Log_File="ad2.log"
+fi
+if [ -z "${DOCKING_REPLICA_JOB_LOG}" ] ; then
+	DOCKING_REPLICA_JOB_LOG="ad2_job.log"
+fi
+if [ -z "${DOCKING_REPLICA_LOG_FILE}" ] ; then
+	DOCKING_REPLICA_LOG_FILE="docking.log"
+fi
+
+##  Manage the top-level logs
+
+if [ ! -d "${ARCHIVE}" ] ; then
+	mkdir ${ARCHIVE}
+fi
+
+for i in "ad2_setup.log" "${Log_File}" "ad.log" ; do
+	if [ -e "${i}" ] ; then
+		mv "${i}" ${ARCHIVE} 2>&1 | tee -a ${Log_File}
+	fi
+done
+
+##  Manage the top-level logs
+
+if [ -z "${Number_of_Replicas}" ] ; then
+	echo "WARNING: ${0} cannot determine the number of replicas."  2>&1 | tee -a ${Log_File}
+	echo "Cannot clean replica directories."  2>&1 | tee -a ${Log_File}
+	echo "Assuming there are none yet and exiting."  2>&1 | tee -a ${Log_File}
+	exit 0
+fi
+
+while [ "${rep}" -le "${Number_of_Replicas}" ] ; do
+
+	if [ ! -d "${ARCHIVE}" ] ; then
+		mkdir ${ARCHIVE}
+	fi
+
+	for i in "ad2_setup.log" "${Log_File}" "ad.log" "${DOCKING_REPLICA_JOB_LOG}" "${DOCKING_REPLICA_LOG_FILE}" ; do
+		if [ -e "${i}" ] ; then
+			mv "${i}" ${ARCHIVE} 2>&1 | tee -a ${Log_File}
+		fi
+	done
+
+	rep="$((rep+1))"
+done

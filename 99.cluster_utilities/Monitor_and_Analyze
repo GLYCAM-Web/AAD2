@@ -1,2 +1,123 @@
 #!/usr/bin/env bash
 
+# Monitor a set of AAD2 docking replicas and analyze the results when finished.
+# Should be run from the main working directory (above the replicas).
+
+Monitor_Log="monitor.log"
+
+source ad2config
+
+if [ -z "${Status_Check_Wait}" ] ; then
+	Status_Check_Wait="5"
+fi
+if [ -z "${Status_Check_Timeout}" ] ; then
+	Status_Check_Timeout="1209600" ## Two weeks (14 days) in seconds
+fi
+
+echo """Monitor log begun on $(date)
+The wait between status checks, in seconds, is: ${Status_Check_Wait}
+The monitor will time out after, in seconds: ${Status_Check_Timeout}""" 2>&1 > ${Monitor_Log}
+
+#### Sample return data when the jobs are all complete
+## $ check_AD_status
+## AD2 status requested on Mon Mar  3 06:50:28 AM EST 2025 for file /home/lachele/Work/Software/AD_update/AAD2_Docker/tests/temp_test.
+## Top-level directory check says: The directory contents look ok.
+## Top-level input files check says: The files look ok.
+## The replica directory check says: The replica directories look ok.
+## The number of completed replicas is: 5
+## The overall job check says: Everything appears to have completed.
+## $ echo $?
+## 0
+####
+
+evaluate_status() {
+
+	the_response="$(check_AD_status)"
+	the_returnval="$?"
+
+	if [ "${the_returnval}" != "0" ] ; then
+		echo "FATAL: the return value from check_AD_status was non-zero. Exiting."
+		echo "       The return value was: ${the_returnval}"
+		echo "       check_AD_status returned the following information:"
+		echo "${the_response}"
+		exit ${the_returnval}
+	fi
+
+	job_is_done="False"
+
+	while IFS= read -r line; do
+		#echo "$line"
+		if [[ "${line}" == *"The number of completed replicas is:"* ]] ; then
+			set -- ${line}
+			jobs_completed="${7}"
+		fi
+		if [[ "${line}" == *"Everything appears to have completed"* ]] ; then
+			job_is_done="True"
+		fi
+	done <<< "${the_response}"
+
+	export jobs_completed job_is_done
+}
+
+done_checking="False"
+wait_so_far="0"
+while [ "${done_checking}" == "False" ] ; do
+	evaluate_status || echo "Problem evaluating status. Exiting" 2>&1 > ${Monitor_log}  && exit 1
+	if [ "${job_is_done}" == "True" ] ; then
+		echo "AAD2 replicas all finished on $(date)"  2>&1 > ${Monitor_log} 
+		done_checking="True"
+	else
+		echo "${jobs_completed} have completed as of $(date)" 2>&1 > ${Monitor_log}
+		sleep ${Status_Check_Wait}
+	fi
+	wait_so_far="$((wait_so_far+Status_Check_Wait))"
+	if [ "${wait_so_far}" -ge "${Status_Check_Timeout}" ] ; then
+		done_checking="True"
+	fi
+done
+
+## Run the Analysis
+echo "About to run AD_Analyza" 2>&1 > ${Monitor_log} 
+
+export WD="$(pwd)"
+if [ ! -z "${AD2_Analysis_Batch_Script}" ] ; then
+	echo "An analysis batch script is specified. Attempting to submit analysis job." 2>&1 > ${Monitor_log} 
+	${AD2_Analysis_Batch_Script}  2>&1 > ${Monitor_log} 
+	the_returnval="$?"
+
+	if [ "${the_returnval}" != "0" ] ; then
+		echo "FATAL: the return value from AD_Analyze was non-zero. Exiting." 2>&1 > ${Monitor_log} 
+		echo "       The return value was: ${the_returnval}" 2>&1 > ${Monitor_log} 
+		exit ${the_returnval}
+	fi
+
+elif [ "${Use_Docker}" == "True" ] ; then
+	echo "Use Docker is set to true. Attempting to run analysis in a docker container." 2>&1 > ${Monitor_log} 
+	source ad2dockerconfig || echo "FATAL: Problem sourcing ad2dockerconfig but Use_Docker is True. Exiting" 2>&1 > ${Monitor_log}  && exit 1
+	if [ ! -d "${AAD2_DOCKER_HOME}" ] ; then
+		echo "FATAL: AAD2_DOCKER_HOME is not a directory. Exiting." 2>&1 > ${Monitor_log} 
+		echo "       AAD2_DOCKER_HOME is set to: ${AAD2_DOCKER_HOME}" 2>&1 > ${Monitor_log} 
+		exit 1
+	fi
+
+	( cd ${AAD2_DOCKER_HOME} && bash bin/run_aad2_command.bash ${WD} AD_Analyze ) 
+	the_returnval="$?"
+
+	if [ "${the_returnval}" != "0" ] ; then
+		echo "FATAL: the return value from AD_Analyze was non-zero. Exiting." 2>&1 > ${Monitor_log} 
+		echo "       The return value was: ${the_returnval}" 2>&1 > ${Monitor_log} 
+		exit ${the_returnval}
+	fi
+else
+	echo "Assuming we are natively in the correct environment for AD_Analyze to run. Attempting." 2>&1 > ${Monitor_log} 
+	AD_Analyze ${WD}  2>&1 > ${Monitor_log} 
+	the_returnval="$?"
+
+	if [ "${the_returnval}" != "0" ] ; then
+		echo "FATAL: the return value from AD_Analyze was non-zero. Exiting." 2>&1 > ${Monitor_log} 
+		echo "       The return value was: ${the_returnval}" 2>&1 > ${Monitor_log} 
+		exit ${the_returnval}
+	fi
+fi
+
+echo "${0} completed on $(date)"

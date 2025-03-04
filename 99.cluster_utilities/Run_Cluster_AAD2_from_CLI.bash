@@ -17,11 +17,11 @@ cp \
 
 cd ${WD}
 
-# This needs to happen somewhere...
-# if [[ "$(tail -1 ${userGpdb})" != *"END"* ]] ; then echo "END" > ${userGpdb} ; fi
-#
-# For the moment, fake this, but when I fix detect sugars, this is where it goes
-# ( cd $GEMSHOME/gmml/tests && ${DETECT_SUGARS} ${WD}/${userGpdb} > ${WD}/glycan_rings.txt )
+# Ensure that the glycan pdb used as an input contains an 'END' card at the bottom of the file.
+if [[ "$(tail -1 ${USER_G_FILEPATH})" != *"END"* ]] ; then echo "END" > ${USER_G_FILEPATH} ; fi
+
+# Automatically generate the glycan rings info file. requires GEMSHOME and a compiled detect_sugars in gmml/tests
+( cd $GEMSHOME/gmml/tests && ${DETECT_SUGARS} ${WD}/${USER_G_FILEPATH} > ${WD}/glycan_rings.txt )
 #
 cd ${AAD2_DOCKER_HOME}
 COMMAND="bash bin/run_aad2_command.bash ${WD} AD_Evaluate"
