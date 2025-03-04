@@ -34,4 +34,4 @@ fi
 
 # Still here?  At least say something.
 echo "Unable to complete status request. Try again in a few seconds."    2>&1 | tee -a ${Log_File}
-exit 1
+#exit 1

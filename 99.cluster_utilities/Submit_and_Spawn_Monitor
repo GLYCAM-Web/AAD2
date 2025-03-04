@@ -45,9 +45,8 @@ if [ "${errors}" == "True" ] ; then
 	echo "         Check the monitoring log for details.." 2>&1 > ${Log_File}
 fi
 
-nohup Monitor_and_Analyze ${WD} &
+Monitor_and_Analyze ${WD} &
+disown
 
 
-if [ "${errors}" == "True" ] ; then
-	exit 1
-fi
+#if [ "${errors}" == "True" ] ; then exit 1 fi

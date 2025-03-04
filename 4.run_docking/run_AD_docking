@@ -3,7 +3,7 @@ source ad2config
 if [ -z ${JOB_LOG} ] ; then
     JOB_LOG='ad2_job.log'
 fi
-echo "Vina-Carb docking job started at: $(date)" > ${JOB_LOG}
+echo "Vina-Carb docking job started at: $(date)" >> ${JOB_LOG}
 
 if [[ -z "${VINA_CARB}" ]] ; then
     VINA_CARB='/programs/src/VC_1_0'

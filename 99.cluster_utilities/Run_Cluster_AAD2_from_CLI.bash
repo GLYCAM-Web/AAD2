@@ -15,13 +15,15 @@ cp \
   ${COMPUTE_SUBMIT_SCRIPT_FILEPATH} \
   ${WD}
 
+cp inputs/glycan_ring_atoms.txt.save ${WD}/glycan_ring_atoms.txt
+
 cd ${WD}
 
 # Ensure that the glycan pdb used as an input contains an 'END' card at the bottom of the file.
-if [[ "$(tail -1 ${USER_G_FILEPATH})" != *"END"* ]] ; then echo "END" > ${USER_G_FILEPATH} ; fi
+#if [[ "$(tail -1 ${USER_G_FILEPATH})" != *"END"* ]] ; then echo "END" >> ${USER_G_FILEPATH} ; fi
 
 # Automatically generate the glycan rings info file. requires GEMSHOME and a compiled detect_sugars in gmml/tests
-( cd $GEMSHOME/gmml/tests && ${DETECT_SUGARS} ${WD}/${USER_G_FILEPATH} > ${WD}/glycan_rings.txt )
+#( cd $GEMSHOME/gmml/tests && ${DETECT_SUGARS} ${WD}/${USER_G_FILEPATH} > ${WD}/glycan_rings.txt )
 #
 cd ${AAD2_DOCKER_HOME}
 COMMAND="bash bin/run_aad2_command.bash ${WD} AD_Evaluate"
@@ -38,8 +40,8 @@ cd ${WD}
 # will run AD_Analyze once all jobs complete
 COMMAND="Submit_and_Spawn_Monitor"
 echo "The cwd is:
-$(pwd)
+$(pwd) 
 The script will run this command:
 ${COMMAND}"
-eval ${COMMAND}
+eval ${COMMAND} 
 

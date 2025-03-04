@@ -16,7 +16,7 @@ fi
 
 echo """Monitor log begun on $(date)
 The wait between status checks, in seconds, is: ${Status_Check_Wait}
-The monitor will time out after, in seconds: ${Status_Check_Timeout}""" 2>&1 > ${Monitor_Log}
+The monitor will time out after, in seconds: ${Status_Check_Timeout}""" > ${Monitor_Log} 2>&1
 
 #### Sample return data when the jobs are all complete
 ## $ check_AD_status
@@ -36,12 +36,15 @@ evaluate_status() {
 	the_returnval="$?"
 
 	if [ "${the_returnval}" != "0" ] ; then
-		echo "FATAL: the return value from check_AD_status was non-zero. Exiting."
-		echo "       The return value was: ${the_returnval}"
-		echo "       check_AD_status returned the following information:"
-		echo "${the_response}"
+		echo "FATAL: the return value from check_AD_status was non-zero. Exiting."  >> ${Monitor_Log} 2>&1 
+		echo "       The return value was: ${the_returnval}" >> ${Monitor_Log} 2>&1 
+		echo "       check_AD_status returned the following information:" >> ${Monitor_Log} 2>&1 
+		echo "${the_response}" >> ${Monitor_Log} 2>&1 
 		exit ${the_returnval}
 	fi
+
+	echo "${the_response}" >> ${Monitor_Log} 2>&1
+
 
 	job_is_done="False"
 
@@ -51,10 +54,12 @@ evaluate_status() {
 			set -- ${line}
 			jobs_completed="${7}"
 		fi
-		if [[ "${line}" == *"Everything appears to have completed"* ]] ; then
-			job_is_done="True"
-		fi
 	done <<< "${the_response}"
+
+
+        if [ "${Number_of_Replicas}" == "${jobs_completed}" ] ; then
+		job_is_done="True" 
+        fi
 
 	export jobs_completed job_is_done
 }
@@ -62,41 +67,50 @@ evaluate_status() {
 done_checking="False"
 wait_so_far="0"
 while [ "${done_checking}" == "False" ] ; do
-	evaluate_status || echo "Problem evaluating status. Exiting" 2>&1 > ${Monitor_log}  && exit 1
+	evaluate_status  >> ${Monitor_Log} 2>&1 
+	the_returnval="$?"
+	if [ "${the_returnval}" != "0" ] ; then
+		echo "FATAL: the return value from evaluate_status was non-zero. Exiting."  >> ${Monitor_Log} 2>&1 
+		echo "       The return value was: ${the_returnval}" >> ${Monitor_Log} 2>&1 
+		exit ${the_returnval}
+	fi
+echo "job is done = ${job_is_done}" >> ${Monitor_Log} 2>&1 
 	if [ "${job_is_done}" == "True" ] ; then
-		echo "AAD2 replicas all finished on $(date)"  2>&1 > ${Monitor_log} 
+		echo "AAD2 replicas all finished on $(date)" >> ${Monitor_Log} 2>&1 
 		done_checking="True"
 	else
-		echo "${jobs_completed} have completed as of $(date)" 2>&1 > ${Monitor_log}
+		echo "${jobs_completed} have completed as of $(date)" >> ${Monitor_Log} 2>&1 
 		sleep ${Status_Check_Wait}
 	fi
+   
 	wait_so_far="$((wait_so_far+Status_Check_Wait))"
+	echo "wait_so_far = ${wait_so_far} " >> ${Monitor_Log} 2>&1 
 	if [ "${wait_so_far}" -ge "${Status_Check_Timeout}" ] ; then
 		done_checking="True"
 	fi
 done
 
 ## Run the Analysis
-echo "About to run AD_Analyza" 2>&1 > ${Monitor_log} 
+echo "About to run AD_Analyza" >> ${Monitor_Log} 2>&1 
 
 export WD="$(pwd)"
 if [ ! -z "${AD2_Analysis_Batch_Script}" ] ; then
-	echo "An analysis batch script is specified. Attempting to submit analysis job." 2>&1 > ${Monitor_log} 
-	${AD2_Analysis_Batch_Script}  2>&1 > ${Monitor_log} 
+	echo "An analysis batch script is specified. Attempting to submit analysis job."  >> ${Monitor_Log} 2>&1 
+	${AD2_Analysis_Batch_Script}    >> ${Monitor_Log} 2>&1 
 	the_returnval="$?"
 
 	if [ "${the_returnval}" != "0" ] ; then
-		echo "FATAL: the return value from AD_Analyze was non-zero. Exiting." 2>&1 > ${Monitor_log} 
-		echo "       The return value was: ${the_returnval}" 2>&1 > ${Monitor_log} 
+		echo "FATAL: the return value from AD_Analyze was non-zero. Exiting." >> ${Monitor_Log} 2>&1 
+		echo "       The return value was: ${the_returnval}" >> ${Monitor_Log} 2>&1 
 		exit ${the_returnval}
 	fi
 
 elif [ "${Use_Docker}" == "True" ] ; then
-	echo "Use Docker is set to true. Attempting to run analysis in a docker container." 2>&1 > ${Monitor_log} 
-	source ad2dockerconfig || echo "FATAL: Problem sourcing ad2dockerconfig but Use_Docker is True. Exiting" 2>&1 > ${Monitor_log}  && exit 1
+	echo "Use Docker is set to true. Attempting to run analysis in a docker container." >> ${Monitor_Log} 2>&1 
+	source ad2dockerconfig || echo "FATAL: Problem sourcing ad2dockerconfig but Use_Docker is True. Exiting" >> ${Monitor_Log} 2>&1 
 	if [ ! -d "${AAD2_DOCKER_HOME}" ] ; then
-		echo "FATAL: AAD2_DOCKER_HOME is not a directory. Exiting." 2>&1 > ${Monitor_log} 
-		echo "       AAD2_DOCKER_HOME is set to: ${AAD2_DOCKER_HOME}" 2>&1 > ${Monitor_log} 
+		echo "FATAL: AAD2_DOCKER_HOME is not a directory. Exiting." >> ${Monitor_Log} 2>&1 
+		echo "       AAD2_DOCKER_HOME is set to: ${AAD2_DOCKER_HOME}" >> ${Monitor_Log} 2>&1 
 		exit 1
 	fi
 
@@ -104,20 +118,24 @@ elif [ "${Use_Docker}" == "True" ] ; then
 	the_returnval="$?"
 
 	if [ "${the_returnval}" != "0" ] ; then
-		echo "FATAL: the return value from AD_Analyze was non-zero. Exiting." 2>&1 > ${Monitor_log} 
-		echo "       The return value was: ${the_returnval}" 2>&1 > ${Monitor_log} 
+		echo "FATAL: the return value from AD_Analyze was non-zero. Exiting." >> ${Monitor_Log} 2>&1 
+		echo "       The return value was: ${the_returnval}" >> ${Monitor_Log} 2>&1 
 		exit ${the_returnval}
 	fi
 else
-	echo "Assuming we are natively in the correct environment for AD_Analyze to run. Attempting." 2>&1 > ${Monitor_log} 
-	AD_Analyze ${WD}  2>&1 > ${Monitor_log} 
+	echo "Assuming we are natively in the correct environment for AD_Analyze to run. Attempting." >> ${Monitor_Log} 2>&1 
+	AD_Analyze ${WD}  >> ${Monitor_Log} 2>&1 
 	the_returnval="$?"
 
 	if [ "${the_returnval}" != "0" ] ; then
-		echo "FATAL: the return value from AD_Analyze was non-zero. Exiting." 2>&1 > ${Monitor_log} 
-		echo "       The return value was: ${the_returnval}" 2>&1 > ${Monitor_log} 
+		echo "FATAL: the return value from AD_Analyze was non-zero. Exiting." >> ${Monitor_Log} 2>&1 
+		echo "       The return value was: ${the_returnval}" >> ${Monitor_Log} 2>&1 
 		exit ${the_returnval}
 	fi
 fi
 
-echo "${0} completed on $(date)"
+#		if [[ "${line}" == *"Everything appears to have completed"* ]] ; then
+#			job_is_done="True"
+#		fi
+
+echo "${0} completed on $(date)" >> ${Monitor_Log} 2>&1
