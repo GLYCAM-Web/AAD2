@@ -34,7 +34,7 @@ if [ ! -d "${ARCHIVE}" ] ; then
 	mkdir ${ARCHIVE}
 fi
 
-for i in "ad2_setup.log" "${Log_File}" "ad.log" ; do
+for i in "ad2_setup.log" "${Log_File}" "ad.log" "monitor.log" "monitor_and_analyze_stderr_stdout.log" ; do
 	if [ -e "${i}" ] ; then
 		mv "${i}" ${ARCHIVE} 2>&1 | tee -a ${Log_File}
 	fi
@@ -49,6 +49,7 @@ if [ -z "${Number_of_Replicas}" ] ; then
 	exit 0
 fi
 
+rep=1
 while [ "${rep}" -le "${Number_of_Replicas}" ] ; do
 
 	if [ ! -d "${ARCHIVE}" ] ; then

@@ -15,8 +15,8 @@ cp \
   ${COMPUTE_SUBMIT_SCRIPT_FILEPATH} \
   ${WD}
 
-# This should already be done
-#cp glycan_ring_atoms.txt.save ${WD}/glycan_ring_atoms.txt
+# This should already be done in normal situations
+cp inputs/glycan_ring_atoms.txt ${WD}/glycan_ring_atoms.txt
 #
 # This should already be done
 # Ensure that the glycan pdb used as an input contains an 'END' card at the bottom of the file.
