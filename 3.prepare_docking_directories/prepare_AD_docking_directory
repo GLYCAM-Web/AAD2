@@ -28,7 +28,7 @@ while [ "${i}" -le "${Number_of_Replicas}" ] ; do
 			echo "INFO: Setting random seed for replica ${i} to ${AD2_Random_Seeds[${i}]}" >> ${Log_File}
 			echo "seed=${AD2_Random_Seeds[${i}]}" >> vcconfig
 		fi
-		if [ -z "${AD2_Docking_CPUS}" ] ; 
+		if [ -z "${AD2_Docking_CPUS}" ] ; then
 			echo "INFO: Using default number of CPUs=8 and setting exhautiveness to match." >> ${Log_File}
 			echo "cpu=8" >> vcconfig
 			echo "exhaustiveness=8" >> vcconfig
