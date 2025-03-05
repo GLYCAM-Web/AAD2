@@ -43,7 +43,7 @@ evaluate_status() {
 		exit ${the_returnval}
 	fi
 
-	echo "${the_response}" >> ${Monitor_Log} 2>&1
+	#echo "${the_response}" >> ${Monitor_Log} 2>&1
 
 
 	job_is_done="False"
@@ -74,7 +74,7 @@ while [ "${done_checking}" == "False" ] ; do
 		echo "       The return value was: ${the_returnval}" >> ${Monitor_Log} 2>&1 
 		exit ${the_returnval}
 	fi
-echo "job is done = ${job_is_done}" >> ${Monitor_Log} 2>&1 
+	#echo "job is done = ${job_is_done}" >> ${Monitor_Log} 2>&1 
 	if [ "${job_is_done}" == "True" ] ; then
 		echo "AAD2 replicas all finished on $(date)" >> ${Monitor_Log} 2>&1 
 		done_checking="True"
@@ -84,7 +84,7 @@ echo "job is done = ${job_is_done}" >> ${Monitor_Log} 2>&1
 	fi
    
 	wait_so_far="$((wait_so_far+Status_Check_Wait))"
-	echo "wait_so_far = ${wait_so_far} " >> ${Monitor_Log} 2>&1 
+	#echo "wait_so_far = ${wait_so_far} " >> ${Monitor_Log} 2>&1 
 	if [ "${wait_so_far}" -ge "${Status_Check_Timeout}" ] ; then
 		done_checking="True"
 	fi
@@ -138,4 +138,6 @@ fi
 #			job_is_done="True"
 #		fi
 
-echo "${0} completed on $(date)" >> ${Monitor_Log} 2>&1
+echo "Analysis completed without errors."  >> ${Monitor_Log} 2>&1
+
+echo "The monitoring script reports that the job completed on $(date)" >> ${Monitor_Log} 2>&1

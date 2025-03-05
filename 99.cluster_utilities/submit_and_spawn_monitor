@@ -15,13 +15,13 @@ if [ -z "${Log_File}" ] ; then
 fi
 
 if [ "${Computing_Mode}" != "Batch" ] ; then
-	echo "FATAL: Script requires Computing_Mode to be Batch. Exiting." 2>&1 > ${Log_File}
-	echo "       Name of script called: ${0}" 2>&1 > ${Log_File}
+	echo "FATAL: Script requires Computing_Mode to be Batch. Exiting." >> ${Log_File} 2>&1
+	echo "       Name of script called: ${0}" >> ${Log_File} 2>&1 
 	exit 1
 fi
 
 if [ -z "${AD2_Docking_Batch_Script}" ] ; then
-	echo "FATAL: Computing_Mode is set to Batch but no submission script defined. Exiting." 2>&1 > ${Log_File}
+	echo "FATAL: Computing_Mode is set to Batch but no submission script defined. Exiting." >> ${Log_File} 2>&1 
 	exit 1
 fi
 
@@ -34,19 +34,20 @@ while [ "${N}" -le "${Number_of_Replicas}" ] ; do
 	( cd "${WD}/r${N}" && bash ${AD2_Docking_Batch_Script} )
 	the_returnval="$?"
 	if [ "${the_returnval}" != "0" ] ; then
-		echo "ERROR: Non-zero return value from submission of job r${N}" 2>&1 > ${Log_File}
+		echo "ERROR: Non-zero return value from submission of job r${N}" >> ${Log_File} 2>&1 
 		errors="True"
 	fi
         N="$((N+1))"
 done
 
 if [ "${errors}" == "True" ] ; then
-	echo "WARNING: Submission returned errors. Proceeding to Monitor anyway." 2>&1 > ${Log_File}
-	echo "         Check the monitoring log for details.." 2>&1 > ${Log_File}
+	echo "WARNING: Submission returned errors. Proceeding to Monitor anyway." >> ${Log_File} 2>&1
+	echo "         Check the monitoring log for details.." >> ${Log_File} 2>&1
+else
+	echo "INFO: Submission completed without errors." >> ${Log_File} 2>&1
 fi
 
-Monitor_and_Analyze ${WD} &
-disown
+nohup monitor_and_analyze  > monitor_and_analyze_stderr_stdout.log 2>&1  &
 
 
 #if [ "${errors}" == "True" ] ; then exit 1 fi

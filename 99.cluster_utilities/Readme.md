@@ -2,17 +2,15 @@
 
 **This code is changing rapidly. These docs may be incomplete or out of date.** 
 
-These utilities should help you to use AAD2 on a cluster. It is possible that you will need to use these
-as inspiration for your own scripts rather than being able to use them as-is. This will certainly be the
-case if your cluster uses a scheduler other than Slurm.
+These utilities should help you to use AAD2 on a cluster.  They manage the process of running some 
+parts of the code on the head node, then sending some to compute nodes, and then running more on 
+the head node.  It is possible that you will need to use these as inspiration for your own scripts 
+rather than being able to use them as-is. 
 
-Specifically, they manage the process of running some parts of the code on the head node, then sending 
-some to compute nodes, and then running more on the head node.
-
-They are needed due to the dependence of AAD2 on a very old operating environment. It is very unlikely 
-that the IT folks in charge of your cluster's head node will be comfy with adding the environmental 
-requirements to the head node. But, it is possible that they might install a few nodes (virtual or 
-otherwise) for you to use. 
+The scripts are needed due to the dependence of AAD2 on a very old operating environment. It is very 
+unlikely that the IT folks in charge of your cluster's head node will be comfy with adding the 
+environmental requirements to the head node. But, it is possible that they might install a few nodes 
+(virtual or otherwise) for you to use. 
 
 If you are able to use Docker with your cluster, there are also utils for that. What you will find here
 are wrappers for the actual scripts that can be found in the 
@@ -47,12 +45,12 @@ the special environment required by AAD2.
 
 When set up correctly, steps 5, 6, and 7 can proceed in an automated manner.
 
- 1. The script `Submit_and_Spawn_Monitor` will submit the jobs and then spawn `Monitor_and_Analyze` and
+ 1. The script `submit_and_spawn_monitor` will submit the jobs and then spawn `monitor_and_analyze` and
     then it will exit (leaving the latter still running).
- 2. `Monitor_and_Analyze` will monitor the system every 5 seconds (configurable) until all the replicas
-    have completed. At that point, it will run `AD_Analyze`.
+ 2. `monitor_and_analyze` will monitor the system every 5 seconds (configurable) until all the replicas
+    have completed or until 2 weeks (configurable) have passed. At that point, it will run `AD_Analyze`.
 
 ## CLI Option
 
-`Run_Cluster_AAD2_from_CLI.bash` will run the entire workflow from start to finish from the command line.
+`run_cluster_AAD2_from_CLI.bash` will run the entire workflow from start to finish from the command line.
 This is the same workflow used by GLYCAM-Web. If you use our docker image, you should get identical results.
