@@ -53,6 +53,7 @@ Log_File=\"ad2.log\" # the overall log for the N replica(s), their setup and the
 DOCKING_REPLICA_OUTPUT_PDBQT=\"docking_output.pdbqt\" # set the name of the output file from each docking replica
 DOCKING_REPLICA_LOG_FILE=\"docking.log\" # set the name of the output from vina-carb for each replica
 DOCKING_REPLICA_JOB_LOG=\"ad2_job.log\"  # the log from AAD2 about an individual docking replica
+AD2_Docking_CPUS=\"28\" # Set to the number of CPUs (cores). Exhaustiveness will be set to this number.
 AD2_Docking_Batch_Script=\"\" # if you need to submit docking to a cluster
 AD2_Docking_Local_Script=\"\" # if you need to include/source another script in your docking dir
 AD2_Setup_Batch_Script=\"\" # if you need to submit setup to a cluster
