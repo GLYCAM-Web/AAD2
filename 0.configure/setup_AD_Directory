@@ -49,6 +49,7 @@ Glycan_Flexibility=\"Partial\" # works in AD docker
 Number_of_Replicas=\"5\" # works in AD docker
 Computing_Mode=\"Local_Host_Serial\" # works from inside AD docker
 Use_Docker=\"False\" # works from inside AD docker
+CONTAINER_NAME_PREFIX=\"unique-name-prefix\" # used if Use_Docker is True
 Log_File=\"ad2.log\" # the overall log for the N replica(s), their setup and the output analysis
 DOCKING_REPLICA_OUTPUT_PDBQT=\"docking_output.pdbqt\" # set the name of the output file from each docking replica
 DOCKING_REPLICA_LOG_FILE=\"docking.log\" # set the name of the output from vina-carb for each replica

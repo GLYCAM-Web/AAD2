@@ -29,6 +29,7 @@ cp \
 cd ${WD}
 
 cd ${AAD2_DOCKER_HOME}
+export CONTAINER_NAME_PREFIX
 COMMAND="bash bin/run_aad2_command.bash ${WD} AD_Evaluate"
 echo "The cwd is:
 $(pwd)

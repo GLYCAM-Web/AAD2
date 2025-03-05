@@ -114,7 +114,7 @@ elif [ "${Use_Docker}" == "True" ] ; then
 		exit 1
 	fi
 
-	( cd ${AAD2_DOCKER_HOME} && bash bin/run_aad2_command.bash ${WD} AD_Analyze ) 
+	( cd ${AAD2_DOCKER_HOME} && export CONTAINER_NAME_PREFIX && bash bin/run_aad2_command.bash ${WD} AD_Analyze ) 
 	the_returnval="$?"
 
 	if [ "${the_returnval}" != "0" ] ; then
