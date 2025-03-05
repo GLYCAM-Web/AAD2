@@ -3,12 +3,13 @@
 noS="    0.configure/setup_AD_Directory \
     3.prepare_docking_directories/prepare_AD_docking_directory \
     4.run_docking/start_all_docking_jobs \
+    5.analyze_results/generate_AD_results_view \
     6.check_status/archive_AD_logs \
     6.check_status/get_AD_docking_replica_status \
     6.check_status/check_AD_status \
-    99.cluster_utilities/Monitor_and_Analyze \
-    99.cluster_utilities/Run_Cluster_AAD2_from_CLI.bash \
-    99.cluster_utilities/Submit_and_Spawn_Monitor \
+    99.cluster_utilities/monitor_and_analyze \
+    99.cluster_utilities/run_cluster_AAD2_from_CLI.bash \
+    99.cluster_utilities/submit_and_spawn_monitor \
     AD_Get_Status  \
     AD_Help  \
     AD_Setup  \
