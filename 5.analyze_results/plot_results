@@ -4,9 +4,11 @@
 
 GPLT_FILE="script_histogram.gplt"
 
-YMODEL="$(cat input_gplt.txt | tr "\t" "\n" | sort -n | tail -1)"
-CSIZE="$(cat input_gplt.txt | tr "\t" "\n" | sort -n | wc -l)"
-ISETN="input_gplt.txt"
+ISETN="cluster_histogram.txt"
+YMODEL="$(cat ${ISETN} | cut -s -f 2  | sort -n | tail -1)"
+CSIZE="$(wc -l ${ISETN} | cut -d ' ' -f1)"
+CSIZE="$((CSIZE-1))"
+#ISETN="input_gplt.txt"
 
 if [ "${YMODEL}" -lt "5" ] ; then
 	numYtics="1"
@@ -16,26 +18,32 @@ else
 	numYtics="5"
 fi
 
+if [ "${CSIZE}" -lt "10" ] ; then
+	numXtics="1"
+else
+	numXtics="$((CSIZE/10))"
+	numXtics="$((numXtics+1))"
+fi
+
 echo """#!/usr/bin/env gnuplot
 #gnuplot input
 set yrange [0:${YMODEL}]
 set ytics ${numYtics} nomirror
-set xrange [1:]
-set ylabel \"Number of members\" font \"Calibri Bold,28\" offset 2,0
-set xlabel \"Average Interaction Energy\" font \"Calibri Bold,28\"
+set xrange [0:]
+set ylabel \"Number of members\" font \"Calibri Bold,22\" offset 2,0
+set xlabel \"Average Interaction Energy\" font \"Calibri Bold,22\" offset 0,1
+set format x \"%.3f\'
 set border 3 lc rgb \"#000000\"
 set style data histograms
 set style histogram cluster gap 0.0
 set style fill solid border -1
 set boxwidth 1.0
-#set xtics 1 border in  font \"Calibri Bold,22\" nomirror
-unset xtics
-set label \"Total Clusters-${CSIZE}\" at 0.4,23
+set xtics ${numXtics}  border in font \"Calibri Bold,18\" nomirror  rotate by -60
+set title \"Total Clusters: ${CSIZE}\" 
 unset key
-set terminal postscript eps enhanced color solid font \"Calibri-Bold,26\"
+set terminal postscript eps enhanced color solid font \"Calibri-Bold,22\"
 set output \"histogram_sorted.eps\"
-plot '${ISETN}' using 1 lc rgb \"#0000FF\"
-#, for[i=2:${CSIZE}] '' using i lc rgb \"#0000FF\"  notitle
+plot '${ISETN}' using 2:xticlabels((int(\$0) % ${numXtics} == 0 ? stringcolumn(3) : \"\")) lc rgb \"#0000FF\"
 """ > ${GPLT_FILE}
 
 gnuplot ${GPLT_FILE}

@@ -244,6 +244,7 @@ for(i=0;i<csize-1;i++){
 	}
 }
 
+fprintf(Oset.F,"# Cluster Number  Number of Poses  Average Interaction Energy\n");
 for(i=0;i<csize;i++){
 	fprintf(Oset.F,"%d\t%d\t%lf\n",cluster_nums[i],total_models[i],avg_energies[i]);
 	fprintf(Iset.F,"%d\n",total_models[i]);
