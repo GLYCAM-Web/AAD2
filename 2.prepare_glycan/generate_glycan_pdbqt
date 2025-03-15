@@ -18,12 +18,54 @@ Usage:
 
 """
 
+source "ad2config"
+if [ -z "${Log_File}" ] ; then
+	Log_File="ad2.log"
+fi
+
+############################################
+##  Atom name bug workaround, pre-pdbqt   ##
+############################################
+# Find any heavy atom that has a capital 'H' in the atom name.
+# Record this information for use at the end.
+# Temporarily replace the 'H' with 'Q'
+
+declare -A changedLines
+
+glycan_PDB="$(cat glycan.pdb)"
+rm glycan.pdb
+lnum=1
+while IFS= read -r line; do
+    #echo "$line"
+    if [ "${#line}" -ge "78" ] && [ ${line:77:1} != "H" ] && [ ${line:77:1} != " " ]  ; then
+        atomName="${line:12:4}"
+        if [[ "${atomName}" == *"H"* ]] ; then
+	    newName="${atomName//H/Q}"
+	    echo "Temporarily changing atom name >>>${atomName}<<< on line ${lnum} in glycan.pdb to >>>${newName}<<<" >> ${Log_File}
+            changedLines[${newName}]="${atomName}"
+	    line="${line/${atomName}/${newName}}"
+        fi
+    fi
+    echo "${line}" >> glycan.pdb
+    lnum="$((lnum+1))"
+done <<< "${glycan_PDB}"
+
+#echo "changedLines contains: "
+#for i in "${!changedLines[@]}" ; do
+    #echo "${i}  -  ${changedLines[${i}]}"
+#done
+
+############################################
+##  End of workaround, pre-pdbqt          ##
+############################################
+
+
 Base_Command='pythonsh /programs/MGLToolsPckgs/AutoDockTools/Utilities24/prepare_ligand4.py -l glycan.pdb ' 
 Output=' -o ligand.pdbqt'
 
 if [ "${1}zzz" == "zzz" ] ; then
-	echo "Option specification missing from command line. Exiting."
-	echo ${USAGE}
+	echo "Option specification missing from command line. Exiting." >> ${Log_File}
+	echo ${USAGE} >> ${Log_File}
 	exit 1
 else
 	theOption="${1}"
@@ -33,8 +75,8 @@ if [ "${theOption}" == "1" ] || [ "${theOption}" == "2" ] ; then
 	${Base_Command} -Z  ${Output}
 	result=$?
 	if [ "${result}" != "0" ] ; then
-		echo "Something went wrong generating the rigid ligand.pdb in $0. Exiting"
-		exit ${result}
+		echo "Something went wrong generating the rigid ligand.pdb in $0. Exiting" >> ${Log_File}
+		exit ${result} >> ${Log_File}
 	fi
 fi
 
@@ -42,18 +84,18 @@ if [ "${theOption}" == "2" ] ; then
 	theBonds="$(get_flexible_bond_info)"
 	result=$?
 	if [ "${result}" != "0" ] ; then
-		echo "Cannot get flexible bond info within $0. Exiting"
-		exit ${result}
+		echo "Cannot get flexible bond info within $0. Exiting" >> ${Log_File}
+		exit ${result} >> ${Log_File}
 	fi
 	if [ "${theBonds}zzz" == "zzz" ] ; then
-		echo "get_flexible_bond_info returned an empty string. Exiting."
+		echo "get_flexible_bond_info returned an empty string. Exiting." >> ${Log_File}
 		exit 1
 	fi
 	${Base_Command} -B 'amide' -I ${theBonds}  ${Output}
 	result=$?
 	if [ "${result}" != "0" ] ; then
-		echo "Something went wrong generating the partially flexible ligand.pdb in $0. Exiting"
-		exit ${result}
+		echo "Something went wrong generating the partially flexible ligand.pdb in $0. Exiting" >> ${Log_File}
+		exit ${result} >> ${Log_File}
 	fi
 
 fi
@@ -62,7 +104,39 @@ if [ "${theOption}" == "3" ] ; then
 	${Base_Command}  ${Output}
 	result=$?
 	if [ "${result}" != "0" ] ; then
-		echo "Something went wrong generating the fully flexible ligand.pdb in $0. Exiting"
-		exit ${result}
+		echo "Something went wrong generating the fully flexible ligand.pdb in $0. Exiting" >> ${Log_File}
+		exit ${result} >> ${Log_File}
 	fi
 fi
+
+
+############################################
+##  Atom name bug workaround, post-pdbqt  ##
+############################################
+
+ligand_PDBQT="$(cat ligand.pdbqt)"
+rm ligand.pdbqt
+lnum=1
+while IFS= read -r line; do
+    #echo "$line"
+    if [[ "${line}" == *"Q"* ]] ; then
+        for i in "${!changedLines[@]}" ; do
+	    qName="${i// /}" # remove spaces from the name
+            #echo "checking for  existence of ${i}"
+	    if [[ "${line}" == *"${qName}"* ]] ; then
+		echo "Changing ${qName} back to ${changedLines[${i}]}" >> ${Log_File}
+		realName="${changedLines[${i}]// /}"
+                line="${line/${qName}/${realName}}"
+	    fi
+        done
+    fi
+    echo "${line}" >> ligand.pdbqt
+    lnum="$((lnum+1))"
+done <<< "${ligand_PDBQT}"
+
+# Replacing the original glycan.pdb
+echo "${glycan_PDB}" > glycan.pdb
+
+############################################
+##  End of workaround, post-pdbqt         ##
+############################################
