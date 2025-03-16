@@ -141,12 +141,6 @@ Hfile=(char*)calloc(50,sizeof(char));
 sprintf(Hfile,"cluster_histogram.txt");
 Oset.N=strdup(Hfile);
 Oset.F=myfopen(Oset.N,"w");
-char *Ifile;
-Ifile=(char*)calloc(50,sizeof(char));
-sprintf(Ifile,"input_gplt.txt");
-fileset Iset;
-Iset.N=strdup(Ifile);
-Iset.F=myfopen(Iset.N,"w");
 
 i=0;
 int dum=0,modelnum=0,num_models=0,clusterno=0,csize=0;
@@ -246,11 +240,10 @@ for(i=0;i<csize-1;i++){
 
 fprintf(Oset.F,"# Cluster Number  Number of Poses  Average Interaction Energy\n");
 for(i=0;i<csize;i++){
-	fprintf(Oset.F,"%d\t%d\t%lf\n",cluster_nums[i],total_models[i],avg_energies[i]);
-	fprintf(Iset.F,"%d\n",total_models[i]);
+//	fprintf(Oset.F,"%d\t%d\t%lf\n",cluster_nums[i],total_models[i],avg_energies[i]);
+	fprintf(Oset.F,"%d\t%d\t%.3lf\n",cluster_nums[i],total_models[i],avg_energies[i]);
 }
 fclose(Oset.F);
-fclose(Iset.F);
 	
 int ymodel=0;
 for(i=0;i<csize;i++){

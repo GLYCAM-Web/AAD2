@@ -8,7 +8,6 @@ ISETN="cluster_histogram.txt"
 YMODEL="$(cat ${ISETN} | cut -s -f 2  | sort -n | tail -1)"
 CSIZE="$(wc -l ${ISETN} | cut -d ' ' -f1)"
 CSIZE="$((CSIZE-1))"
-#ISETN="input_gplt.txt"
 
 if [ "${YMODEL}" -lt "5" ] ; then
 	numYtics="1"
