@@ -1,4 +1,18 @@
 #!/usr/bin/env bash
+source ad2config
+
+if [ -z ${Log_File} ] ; then
+	Log_File="ad2.log"
+fi
+
+if ! command -v vmd ; then
+	echo "Cannot find the vmd command. Not generating an image." >> ${Log_File}
+	exit 0
+else 
+	echo "Attempting to generate a default image of the docking results." >> ${Log_File}
+fi
+
+
 vmd_script="""#!/usr/local/bin/vmd
 set viewplist {}
 # Display settings

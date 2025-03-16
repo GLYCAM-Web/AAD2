@@ -11,7 +11,7 @@ if [ -z "${Status_Check_Wait}" ] ; then
 	Status_Check_Wait="5"
 fi
 if [ -z "${Status_Check_Timeout}" ] ; then
-	Status_Check_Timeout="1209600" ## Two weeks (14 days) in seconds
+	Status_Check_Timeout="7200" ## Two hours in seconds
 fi
 
 echo """Monitor log begun on $(date)
@@ -87,6 +87,7 @@ while [ "${done_checking}" == "False" ] ; do
 	#echo "wait_so_far = ${wait_so_far} " >> ${Monitor_Log} 2>&1 
 	if [ "${wait_so_far}" -ge "${Status_Check_Timeout}" ] ; then
 		done_checking="True"
+		echo "Monitoring timed out after ${Status_Check_Timeout} seconds." >> ${Monitor_Log} 2>&1
 	fi
 done
 
@@ -134,9 +135,10 @@ else
 	fi
 fi
 
-#		if [[ "${line}" == *"Everything appears to have completed"* ]] ; then
-#			job_is_done="True"
-#		fi
+cd ${WD}
+if ! generate_AD_results_view ; then
+	echo "There was a problem generating the default image." >> ${Monitor_Log} 2>&1
+fi
 
 echo "Analysis completed without errors."  >> ${Monitor_Log} 2>&1
 
