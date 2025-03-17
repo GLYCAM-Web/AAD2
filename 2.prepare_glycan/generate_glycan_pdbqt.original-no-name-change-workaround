@@ -1,0 +1,76 @@
+#!/usr/bin/env bash
+
+# Generate the pdbqt for a glycan
+USAGE="""
+Usage:
+
+    $0 <option>
+
+    Where option is one of the integers: 1 2 3
+
+    1: The glycan is fully rigid.
+    2: The glycan is partially flexible.
+    3: The glycan is fully flexible.
+
+    The script expects to find a file called 'glycan.pdb' in the directory from which it is called.
+
+    It will write out a file called 'ligand.pdbqt'.
+
+"""
+
+source "ad2config"
+if [ -z "${Log_File}" ] ; then
+	Log_File="ad2.log"
+fi
+
+
+Base_Command='pythonsh /programs/MGLToolsPckgs/AutoDockTools/Utilities24/prepare_ligand4.py -l glycan.pdb ' 
+Output=' -o ligand.pdbqt'
+
+if [ "${1}zzz" == "zzz" ] ; then
+	echo "Option specification missing from command line. Exiting." >> ${Log_File}
+	echo ${USAGE} >> ${Log_File}
+	exit 1
+else
+	theOption="${1}"
+fi
+
+if [ "${theOption}" == "1" ] || [ "${theOption}" == "2" ] ; then
+	${Base_Command} -Z  ${Output}
+	result=$?
+	if [ "${result}" != "0" ] ; then
+		echo "Something went wrong generating the rigid ligand.pdb in $0. Exiting" >> ${Log_File}
+		exit ${result} >> ${Log_File}
+	fi
+fi
+
+if [ "${theOption}" == "2" ] ; then
+	theBonds="$(get_flexible_bond_info)"
+	result=$?
+	if [ "${result}" != "0" ] ; then
+		echo "Cannot get flexible bond info within $0. Exiting" >> ${Log_File}
+		exit ${result} >> ${Log_File}
+	fi
+	if [ "${theBonds}zzz" == "zzz" ] ; then
+		echo "get_flexible_bond_info returned an empty string. Exiting." >> ${Log_File}
+		exit 1
+	fi
+	${Base_Command} -B 'amide' -I ${theBonds}  ${Output}
+	result=$?
+	if [ "${result}" != "0" ] ; then
+		echo "Something went wrong generating the partially flexible ligand.pdb in $0. Exiting" >> ${Log_File}
+		exit ${result} >> ${Log_File}
+	fi
+
+fi
+
+if [ "${theOption}" == "3" ] ; then
+	${Base_Command}  ${Output}
+	result=$?
+	if [ "${result}" != "0" ] ; then
+		echo "Something went wrong generating the fully flexible ligand.pdb in $0. Exiting" >> ${Log_File}
+		exit ${result} >> ${Log_File}
+	fi
+fi
+
+

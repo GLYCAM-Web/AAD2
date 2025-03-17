@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+WORKDIR="$(pwd)"
+dirname="$(basename ${WORKDIR})"
+prefix="${dirname:0:5}"
+
+(cd ../ && zip -r ${dirname}/${prefix}.zip ${dirname} -x "${dirname}/tmpFiles/*" "${dirname}/*.zip")
