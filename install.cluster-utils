@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+
+USAGE="""
+Usage: 
+
+    install.cluster-utils <install path> 
+
+    For example, 
+
+        Install /usr/local
+
+    will install the cluster utilities executables into /usr/local/bin.
+"""
+
+if [[ -z "${1}" ]] ; then
+	echo "Must supply location for installation."
+	echo "${USAGE}"
+	exit 1
+fi
+
+if [ ! -d "${1}/bin" ] ; then 
+	mkdir ${1}/bin || echo "Cannot make directory ${1}/bin." && exit 1
+fi
+
+
+cp \
+    99.cluster_utilities/Docker/ad2clustersettings.example \
+    99.cluster_utilities/Docker/ensure_image_is_present \
+    99.cluster_utilities/Docker/load_image_on_nodes \
+    99.cluster_utilities/monitor_and_analyze \
+    99.cluster_utilities/run_cluster_AAD2_from_CLI.bash \
+    99.cluster_utilities/submit_docking_to_slurm_with_docker.bash \
+    99.cluster_utilities/submit_and_spawn_monitor \
+    ${1}/bin
+

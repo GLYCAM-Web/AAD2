@@ -94,6 +94,8 @@ done
 ## Run the Analysis
 echo "About to run AD_Analyza" >> ${Monitor_Log} 2>&1 
 
+ERRORS="0"
+
 export WD="$(pwd)"
 if [ ! -z "${AD2_Analysis_Batch_Script}" ] ; then
 	echo "An analysis batch script is specified. Attempting to submit analysis job."  >> ${Monitor_Log} 2>&1 
@@ -136,10 +138,17 @@ else
 fi
 
 cd ${WD}
+
 if ! generate_AD_results_view ; then
-	echo "There was a problem generating the default image." >> ${Monitor_Log} 2>&1
+	echo "ERROR: There was a problem generating the default image." >> ${Monitor_Log} 2>&1
+	ERRORS="$(ERRORS+1)"
 fi
 
-echo "Analysis completed without errors."  >> ${Monitor_Log} 2>&1
+if ! generate_zip_file ; then
+	echo "ERROR: There was a problem generating the zip file." >> ${Monitor_Log} 2>&1
+	ERRORS="$(ERRORS+1)"
+fi
+
+echo "Analysis completed with ${ERRORS} errors."  >> ${Monitor_Log} 2>&1
 
 echo "The monitoring script reports that the job completed on $(date)" >> ${Monitor_Log} 2>&1

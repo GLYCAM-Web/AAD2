@@ -7,6 +7,7 @@ noS="    0.configure/setup_AD_Directory \
     6.check_status/archive_AD_logs \
     6.check_status/get_AD_docking_replica_status \
     6.check_status/check_AD_status \
+    7.package_results/generate_zip_file \
     99.cluster_utilities/monitor_and_analyze \
     99.cluster_utilities/run_cluster_AAD2_from_CLI.bash \
     99.cluster_utilities/submit_and_spawn_monitor \
@@ -39,11 +40,17 @@ Usage:
 
         Install /usr/local
 
+    	... will install all executables into /usr/local/bin.
+
+    And:
+
         Install /programs no-S
+
+    	... will install executables that do not require the special environment into /programs/bin.
 
         Install ./  only-S
 
-    will install the executables into /usr/local/bin.
+    	... will install executables that require the special environment into ./bin.
 
     What to Install:
 
