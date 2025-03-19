@@ -43,6 +43,7 @@ Example_AD2_Config="""
 MGLToolsPckgs_Location=\"/programs/MGLToolsPckgs\" # works in AD docker
 Vina_Carb_Source_Location=\"/programs/src/VC_1_0\" # works in AD docker
 Python_2_7_Location=\"/programs/include/python2.7\" # works in AD docker
+AAD2_BIN_PATH=\"/programs/bin\" # works in AD docker
 Antibody_File_Name=\"SomeAntibody.pdb\" # CHANGE ME (unless this is the actual name)
 Glycan_File_Name=\"SomeGlycan.pdb\" # CHANGE ME (unless this is the actual name)
 Glycan_Flexibility=\"Partial\" # works in AD docker

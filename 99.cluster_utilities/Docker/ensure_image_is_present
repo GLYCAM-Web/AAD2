@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+# Ensure that a given image is available on the current machine.
+# If not, load it from a file.
+
+. ${AAD2_DOCKER_HOME}/settings.bash
+
+COMMAND="bash ${AAD2_DOCKER_HOME}/bin/load_image.bash ${AAD2_IMAGE_TAG_COMBO} ${AAD2_IMAGE_FILE_PATH}"
+
+echo "Using the following command to ensure that the required image is available."
+echo ${COMMAND}
+
+LoadAnswer="$(${COMMAND})"
+result=$?
+if [ "${result}" != "0" ] ; then
+	echo "Problem checking for the presence of and/or loading the AAD2 Docker Image."
+	echo "Here are the variables used:"
+	echo "AAD2_DOCKER_HOME=${AAD2_DOCKER_HOME}"
+	echo "AAD2_IMAGE_TAG_COMBO=${AAD2_IMAGE_TAG_COMBO}"
+	echo "AAD2_IMAGE_FILE_PATH=${AAD2_IMAGE_FILE_PATH}"
+	echo "The return value was ${result}"
+	echo "The following was returned on stdout:"
+	echo "${LoadAnswer}"
+	exit 1
+fi
+
+echo "The specified image should be available." 
+echo "The load process returned this information:"
+echo "${LoadAnswer}"
+
