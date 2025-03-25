@@ -41,7 +41,6 @@ AD2_Batch_Analysis="None"
 
 ## Docker Configuration
 Image=""
-Internal_Top_Directory=""
 
 if [ -z "${1}" ] ; then
 	echo "A working directory must be specified."
@@ -99,11 +98,6 @@ if [ "${Use_Docker}" == "True" ] ; then
 	source "${1}/ad2dockerconfig"
 	if [ -z "${Image}" ] ; then
 		echo "Use_Docker is set to True, but no Image name is specified."
-                echo "${USAGE}"
-                exit 1
-	fi
-	if [ -z "${Internal_Top_Directory}" ] ; then
-		echo "Use_Docker is set to True, but no Internal working directory is specified."
                 echo "${USAGE}"
                 exit 1
 	fi

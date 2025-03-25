@@ -80,14 +80,6 @@ AAD2_DOCKER_HOME=/path/to/AAD2_Docker
 # The image name and tag are likely to be out of date. Please check.
 Image=\"antibody-docking:2025-02-14-00-54-blf\" # Replace with actual name and tag
 #
-# The following has essentially no impact on function. 
-# If you need a directory path to be named a specific thing, you can make it be that.
-# Avoid using system paths (/bin, /usr, /etc and so forth).
-# Avoid using anything inside /programs as well.
-# Do NOT set it to /home/antibodydocking because you will clobber an internal script that must run.
-# If you want to be safe, use something like \"/myAAD2\". The default is also safe.
-Internal_Top_Directory=\"/home/antibodydocking/workdir\" # where inside the docker container you want your directory mounted
-#
 # If you need to run a script before using docker, put its path here.
 # Things you might need in such a script:
 #    modules to load

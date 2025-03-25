@@ -70,4 +70,3 @@ If you will be starting Docker containers during the workflow, these need to be 
 
 `Image` - The image, with tag, to use.  Format: "myImage:myTag". The default is "None".
 
-`Internal_Top_Directory` - The working directory path inside the container. Format: "/path/to/top/dir". Default: "None".
