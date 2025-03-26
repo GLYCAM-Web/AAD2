@@ -24,12 +24,11 @@ fi
 
 
 cp \
-    99.cluster_utilities/Docker/ad2clustersettings.example \
     99.cluster_utilities/Docker/ensure_image_is_present \
     99.cluster_utilities/Docker/load_image_on_nodes \
     99.cluster_utilities/monitor_and_analyze \
     99.cluster_utilities/run_cluster_AAD2_from_CLI.bash \
-    99.cluster_utilities/submit_docking_to_slurm_with_docker.bash \
+    99.cluster_utilities/Slurm/submit_docking_to_slurm_with_docker.bash \
     99.cluster_utilities/submit_and_spawn_monitor \
     ${1}/bin
 

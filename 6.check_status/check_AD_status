@@ -31,16 +31,17 @@ if [ -e "ad2_setup.log" ] ; then
 	fi
 fi
 
-##  0.3 - If the ad2config file says to use docker, ensure that there is an ad2dockerconfig file.
+##   The following should not be needed anymore
+## 0.3 - If the ad2config file says to use docker, ensure that there is an ad2dockerconfig file.
 ##        If not, whine and set a warning that there might be trouble later.
-
-if [ "${Use_Docker}" == "True" ] ; then
-	if [ ! -e "ad2dockerconfig" ] ; then
-		echo "WARNING: the ad2config file says to use docker, but ad2dockerconfig not found."  2>&1 | tee -a ${Log_File}
-                Overall_Status="The directory contents might have problems."
-		exitcode=1
-	fi
-fi
+#
+#if [ "${Use_Docker}" == "True" ] ; then
+	#if [ ! -e "ad2dockerconfig" ] ; then
+		#echo "WARNING: the ad2config file says to use docker, but ad2dockerconfig not found."  2>&1 | tee -a ${Log_File}
+                #Overall_Status="The directory contents might have problems."
+		#exitcode=1
+	#fi
+#fi
 
 echo "Top-level directory check says: ${Overall_Status}" 2>&1 | tee -a ${Log_File}
 

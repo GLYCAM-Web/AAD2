@@ -101,6 +101,11 @@ AAD2_DOCKER_HOME=\"\"
 #
 Image=\"\" 
 #   Example: Image=\"antibody-docking:2025-02-14-00-54-blf\"  # check current name:tag
+
+## These might be needed if Use_Docker is True
+#
+export AAD2_IMAGE_FILE_PATH=\"\"  # If you might need to load the image from a file
+
 """
 
 Standard_Vina_Carb_Configuration="""

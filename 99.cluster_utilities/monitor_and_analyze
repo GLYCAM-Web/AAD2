@@ -99,7 +99,7 @@ ERRORS="0"
 export WD="$(pwd)"
 if [ "${Use_Docker}" == "True" ] ; then
 	echo "Use Docker is set to true. Attempting to run analysis in a docker container." >> ${Monitor_Log} 2>&1 
-	source ad2dockerconfig || echo "FATAL: Problem sourcing ad2dockerconfig but Use_Docker is True. Exiting" >> ${Monitor_Log} 2>&1 
+#	source ad2dockerconfig || echo "FATAL: Problem sourcing ad2dockerconfig but Use_Docker is True. Exiting" >> ${Monitor_Log} 2>&1 
 	if [ ! -d "${AAD2_DOCKER_HOME}" ] ; then
 		echo "FATAL: AAD2_DOCKER_HOME is not a directory. Exiting." >> ${Monitor_Log} 2>&1 
 		echo "       AAD2_DOCKER_HOME is set to: ${AAD2_DOCKER_HOME}" >> ${Monitor_Log} 2>&1 

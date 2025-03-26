@@ -6,9 +6,9 @@
 # Should be called from the top directory - the one above the 'rN' directories.
 
 source ad2config
-if [ -e ad2dockerconfig ] ; then
-    source ad2dockerconfig
-fi
+#if [ -e ad2dockerconfig ] ; then
+#    source ad2dockerconfig
+#fi
 
 if [ -z "${Log_File}" ] ; then
 	Log_File='ad2.log'

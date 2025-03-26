@@ -12,16 +12,18 @@
 Nodes_Info_Command="sinfo -N"
 #
 # Partitions to avoid 
-Partitions_To_Avoid="mdaas"
+Partitions_To_Use="defq"
 #
 # Node states to avoid 
 States_To_Avoid="down  drained  draining  fail  failing"
 #
 ##
 
-source ad2clustersettings
+if [ -e ad2clustersettings ] ; then 
+    source ad2clustersettings
+fi
 
-Nodes="$(Nodes_Info_Command)"
+Nodes="$(${Nodes_Info_Command})"
 
 # Script to submit
 submitMe="""#!/usr/bin/env bash
@@ -34,11 +36,9 @@ submitMe="""#!/usr/bin/env bash
 #SBATCH --tasks-per-node=1
 #SBATCH --cpus-per-task=4
 
-if [ -e \"${Node_Setup_Script}\" ] ; then
-    source ${Node_Setup_Script} 
-fi
+module add docker
 export AAD2_DOCKER_HOME
-bash \${AAD2_DOCKER_HOME}/ensure_image_is_present 
+ensure_image_is_present 
 """
 count=1
 while IFS= read -r line; do

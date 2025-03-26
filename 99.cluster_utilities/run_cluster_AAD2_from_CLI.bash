@@ -13,6 +13,7 @@
 ##    If needed, a local configuration file for the job submission script
 
 export WD="$(pwd)"
+source ad2config
 
 cd ${AAD2_DOCKER_HOME}
 COMMAND="bash bin/run_aad2_command.bash ${WD} AD_Evaluate"

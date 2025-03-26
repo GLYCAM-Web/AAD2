@@ -1,9 +1,24 @@
 #!/usr/bin/env bash
 
+source ad2config
+
 # Ensure that a given image is available on the current machine.
 # If not, load it from a file.
 
-. ${AAD2_DOCKER_HOME}/settings.bash
+if [ -z "${AAD2_DOCKER_HOME}" ] ; then
+	echo "AAD2_DOCKER_HOME not defined.  Exiting."
+	exit 1
+fi
+
+source "${AAD2_DOCKER_HOME}/settings.bash"  
+# Doing this source gives us the following: AAD2_IMAGE_NAME AAD2_TAG_NAME
+
+# Combine name and tag into convenient string
+AAD2_IMAGE_TAG_COMBO="${AAD2_IMAGE_NAME}:${AAD2_TAG_NAME}"
+#echo "AAD2_IMAGE_TAG_COMBO=${AAD2_IMAGE_TAG_COMBO}"
+
+# Name of the file for the current image
+AAD2_IMAGE_FILE_NAME="${AAD2_IMAGE_FILE_PATH}/${AAD2_IMAGE_TAG_COMBO//:/$'.'}.tar"
 
 COMMAND="bash ${AAD2_DOCKER_HOME}/bin/load_image.bash ${AAD2_IMAGE_TAG_COMBO} ${AAD2_IMAGE_FILE_PATH}"
 

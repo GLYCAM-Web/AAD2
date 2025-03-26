@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 # Submits the docking job in the **current directory** to a slurm cluster.
-# Requires well-populated ad2config and ad2dockerconfig files.
 
 ##
 # This script assumes that paths on the compute nodes match those on the head node.
@@ -73,7 +72,7 @@ export PATH=${AAD2_CLI_BIN_PATH}/bin:\$PATH
 echo \"The local computing host is: \$(hostname)\" >> ${WJOB_LOG}
 export AAD2_DOCKER_HOME
 module load docker >> ${WJOB_LOG}
-bash ensure_image_is_present.bash >> ${WJOB_LOG}
+ensure_image_is_present >> ${WJOB_LOG}
 cd ${AAD2_DOCKER_HOME} 
 export CONTAINER_NAME_PREFIX=${CONTAINER_NAME_PREFIX}
 bash bin/run_docking_on_node.bash ${WORKDIR}  >> ${WJOB_LOG}
@@ -82,7 +81,7 @@ echo "${runMe}" > "${CLUSTER_EXE_NAME}"
 
 # Script to submit
 submitMe="""#!/usr/bin/env bash
-#SBATCH --chdir=${CLUSTER_WORKDIR}
+#SBATCH --chdir=${WORKDIR}
 #SBATCH --error=%x-%A.err
 #SBATCH --output=%x-%A.out
 #SBATCH --get-user-env
