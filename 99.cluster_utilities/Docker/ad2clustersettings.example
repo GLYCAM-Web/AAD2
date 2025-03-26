@@ -9,7 +9,6 @@ export AAD2_IMAGE_FILE_PATH="/path/to/aad2/image_files"
 
 # Location of the AAD2_Docker repo on head and node
 export AAD2_DOCKER_HOME="/path/to/AAD2_Docker" 
-export AAD2_CLUSTER_HOME="${AAD2_DOCKER_HOME}/image/AAD2/99.cluster_utilities"
 
 source "${AAD2_DOCKER_HOME}/settings.bash"  
 # Doing this source gives us the following
@@ -25,7 +24,7 @@ export AAD2_IMAGE_FILE_NAME="${AAD2_IMAGE_FILE_PATH}/${AAD2_IMAGE_TAG_COMBO//:/$
 
 Node_Setup_Script="/path/to/the/script" # If you need to source a file, load a module, etc.
 Nodes_Info_Command="sinfo -N" # The command you use to get the node info.  Change only if you know what you're doing.
-Partitions_To_Avoid="mdaas" # List of partitions that should not be used.
+Partitions_To_Use="defq" # List of partitions that should not be used.
 States_To_Avoid="down  drained  draining  fail  failing" # List of node states to ignore
 AAD2_CLUSTER_WORKDIR="$(pwd)"  # where to be on the node before doing anything else
 
