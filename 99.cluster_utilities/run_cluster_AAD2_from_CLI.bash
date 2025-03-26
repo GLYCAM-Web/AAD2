@@ -1,35 +1,20 @@
 #!/usr/bin/env bash
-source ad2cliconfig
 
-export WD=${WD}
-if [ ! -d "${WD}" ] ; then
-	mkdir ${WD} || echo "cannot find or make working directory." || exit 1
-fi
+## This script should be run from inside the working directory
+##
+## The following files should be present in the directory
+##
+##
+##    User's antibody PDB file
+##    User's glycan PDB file
+##    glycan_ring_atoms.txt
+##    ad2config - AAD2 config file
+##    The script that should be run to submit jobs
+##    If needed, a local configuration file for the job submission script
 
-cp \
-  ${USER_AB_FILEPATH} \
-  ${USER_G_FILEPATH} \
-  ${AD2CFG_FILEPATH}  \
-  ${AD2DOCKERCFG_FILEPATH}  \
-  ${LOCAL_COMPUTECFG_FILEPATH} \
-  ${COMPUTE_SUBMIT_SCRIPT_FILEPATH} \
-  ${WD}
-
-# This should already be done in normal situations
-cp inputs/glycan_ring_atoms.txt ${WD}/glycan_ring_atoms.txt
-#
-# This should already be done
-# Ensure that the glycan pdb used as an input contains an 'END' card at the bottom of the file.
-#if [[ "$(tail -1 ${USER_G_FILEPATH})" != *"END"* ]] ; then echo "END" >> ${USER_G_FILEPATH} ; fi
-#
-# This should already be done
-# Automatically generate the glycan rings info file. requires GEMSHOME and a compiled detect_sugars in gmml/tests
-#( cd $GEMSHOME/gmml/tests && ${DETECT_SUGARS} ${WD}/${USER_G_FILEPATH} > ${WD}/glycan_rings.txt )
-
-cd ${WD}
+export WD="$(pwd)"
 
 cd ${AAD2_DOCKER_HOME}
-export CONTAINER_NAME_PREFIX
 COMMAND="bash bin/run_aad2_command.bash ${WD} AD_Evaluate"
 echo "The cwd is:
 $(pwd)

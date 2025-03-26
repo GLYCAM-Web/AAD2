@@ -97,18 +97,7 @@ echo "About to run AD_Analyza" >> ${Monitor_Log} 2>&1
 ERRORS="0"
 
 export WD="$(pwd)"
-if [ ! -z "${AD2_Analysis_Batch_Script}" ] ; then
-	echo "An analysis batch script is specified. Attempting to submit analysis job."  >> ${Monitor_Log} 2>&1 
-	${AD2_Analysis_Batch_Script}    >> ${Monitor_Log} 2>&1 
-	the_returnval="$?"
-
-	if [ "${the_returnval}" != "0" ] ; then
-		echo "FATAL: the return value from AD_Analyze was non-zero. Exiting." >> ${Monitor_Log} 2>&1 
-		echo "       The return value was: ${the_returnval}" >> ${Monitor_Log} 2>&1 
-		exit ${the_returnval}
-	fi
-
-elif [ "${Use_Docker}" == "True" ] ; then
+if [ "${Use_Docker}" == "True" ] ; then
 	echo "Use Docker is set to true. Attempting to run analysis in a docker container." >> ${Monitor_Log} 2>&1 
 	source ad2dockerconfig || echo "FATAL: Problem sourcing ad2dockerconfig but Use_Docker is True. Exiting" >> ${Monitor_Log} 2>&1 
 	if [ ! -d "${AAD2_DOCKER_HOME}" ] ; then
@@ -117,7 +106,7 @@ elif [ "${Use_Docker}" == "True" ] ; then
 		exit 1
 	fi
 
-	( cd ${AAD2_DOCKER_HOME} && export CONTAINER_NAME_PREFIX && bash bin/run_aad2_command.bash ${WD} AD_Analyze ) 
+	( cd ${AAD2_DOCKER_HOME} && bash bin/run_aad2_command.bash ${WD} AD_Analyze ) 
 	the_returnval="$?"
 
 	if [ "${the_returnval}" != "0" ] ; then

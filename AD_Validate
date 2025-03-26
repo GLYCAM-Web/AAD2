@@ -24,23 +24,6 @@ Usage:
 	    - The two PDB files do not have name restrictions. 
 	    - Their names should be in the configuration file.
 """
-## Set the defaults for config file contents.
-
-MGLToolsPckgs_Location="/programs/MGLToolsPckgs"
-Vina_Carb_Source_Location="/programs/src/VC_1_0"
-Python_2_7_Location="/programs/include/python2.7"
-Antibody_File_Name=""
-Glycan_File_Name=""
-Number_of_Replicas=""
-Glycan_Flexibility="Partial"
-Computing_Mode="Local_Host_Serial"
-Use_Docker="False"
-Docking_Batch_Script="None"
-AD2_Batch_Setup="None"
-AD2_Batch_Analysis="None"
-
-## Docker Configuration
-Image=""
 
 if [ -z "${1}" ] ; then
 	echo "A working directory must be specified."
@@ -90,12 +73,12 @@ if [ -z "Glycan_File_Name" ] ; then
 fi
 
 if [ "${Use_Docker}" == "True" ] ; then
-	if [ ! -e "${1}/ad2dockerconfig" ] ; then
-		echo "Use_Docker is set to True, but no ad2dockerconfig file is found."
-                echo "${USAGE}"
-                exit 1
-	fi
-	source "${1}/ad2dockerconfig"
+#	if [ ! -e "${1}/ad2dockerconfig" ] ; then
+#		echo "Use_Docker is set to True, but no ad2dockerconfig file is found."
+#                echo "${USAGE}"
+#                exit 1
+#	fi
+#	source "${1}/ad2dockerconfig"
 	if [ -z "${Image}" ] ; then
 		echo "Use_Docker is set to True, but no Image name is specified."
                 echo "${USAGE}"

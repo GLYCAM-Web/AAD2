@@ -17,7 +17,6 @@ When fully set up, the working directory should contain these things:
 
     - A VC configuration file
 
-    - If Use_Docker is set to True, there should also be a docker config file
 """
 
 UGAGE="""
@@ -38,57 +37,70 @@ Usage:
 	    - The two PDB files do not have name restrictions. 
 """
 
-## Set the defaults for config file contents.
-Example_AD2_Config="""
-MGLToolsPckgs_Location=\"/programs/MGLToolsPckgs\" # works in AD docker
-Vina_Carb_Source_Location=\"/programs/src/VC_1_0\" # works in AD docker
-Python_2_7_Location=\"/programs/include/python2.7\" # works in AD docker
-AAD2_BIN_PATH=\"/programs/bin\" # works in AD docker
-Antibody_File_Name=\"SomeAntibody.pdb\" # CHANGE ME (unless this is the actual name)
-Glycan_File_Name=\"SomeGlycan.pdb\" # CHANGE ME (unless this is the actual name)
-Glycan_Flexibility=\"Partial\" # works in AD docker
-Number_of_Replicas=\"5\" # works in AD docker
-Computing_Mode=\"Local_Host_Serial\" # works from inside AD docker
-Use_Docker=\"False\" # works from inside AD docker
-CONTAINER_NAME_PREFIX=\"unique-name-prefix\" # used if Use_Docker is True
+Example_AD2_Config="""#!/usr/bin/env bash
+
+## 
+## ad2config - configuration for Automated Antibody Docking 2
+## 
+
+## 
+## All variables except names of log files are unset by default. 
+## 
+
+## These are the defaults for the log files
+#
 Log_File=\"ad2.log\" # the overall log for the N replica(s), their setup and the output analysis
-DOCKING_REPLICA_OUTPUT_PDBQT=\"docking_output.pdbqt\" # set the name of the output file from each docking replica
-DOCKING_REPLICA_LOG_FILE=\"docking.log\" # set the name of the output from vina-carb for each replica
+DOCKING_REPLICA_LOG_FILE=\"docking.log\" # set the name of the log output from vina-carb for each replica
 DOCKING_REPLICA_JOB_LOG=\"ad2_job.log\"  # the log from AAD2 about an individual docking replica
-AD2_Docking_CPUS=\"28\" # Set to the number of CPUs (cores). Exhaustiveness will be set to this number.
-AD2_Docking_Batch_Script=\"\" # if you need to submit docking to a cluster
-AD2_Docking_Local_Script=\"\" # if you need to include/source another script in your docking dir
-AD2_Setup_Batch_Script=\"\" # if you need to submit setup to a cluster
-AD2_Analysis_Batch_Script=\"\" # if you need to submit analysis to a cluster
-AD2_Random_Seeds=(
-	[1]=\"112345\"
-	[2]=\"212345\"
-	[3]=\"312345\"
-	[4]=\"412345\"
-	[5]=\"512345\"
-) # Use this if you want deterministic behavior for proving repeatable results.
+
+## These variables must always be set
+#
+Antibody_File_Name=\"\" 
+Glycan_File_Name=\"\" 
+Glycan_Flexibility=\"\" 
+#    Possible values:
+#      \"Rigid\" - no flexibility
+#      \"Partial\" - some parts are flexible
+#      \"Flexible\" - all parts are flexible
+Number_of_Replicas=\"\"  # An integer
+AD2_Docking_CPUS=\"\"   # Number of cores to use
+Computing_Mode=\"\" 
+#    Possible values:
+#      \"Local_Host_Serial\" - run all parts in serial, one at a time, on the local host
+#      \"Batch\" - submit the replicas to a cluster
+#          Note: if set to 'Batch', then  you need to specify other options. See below.
+Use_Docker=\"\" 
+#    Options: \"True\" or \"False\".  If 'True', then other settings are required.
+
+
+AAD2_CLI_BIN_PATH=\"\"  # The path for AAD2 executables used outside a container
+
+## This may be set if desired. Leave unset if unsure.
+#
+#AD2_Random_Seeds=(
+#	[1]=\"112345\"
+#	[2]=\"212345\"
+#	[3]=\"312345\"
+#	[4]=\"412345\"
+#	[5]=\"512345\"
+#) # Use this if you want deterministic behavior for proving repeatable results.
 # Substitute your random number seeds.
 # Ensure that the number of entries matches the Number_of_Replicas, above.
-"""
 
-Example_Docker_Configuration="""
-# Let AAD2 know where the docker utils are.
-AAD2_DOCKER_HOME=/path/to/AAD2_Docker
-# Configuration file for using AAD2 inside a docker container
-# Values initially written into this file are the defaults.
+
+## For submitting parts of the scripts to a cluster
 #
-# The image name and tag are likely to be out of date. Please check.
-Image=\"antibody-docking:2025-02-14-00-54-blf\" # Replace with actual name and tag
+AD2_Docking_Batch_Script=\"\" # if you need to submit docking to a cluster
+#   example: AD2_Docking_Batch_Script=\"submit_docking_to_slurm_with_docker.bash\"
+AD2_Docking_Local_Script=\"\" # if you need to include/source another script in your docking dir
+#   example: AD2_Docking_Local_Script=\"gwconfig\"
+
+## These are required if Use_Docker is set to True
 #
-# If you need to run a script before using docker, put its path here.
-# Things you might need in such a script:
-#    modules to load
-#    checks for image presence or loading of images into the local repo
-#    setting environment paths, changing user, etc.
-# Do not use string \"/path/to/your/script\".
-# Note also that the code here can be included in the batch script if submitting to a node.
-#    For more on that, see the regular ad2config file.
-Pre_Docker_Setup_Script=\"/path/to/your/script\" # replace with the path to your script - this default means 'unset'
+AAD2_DOCKER_HOME=\"\"
+#
+Image=\"\" 
+#   Example: Image=\"antibody-docking:2025-02-14-00-54-blf\"  # check current name:tag
 """
 
 Standard_Vina_Carb_Configuration="""
@@ -122,8 +134,6 @@ if [ ! -e "${WORKDIR}/ad2config" ] ; then
         echo "The supplied directory does not contain an ad2config file." >> ${LOGF}
 	echo "Writing an example file to the directory." >> ${LOGF}
 	echo "${Example_AD2_Config}" > ${WORKDIR}/ad2config.example
-	echo "In case you are also using docker, writing an example config for that, too." >> ${LOGF}
-	echo "${Example_Docker_Configuration}" > ad2dockerconfig.example
 fi
 if [ -e "vcconfig" ] ; then
 	echo "Found existing vcconfig. Not clobbering it." >> ${LOGF}

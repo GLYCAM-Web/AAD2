@@ -1,8 +1,7 @@
-pUUID='abcdef0123456789'
-DOCKING_REPLICA_CPUS='8'
-SITE_NICK_NAME='test'
-AAD2_BASE_PATH='/path/to/aad2_repos'
-AAD2_DOCKER_HOME="${AAD2_BASE_PATH}/AAD2_Docker"
+DOCKING_REPLICA_BATCH_CPUS='16' # can differ from the cpus specified for vina-carb to use
+##AAD2_BASE_PATH="" # override if needed 
+##AAD2_DOCKER_HOME="" # override if needed 
 SUBMIT_FILE_NAME="slurm_submit.bash"
 CLUSTER_EXE_NAME="run_docking_with_docker_on_cluster_node.bash"
 
+pUUID='abcdef0123456789' # this setting is for testing. use the correct ones

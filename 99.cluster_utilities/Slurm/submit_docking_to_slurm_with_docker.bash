@@ -10,7 +10,7 @@
 #
 # ad2config following contains
 #    Log_File
-#    AAD2_BIN_PATH
+#    AAD2_CLI_BIN_PATH
 #    AD2_Docking_Local_Script
 source ad2config   
 
@@ -23,11 +23,11 @@ fi
 #
 # AD2_Docking_Local_Script contains
 #    pUUID
-#    DOCKING_REPLICA_CPUS # can differ from AD2_Docking_CPUS
+#    DOCKING_REPLICA_BATCH_CPUS # can differ from AD2_Docking_CPUS
 #    SUBMIT_FILE_NAME
 #    CLUSTER_EXE_NAME
-#    AAD2_BIN_PATH
-#    AAD2_DOCKER_HOME
+#    AAD2_BIN_PATH # can be overridden if need be
+#    AAD2_DOCKER_HOME # can be overridden if need be
 # The likely name:  gwconfig # GLYCAM-Web configuration file
 echo "checking for local script"
 if [ -z "${AD2_Docking_Local_Script}" ] ; then
@@ -69,10 +69,10 @@ source ad2config
 source ${AD2_Docking_Local_Script}
 
 cd ${WORKDIR} 
-export PATH=${AAD2_BIN_PATH}/bin:\$PATH
+export PATH=${AAD2_CLI_BIN_PATH}/bin:\$PATH
 echo \"The local computing host is: \$(hostname)\" >> ${WJOB_LOG}
 export AAD2_DOCKER_HOME
-source set_thoreau_node_docker_modules.bash >> ${WJOB_LOG}
+module load docker >> ${WJOB_LOG}
 bash ensure_image_is_present.bash >> ${WJOB_LOG}
 cd ${AAD2_DOCKER_HOME} 
 export CONTAINER_NAME_PREFIX=${CONTAINER_NAME_PREFIX}
@@ -89,7 +89,7 @@ submitMe="""#!/usr/bin/env bash
 #SBATCH --job-name=ad-${CONTAINER_NAME_PREFIX}
 #SBATCH --nodes=1
 #SBATCH --tasks-per-node=1
-#SBATCH --cpus-per-task=${DOCKING_REPLICA_CPUS}
+#SBATCH --cpus-per-task=${DOCKING_REPLICA_BATCH_CPUS}
 
 bash ${CLUSTER_EXE_NAME} >> ${WJOB_LOG}
 """
