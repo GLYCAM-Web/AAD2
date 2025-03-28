@@ -57,7 +57,7 @@ color Display Background white
 
 set filename \"AD_image.dat\" 
 render Tachyon \$filename 
-/programs/lib/vmd/tachyon_LINUXAMD64 -aasamples 12 AD_image.dat -format TARGA -o AD_image.dat.tga
+${vmdLIB}/lib/vmd/tachyon_LINUXAMD64 -aasamples 12 AD_image.dat -format TARGA -o AD_image.dat.tga
 quit
 """
 
