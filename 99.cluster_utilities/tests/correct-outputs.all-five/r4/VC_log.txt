@@ -1,0 +1,4 @@
+CHI energy penalties applied to 8SB   3  and 0MA   4  linkage.
+CHI energy penalties NOT applied to phi torsion in linkage b/w 8SB   3  and 4CD   2 .
+CHI energy penalties NOT applied to psi torsion in linkage b/w 8SB   3  and 4CD   2 .
+CHI energy penalities NOT applied to glycosidic linkage b/w 8SB   3  and 4CD   2 .

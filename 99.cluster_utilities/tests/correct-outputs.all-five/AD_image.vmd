@@ -1,0 +1,47 @@
+#!/usr/local/bin/vmd
+set viewplist {}
+# Display settings
+display focallength  2.000000
+display height       7.000000
+display distance     -2.000000
+display projection   Orthographic
+mol new docking_output.pdb type pdb first 0 last -1 step 1 filebonds 1 autobonds 1 waitfor all
+mol delrep 0 top
+mol representation Licorice 0.100000 12.000000 12.000000
+mol color Name
+mol selection {all}
+mol material EdgyShiny
+mol addrep top
+mol drawframes top 0 {0:99}
+mol rename top docking_output.pdb
+set viewpoints([molinfo top]) {{{1 0 0 1.70139} {0 1 0 -0.0207196} {0 0 1 9.64509} {0 0 0 1}} {{0.99858 0.0470071 0.02504 0} {-0.0292129 0.0902926 0.995484 0} {0.044534 -0.994802 0.0915379 0} {0 0 0 1}} {{0.0498193 0 0 0} {0 0.0498193 0 0} {0 0 0.0498193 0} {0 0 0 1}} {{1 0 0 0} {0 1 0 0} {0 0 1 0} {0 0 0 1}}}
+lappend viewplist [molinfo top]
+# done with molecule 0
+mol new scfv_aligned.pdb type pdb first 0 last -1 step 1 filebonds 1 autobonds 1 waitfor all
+mol delrep 0 top
+mol representation NewCartoon 0.300000 10.000000 4.100000 0
+mol color Structure
+mol selection {all}
+mol material AOChalky
+mol addrep top
+mol rename top scfv_aligned.pdb
+set viewpoints([molinfo top]) {{{1 0 0 1.70139} {0 1 0 -0.0207196} {0 0 1 9.64509} {0 0 0 1}} {{0.99858 0.0470071 0.02504 0} {-0.0292129 0.0902926 0.995484 0} {0.044534 -0.994802 0.0915379 0} {0 0 0 1}} {{0.0498193 0 0 0} {0 0.0498193 0 0} {0 0 0.0498193 0} {0 0 0 1}} {{1 0 0 0} {0 1 0 0} {0 0 1 0} {0 0 0 1}}}
+lappend viewplist [molinfo top]
+set topmol [molinfo top]
+# done with molecule 1
+
+foreach v $viewplist {
+  molinfo $v set {center_matrix rotate_matrix scale_matrix global_matrix} $viewpoints($v)
+}
+unset viewplist
+
+axes location off
+color Display Background white
+
+# Render snapshot
+
+set filename "AD_image.dat" 
+render Tachyon $filename 
+/programs/website_aad2/lib/vmd/tachyon_LINUXAMD64 -aasamples 12 AD_image.dat -format TARGA -o AD_image.dat.tga
+quit
+

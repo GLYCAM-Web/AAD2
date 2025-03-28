@@ -1,0 +1,35 @@
+INFO: AD2 log of docking replica run started on Thu Mar 27 19:26:15 -08 2025
+INFO: Setting random seed for replica 3 to 1840569422
+INFO: Using 8 CPUs and setting exhautiveness to match.
+INFO: copying the indicated script for batch processing.
+INFO: copying the local config script for batch processing.
+Replica status requested on Thu Mar 27 19:26:21 -08 2025.
+Unable to complete status request. Try again in a few seconds.
+Replica status requested on Thu Mar 27 19:26:26 -08 2025.
+The job has started.
+Replica status requested on Thu Mar 27 19:26:32 -08 2025.
+The job has started.
+Replica status requested on Thu Mar 27 19:26:38 -08 2025.
+The job has started.
+Replica status requested on Thu Mar 27 19:26:43 -08 2025.
+The job has started.
+Replica status requested on Thu Mar 27 19:26:49 -08 2025.
+The job has started.
+Replica status requested on Thu Mar 27 19:26:54 -08 2025.
+The job has started.
+Replica status requested on Thu Mar 27 19:27:00 -08 2025.
+The job has started.
+Replica status requested on Thu Mar 27 19:27:05 -08 2025.
+The job has started.
+Replica status requested on Thu Mar 27 19:27:11 -08 2025.
+The job has started.
+Replica status requested on Thu Mar 27 19:27:16 -08 2025.
+The job has started.
+Replica status requested on Thu Mar 27 19:27:22 -08 2025.
+The job has started.
+Replica status requested on Thu Mar 27 19:27:27 -08 2025.
+The job has started.
+Replica status requested on Thu Mar 27 19:27:33 -08 2025.
+The job has started.
+Replica status requested on Thu Mar 27 19:27:39 -08 2025.
+The job appears to have completed successfully.

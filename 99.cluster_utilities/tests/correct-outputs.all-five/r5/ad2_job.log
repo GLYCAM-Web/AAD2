@@ -1,0 +1,177 @@
+===== Begin Submission ====================================
+About to submit docking run for working directory: /programs/website_aad2/swarmtest/AAD2_Docker/image/AAD2/99.cluster_utilities/tests/outputs.all-five/r5
+Writing submission file to slurm_submit.bash and submitting.
+Submitted batch job 67967
+===== End Submission ======================================
+The local computing host is: node002
+The command for using docker compose is >>>docker-compose<<<
+Using the following command to ensure that the required image is available.
+bash /programs/website_aad2/swarmtest/AAD2_Docker/bin/load_image.bash antibody-docking:2025-03-26-00-47-blf /programs/website_aad2/image_files
+The specified image should be available.
+The load process returned this information:
+The required image is already available. Not loading.
+The command for using docker compose is >>>docker-compose<<<
+The AAD2_COMPOSE_COMMAND is:
+>>>bash -lc "cd /home/antibodydocking/workdir/ && run_AD_docking"<<<
+The local dir is:
+>>>/programs/website_aad2/swarmtest/AAD2_Docker/image/AAD2/99.cluster_utilities/tests/outputs.all-five/r5<<<
+Up:
+docker-compose --file ./docker-compose.yaml --project-name abcde-5 up
+Attaching to abcde-5-webdev-aad2
+Vina-Carb docking job started at: Fri Mar 28 03:26:26 UTC 2025
+VINA_CARB already defined as: /programs/src/VC_1_0
+
+Using this command:
+    vina-carb --config vcconfig --out docking_output.pdbqt --log docking.log
+
+abcde-5-webdev-aad2  | #################################################################
+abcde-5-webdev-aad2  | #	 		Vina-Carb Results	 	     	#
+abcde-5-webdev-aad2  | #################################################################
+abcde-5-webdev-aad2  | 
+abcde-5-webdev-aad2  | WARNING: The search space volume > 27000 Angstrom^3 (See FAQ)
+abcde-5-webdev-aad2  | Reading input ... yes
+abcde-5-webdev-aad2  | yes
+abcde-5-webdev-aad2  | yes
+abcde-5-webdev-aad2  | yes
+abcde-5-webdev-aad2  | yes
+abcde-5-webdev-aad2  | yes
+abcde-5-webdev-aad2  | done.
+abcde-5-webdev-aad2  | Setting up the scoring function ... done.
+abcde-5-webdev-aad2  | Analyzing the binding site ... done.
+abcde-5-webdev-aad2  | Using random seed: 1910945648
+abcde-5-webdev-aad2  | Performing search ... 
+abcde-5-webdev-aad2  | 0%   10   20   30   40   50   60   70   80   90   100%
+abcde-5-webdev-aad2  | |----|----|----|----|----|----|----|----|----|----|
+abcde-5-webdev-aad2  | ***************************************************
+abcde-5-webdev-aad2  | done.
+abcde-5-webdev-aad2  | Refining results ... 	BEFORE corresponding chi_energy: 3.48306
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | 	BEFORE corresponding chi_energy: 0
+abcde-5-webdev-aad2  | done.
+abcde-5-webdev-aad2  | 
+abcde-5-webdev-aad2  | mode |   affinity |   chi   |  affinity | dist from best mode
+abcde-5-webdev-aad2  |      | (kcal/mol) |  energy |  - chi    | rmsd l.b.| rmsd u.b.
+abcde-5-webdev-aad2  | -----+------------+---------+--------------------+------------
+abcde-5-webdev-aad2  |    1         -5.5      0.0      -5.5      0.000      0.000
+abcde-5-webdev-aad2  |    2         -5.4      0.0      -5.4      7.746     12.253
+abcde-5-webdev-aad2  |    3         -5.4      0.0      -5.4      2.587      6.304
+abcde-5-webdev-aad2  |    4         -5.4      0.0      -5.4      1.497      2.933
+abcde-5-webdev-aad2  |    5         -5.4      0.0      -5.4      2.209      7.814
+abcde-5-webdev-aad2  |    6         -5.4      0.0      -5.4      1.344      2.166
+abcde-5-webdev-aad2  |    7         -5.4      0.0      -5.4      4.214      9.049
+abcde-5-webdev-aad2  |    8         -5.3      0.0      -5.3     15.175     19.643
+abcde-5-webdev-aad2  |    9         -5.3      0.0      -5.3      2.095      6.500
+abcde-5-webdev-aad2  |   10         -5.3      0.0      -5.3      2.489      6.941
+abcde-5-webdev-aad2  |   11         -5.2      0.0      -5.2     11.463     14.175
+abcde-5-webdev-aad2  |   12         -5.2      0.0      -5.2      2.576      5.886
+abcde-5-webdev-aad2  |   13         -5.2      0.0      -5.2      2.511      5.228
+abcde-5-webdev-aad2  |   14         -5.2      0.0      -5.2      1.594      2.741
+abcde-5-webdev-aad2  |   15         -5.1      0.0      -5.1      2.533      5.246
+abcde-5-webdev-aad2  |   16         -5.1      0.0      -5.1      3.273      6.542
+abcde-5-webdev-aad2  |   17         -5.1      0.0      -5.1      3.100      7.231
+abcde-5-webdev-aad2  |   18         -5.0      0.0      -5.0      2.493      5.124
+abcde-5-webdev-aad2  |   19         -5.0      0.0      -5.0      3.660      7.314
+abcde-5-webdev-aad2  |   20         -5.0      0.0      -5.0      2.596      7.112
+abcde-5-webdev-aad2  | Writing output ... done.
+job ended at Fri Mar 28 03:27:22 UTC 2025
+Job appears to have completed.
+abcde-5-webdev-aad2 exited with code 0
+Down:
+docker-compose --file ./docker-compose.yaml --project-name abcde-5 down

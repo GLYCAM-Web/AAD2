@@ -1,4 +1,6 @@
-## Specific files
+## Specific files and directories
+99.cluster_utilities/tests/Local_Settings.bash 
+99.cluster_utilities/tests/outputs/
 
 # Compiled binaries
 1.prepare_antibody/align_antibody/align

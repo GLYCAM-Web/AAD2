@@ -1,0 +1,27 @@
+Starting the AD2 setup log at: Fri Mar 28 03:26:10 UTC 2025
+Setting the working directory to: /home/antibodydocking/workdir
+Found existing vcconfig. Not clobbering it.
+If you have set random number seeds, they will be put in place later in the process unless you
+have already made the subdirectories and placed vcconfig files there. In that case, these scripts will
+not overwrite them.
+
+Setup finished.
+
+If there are files ending in .example in this directory, you need to fill the proper values 
+into them and remove any values that are not relevant to you. Then, remove '.example' from 
+the filenames. Don't forget to add all the needed files to the working directory.
+
+
+When fully set up, the working directory should contain these things:
+
+    - The antibody PDB file 
+
+    - The glycan PDB file
+
+    - The glycan ring atoms file called 'glycan_ring_atoms.txt'
+
+    - An AD2 configuration file
+
+    - A VC configuration file
+
+

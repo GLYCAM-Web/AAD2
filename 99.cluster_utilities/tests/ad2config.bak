@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+
+## 
+## ad2config - configuration for Automated Antibody Docking 2
+## 
+
+## 
+## All variables except names of log files are unset by default. 
+## 
+
+## These are the defaults for the log files
+#
+Log_File="ad2.log" # the overall log for the N replica(s), their setup and the output analysis
+DOCKING_REPLICA_LOG_FILE="docking.log" # set the name of the log output from vina-carb for each replica
+DOCKING_REPLICA_JOB_LOG="ad2_job.log"  # the log from AAD2 about an individual docking replica
+
+Antibody_File_Name="UPLOADED_2H1_PDB_MONOMER_.pdb"
+Glycan_File_Name="DManpa1-8DNeup5Acb2-4DFrufa2-OH_structure.pdb"
+Glycan_Flexibility="Partial"
+Number_of_Replicas="5"
+Computing_Mode="Batch"
+AD2_Random_Seeds=(
+        [1]="1770199568"
+        [2]="-342100090"
+        [3]="1840569422"
+        [4]="-271726951"
+        [5]="1910945648"
+)
+AD2_Docking_CPUS="8"   # Number of cores to use
+Use_Docker="True" 
+
+AAD2_CLI_BIN_PATH="/programs/website_aad2/swarmtest/AAD2_Docker/image/AAD2/bin"  # The path for AAD2 executables used outside a container
+
+AD2_Docking_Batch_Script="submit_docking_to_slurm_with_docker.bash"
+AD2_Docking_Local_Script="gwconfig"
+
+## These are required if Use_Docker is set to True
+#
+AAD2_DOCKER_HOME="/programs/website_aad2/swarmtest/AAD2_Docker"
+#
+Image="antibody-docking:2025-03-26-00-47-blf" 
+#
+AAD2_IMAGE_FILE_PATH="/programs/website_aad2/image_files"
