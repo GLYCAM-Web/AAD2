@@ -25,19 +25,29 @@ while [ "${i}" -le "${Number_of_Replicas}" ] ; do
 	if [ ! -e "vcconfig" ] ; then
 		cp ../vcconfig .
 		if [ -z "${AD2_Random_Seeds[${i}]}" ] ; then
-			echo "INFO: Using default vcconfig for replica ${i}."  >> ${Log_File}
+			echo "INFO: Using an auto-generated random number seed for replica ${i}."  >> ${Log_File}
 		else
 			echo "INFO: Setting random seed for replica ${i} to ${AD2_Random_Seeds[${i}]}" >> ${Log_File}
 			echo "seed=${AD2_Random_Seeds[${i}]}" >> vcconfig
 		fi
 		if [ -z "${AD2_Docking_CPUS}" ] ; then
-			echo "INFO: Using default number of CPUs=8 and setting exhautiveness to match." >> ${Log_File}
+			echo "INFO: Using default number of CPUs=8." >> ${Log_File}
 			echo "cpu=8" >> vcconfig
-			echo "exhaustiveness=8" >> vcconfig
+			if [ -z "${AD2_Exhaustiveness}" ] ; then
+				echo "INFO: Exhaustiveness not specified. Setting equal to nCPUs (8)." >> ${Log_File}
+				echo "exhaustiveness=8" >> vcconfig
+			fi
 		else
-			echo "INFO: Using ${AD2_Docking_CPUS} CPUs and setting exhautiveness to match." >> ${Log_File}
+			echo "INFO: Using ${AD2_Docking_CPUS} CPUs for the docking." >> ${Log_File}
 			echo "cpu=${AD2_Docking_CPUS}" >> vcconfig
-			echo "exhaustiveness=${AD2_Docking_CPUS}" >> vcconfig
+			if [ -z "${AD2_Exhaustiveness}" ] ; then
+				echo "INFO: Exhaustiveness not specified. Setting equal to nCPUs (${AD2_Docking_CPUS})." >> ${Log_File}
+				echo "exhaustiveness=${AD2_Docking_CPUS}" >> vcconfig
+			fi
+		fi
+		if [ ! -z "${AD2_Exhaustiveness}" ] ; then
+			echo "INFO: Setting exhaustiveness to specified value (${AD2_Exhaustiveness})." >> ${Log_File}
+			echo "exhaustiveness=${AD2_Exhaustiveness}" >> vcconfig
 		fi
 	
 	else

@@ -63,7 +63,10 @@ Glycan_Flexibility=\"\"
 #      \"Partial\" - some parts are flexible
 #      \"Flexible\" - all parts are flexible
 Number_of_Replicas=\"\"  # An integer
-AD2_Docking_CPUS=\"\"   # Number of cores to use
+AD2_Docking_CPUS=\"\"   # Number of cores to use 
+AD2_Exhaustiveness=\"\"   
+#    The Vina-Carb 'exhaustiveness'.
+#    Using a multiple of AD2_Docking_CPUS is the most computationally efficient.
 Computing_Mode=\"\" 
 #    Possible values:
 #      \"Local_Host_Serial\" - run all parts in serial, one at a time, on the local host
@@ -71,6 +74,10 @@ Computing_Mode=\"\"
 #          Note: if set to 'Batch', then  you need to specify other options. See below.
 Use_Docker=\"\" 
 #    Options: \"True\" or \"False\".  If 'True', then other settings are required.
+Use_VMD=\"False\"
+#    Options: \"True\" or \"False\". If 'True', other settigs are required.
+VMD_HOME=\"\" # Path to the 'vmd' binary, e.g., /programs/bin
+VMD_LIB=\"\" # Path to the 'vmd' lib directory, e.g., /programs/lib
 
 
 AAD2_CLI_BIN_PATH=\"\"  # The path for AAD2 executables used outside a container

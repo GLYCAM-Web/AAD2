@@ -57,10 +57,10 @@ color Display Background white
 
 set filename \"AD_image.dat\" 
 render Tachyon \$filename 
-${vmdLIB}/lib/vmd/tachyon_LINUXAMD64 -aasamples 12 AD_image.dat -format TARGA -o AD_image.dat.tga
+${VMD_LIB}/vmd/tachyon_LINUXAMD64 -aasamples 12 AD_image.dat -format TARGA -o AD_image.dat.tga
 quit
 """
 
 echo "${vmd_script}" > "AD_image.vmd"
 vmd -e "AD_image.vmd"
-convert AD_image.dat.tga -density 150:150 -bordercolor white -border 1x1  -trim  AD_image.jpg
+convert AD_image.dat.tga -density 150:150 -bordercolor white -border 1x1  -trim  AD_image.png

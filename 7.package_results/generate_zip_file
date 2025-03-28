@@ -3,5 +3,6 @@
 WORKDIR="$(pwd)"
 dirname="$(basename ${WORKDIR})"
 prefix="${dirname:0:5}"
+zipFileName="AD_project_${prefix}.zip"
 
-(cd ../ && zip -r ${dirname}/${prefix}.zip ${dirname} -x "${dirname}/tmpFiles/*" "${dirname}/*.zip")
+(cd ../ && zip -r ${dirname}/${zipFileName} ${dirname} -x "${dirname}/tmpFiles/*" "${dirname}/*.zip")

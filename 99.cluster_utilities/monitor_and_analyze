@@ -128,9 +128,13 @@ fi
 
 cd ${WD}
 
-if ! generate_AD_results_view ; then
-	echo "ERROR: There was a problem generating the default image." >> ${Monitor_Log} 2>&1
-	ERRORS="$(ERRORS+1)"
+if [ "${Use_VMD}" == "True" ] ; then
+        export PATH=${VMD_HOME}:$PATH
+        export VMD_LIB
+	if ! generate_AD_results_view ; then
+		echo "ERROR: There was a problem generating the default image." >> ${Monitor_Log} 2>&1
+		ERRORS="$(ERRORS+1)"
+	fi
 fi
 
 if ! generate_zip_file ; then

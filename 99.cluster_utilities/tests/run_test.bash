@@ -57,7 +57,8 @@ AD2_Random_Seeds=(
         [4]=\"-271726951\"
         [5]=\"1910945648\"
 )
-AD2_Docking_CPUS=\"8\" 
+AD2_Docking_CPUS=\"28\" 
+AD2_Exhaustiveness=\"56\" 
 Use_Docker=\"True\" 
 AD2_Docking_Batch_Script=\"submit_docking_to_slurm_with_docker.bash\"
 AD2_Docking_Local_Script=\"gwconfig\"
@@ -66,6 +67,10 @@ AAD2_IMAGE_FILE_PATH=\"${AAD2_IMAGE_FILE_PATH}\"
 Image=\"${Image}\"
 AAD2_DOCKER_HOME=\"${AAD2_DOCKER_HOME}\"
 AAD2_CLI_BIN_PATH=\"${AAD2_CLI_BIN_PATH}\"
+
+Use_VMD=\"${Use_VMD}\"
+VMD_HOME=\"${VMD_HOME}\" # Path to the 'vmd' binary, e.g., /programs/bin
+VMD_LIB=\"${VMD_LIB}\" # Path to the 'vmd' lib directory, e.g., /programs/lib
 
 """
 

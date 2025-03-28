@@ -10,7 +10,7 @@
 5.analyze_results/write_output
 
 ## General patterns
-
+*Local_Settings.bash
 *.swp
 *git-ignore-me*
 
