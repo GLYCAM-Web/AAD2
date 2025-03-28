@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 # Submits the docking job in the **current directory** to a slurm cluster.
+# Requires well-populated ad2config and ad2dockerconfig files.
 
 ##
 # This script assumes that paths on the compute nodes match those on the head node.

@@ -36,7 +36,8 @@ submitMe="""#!/usr/bin/env bash
 #SBATCH --tasks-per-node=1
 #SBATCH --cpus-per-task=4
 
-module add docker
+module load docker
+module load runc
 export AAD2_DOCKER_HOME
 ensure_image_is_present 
 """
