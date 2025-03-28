@@ -13,5 +13,5 @@ chi_coeff=1
 chi_cutoff=2
 
 seed=1770199568
-cpu=8
-exhaustiveness=8
+cpu=28
+exhaustiveness=56

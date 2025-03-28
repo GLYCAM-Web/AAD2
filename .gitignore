@@ -10,7 +10,15 @@
 5.analyze_results/write_output
 
 ## General patterns
+#
+# Batch scheduler outputs
+*ad-*.err
+*ad-*.out
+#
+# Local settings files
 *Local_Settings.bash
+#
+# General utility but not code to commit
 *.swp
 *git-ignore-me*
 

@@ -1,22 +1,45 @@
-Monitor log begun on Thu Mar 27 19:26:21 -08 2025
+Monitor log begun on Fri Mar 28 14:56:29 -08 2025
 The wait between status checks, in seconds, is: 5
 The monitor will time out after, in seconds: 7200
-0 have completed as of Thu Mar 27 19:26:21 -08 2025
-0 have completed as of Thu Mar 27 19:26:27 -08 2025
-0 have completed as of Thu Mar 27 19:26:32 -08 2025
-0 have completed as of Thu Mar 27 19:26:38 -08 2025
-0 have completed as of Thu Mar 27 19:26:43 -08 2025
-0 have completed as of Thu Mar 27 19:26:49 -08 2025
-0 have completed as of Thu Mar 27 19:26:54 -08 2025
-0 have completed as of Thu Mar 27 19:27:00 -08 2025
-0 have completed as of Thu Mar 27 19:27:05 -08 2025
-0 have completed as of Thu Mar 27 19:27:11 -08 2025
-0 have completed as of Thu Mar 27 19:27:17 -08 2025
-2 have completed as of Thu Mar 27 19:27:22 -08 2025
-2 have completed as of Thu Mar 27 19:27:28 -08 2025
-3 have completed as of Thu Mar 27 19:27:33 -08 2025
-AAD2 replicas all finished on Thu Mar 27 19:27:39 -08 2025
+0 have completed as of Fri Mar 28 14:56:30 -08 2025
+0 have completed as of Fri Mar 28 14:56:35 -08 2025
+0 have completed as of Fri Mar 28 14:56:41 -08 2025
+0 have completed as of Fri Mar 28 14:56:46 -08 2025
+0 have completed as of Fri Mar 28 14:56:52 -08 2025
+0 have completed as of Fri Mar 28 14:56:58 -08 2025
+0 have completed as of Fri Mar 28 14:57:03 -08 2025
+0 have completed as of Fri Mar 28 14:57:09 -08 2025
+0 have completed as of Fri Mar 28 14:57:14 -08 2025
+0 have completed as of Fri Mar 28 14:57:20 -08 2025
+0 have completed as of Fri Mar 28 14:57:25 -08 2025
+0 have completed as of Fri Mar 28 14:57:31 -08 2025
+0 have completed as of Fri Mar 28 14:57:36 -08 2025
+0 have completed as of Fri Mar 28 14:57:42 -08 2025
+0 have completed as of Fri Mar 28 14:57:47 -08 2025
+0 have completed as of Fri Mar 28 14:57:53 -08 2025
+0 have completed as of Fri Mar 28 14:57:58 -08 2025
+0 have completed as of Fri Mar 28 14:58:04 -08 2025
+0 have completed as of Fri Mar 28 14:58:10 -08 2025
+0 have completed as of Fri Mar 28 14:58:15 -08 2025
+0 have completed as of Fri Mar 28 14:58:21 -08 2025
+0 have completed as of Fri Mar 28 14:58:26 -08 2025
+0 have completed as of Fri Mar 28 14:58:32 -08 2025
+0 have completed as of Fri Mar 28 14:58:37 -08 2025
+0 have completed as of Fri Mar 28 14:58:43 -08 2025
+0 have completed as of Fri Mar 28 14:58:48 -08 2025
+0 have completed as of Fri Mar 28 14:58:54 -08 2025
+0 have completed as of Fri Mar 28 14:59:00 -08 2025
+0 have completed as of Fri Mar 28 14:59:05 -08 2025
+2 have completed as of Fri Mar 28 14:59:11 -08 2025
+2 have completed as of Fri Mar 28 14:59:16 -08 2025
+3 have completed as of Fri Mar 28 14:59:22 -08 2025
+3 have completed as of Fri Mar 28 14:59:27 -08 2025
+3 have completed as of Fri Mar 28 14:59:33 -08 2025
+3 have completed as of Fri Mar 28 14:59:38 -08 2025
+3 have completed as of Fri Mar 28 14:59:44 -08 2025
+4 have completed as of Fri Mar 28 14:59:50 -08 2025
+AAD2 replicas all finished on Fri Mar 28 14:59:55 -08 2025
 About to run AD_Analyza
 Use Docker is set to true. Attempting to run analysis in a docker container.
 Analysis completed with 0 errors.
-The monitoring script reports that the job completed on Thu Mar 27 19:27:45 -08 2025
+The monitoring script reports that the job completed on Fri Mar 28 15:00:02 -08 2025

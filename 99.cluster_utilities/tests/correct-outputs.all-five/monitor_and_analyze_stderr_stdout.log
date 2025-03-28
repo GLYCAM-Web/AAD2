@@ -1,125 +1,196 @@
-The command for using docker compose is >>>docker-compose<<<
+The command for using docker compose is >>>docker compose<<<
 The AAD2_COMPOSE_COMMAND is:
 >>>bash -lc "AD_Analyze /home/antibodydocking/workdir/"<<<
 The local dir is:
->>>/programs/website_aad2/swarmtest/AAD2_Docker/image/AAD2/99.cluster_utilities/tests/outputs.all-five<<<
+>>>/programs/website_aad2/swarmtest/AAD2_Docker/image/AAD2/99.cluster_utilities/tests/outputs<<<
 Up:
-docker-compose --file ./docker-compose.yaml --project-name 960b1 up
- Network 960b1-webdev-aad2-net  Creating
- Network 960b1-webdev-aad2-net  Created
- Container 960b1-webdev-aad2  Creating
- Container 960b1-webdev-aad2  Created
-Attaching to 960b1-webdev-aad2
-960b1-webdev-aad2 exited with code 0
+docker compose --file ./docker-compose.yaml --project-name ee04a up
+ Network ee04a-webdev-aad2-net  Creating
+ Network ee04a-webdev-aad2-net  Created
+ Container ee04a-webdev-aad2  Creating
+ Container ee04a-webdev-aad2  Created
+Attaching to ee04a-webdev-aad2
+[Kee04a-webdev-aad2 exited with code 0
 Down:
-docker-compose --file ./docker-compose.yaml --project-name 960b1 down
- Container 960b1-webdev-aad2  Stopping
- Container 960b1-webdev-aad2  Stopped
- Container 960b1-webdev-aad2  Removing
- Container 960b1-webdev-aad2  Removed
- Network 960b1-webdev-aad2-net  Removing
- Network 960b1-webdev-aad2-net  Removed
-  adding: outputs.all-five/ (stored 0%)
-  adding: outputs.all-five/DManpa1-8DNeup5Acb2-4DFrufa2-OH_structure.pdb (deflated 77%)
-  adding: outputs.all-five/UPLOADED_2H1_PDB_MONOMER_.pdb (deflated 77%)
-  adding: outputs.all-five/glycan_ring_atoms.txt (deflated 39%)
-  adding: outputs.all-five/submit_docking_to_slurm_with_docker.bash (deflated 62%)
-  adding: outputs.all-five/ad2config (deflated 44%)
-  adding: outputs.all-five/gwconfig (deflated 27%)
-  adding: outputs.all-five/vcconfig (deflated 38%)
-  adding: outputs.all-five/scfv_aligned.pdb (deflated 79%)
-  adding: outputs.all-five/protein.pdbqt (deflated 77%)
-  adding: outputs.all-five/ad2_setup.log (deflated 47%)
-  adding: outputs.all-five/ad2.log (deflated 92%)
-  adding: outputs.all-five/glycan.pdb (deflated 77%)
-  adding: outputs.all-five/ligand.pdbqt (deflated 74%)
-  adding: outputs.all-five/r1/ (stored 0%)
-  adding: outputs.all-five/r1/ad2.log (deflated 80%)
-  adding: outputs.all-five/r1/vcconfig (deflated 37%)
-  adding: outputs.all-five/r1/ad2config (deflated 44%)
-  adding: outputs.all-five/r1/protein.pdbqt (deflated 77%)
-  adding: outputs.all-five/r1/ligand.pdbqt (deflated 74%)
-  adding: outputs.all-five/r1/submit_docking_to_slurm_with_docker.bash (deflated 62%)
-  adding: outputs.all-five/r1/gwconfig (deflated 27%)
-  adding: outputs.all-five/r1/run_docking_with_docker_on_cluster_node.bash (deflated 73%)
-  adding: outputs.all-five/r1/ad2_job.log (deflated 86%)
-  adding: outputs.all-five/r1/slurm_submit.bash (deflated 51%)
-  adding: outputs.all-five/r1/ad-abcde-1-67963.out (stored 0%)
-  adding: outputs.all-five/r1/ad-abcde-1-67963.err (deflated 70%)
-  adding: outputs.all-five/r1/docking.log (deflated 68%)
-  adding: outputs.all-five/r1/VC_log.txt (deflated 62%)
-  adding: outputs.all-five/r1/docking_output.pdbqt (deflated 87%)
-  adding: outputs.all-five/r2/ (stored 0%)
-  adding: outputs.all-five/r2/ad2.log (deflated 78%)
-  adding: outputs.all-five/r2/vcconfig (deflated 37%)
-  adding: outputs.all-five/r2/ad2config (deflated 44%)
-  adding: outputs.all-five/r2/protein.pdbqt (deflated 77%)
-  adding: outputs.all-five/r2/ligand.pdbqt (deflated 74%)
-  adding: outputs.all-five/r2/submit_docking_to_slurm_with_docker.bash (deflated 62%)
-  adding: outputs.all-five/r2/gwconfig (deflated 27%)
-  adding: outputs.all-five/r2/run_docking_with_docker_on_cluster_node.bash (deflated 73%)
-  adding: outputs.all-five/r2/ad2_job.log (deflated 86%)
-  adding: outputs.all-five/r2/slurm_submit.bash (deflated 51%)
-  adding: outputs.all-five/r2/ad-abcde-2-67964.out (stored 0%)
-  adding: outputs.all-five/r2/ad-abcde-2-67964.err (deflated 70%)
-  adding: outputs.all-five/r2/docking.log (deflated 68%)
-  adding: outputs.all-five/r2/VC_log.txt (deflated 62%)
-  adding: outputs.all-five/r2/docking_output.pdbqt (deflated 87%)
-  adding: outputs.all-five/r3/ (stored 0%)
-  adding: outputs.all-five/r3/ad2.log (deflated 78%)
-  adding: outputs.all-five/r3/vcconfig (deflated 37%)
-  adding: outputs.all-five/r3/ad2config (deflated 44%)
-  adding: outputs.all-five/r3/protein.pdbqt (deflated 77%)
-  adding: outputs.all-five/r3/ligand.pdbqt (deflated 74%)
-  adding: outputs.all-five/r3/submit_docking_to_slurm_with_docker.bash (deflated 62%)
-  adding: outputs.all-five/r3/gwconfig (deflated 27%)
-  adding: outputs.all-five/r3/run_docking_with_docker_on_cluster_node.bash (deflated 73%)
-  adding: outputs.all-five/r3/ad2_job.log (deflated 86%)
-  adding: outputs.all-five/r3/slurm_submit.bash (deflated 50%)
-  adding: outputs.all-five/r3/ad-abcde-3-67965.out (stored 0%)
-  adding: outputs.all-five/r3/ad-abcde-3-67965.err (deflated 70%)
-  adding: outputs.all-five/r3/docking.log (deflated 69%)
-  adding: outputs.all-five/r3/VC_log.txt (deflated 62%)
-  adding: outputs.all-five/r3/docking_output.pdbqt (deflated 87%)
-  adding: outputs.all-five/r4/ (stored 0%)
-  adding: outputs.all-five/r4/ad2.log (deflated 79%)
-  adding: outputs.all-five/r4/vcconfig (deflated 37%)
-  adding: outputs.all-five/r4/ad2config (deflated 44%)
-  adding: outputs.all-five/r4/protein.pdbqt (deflated 77%)
-  adding: outputs.all-five/r4/ligand.pdbqt (deflated 74%)
-  adding: outputs.all-five/r4/submit_docking_to_slurm_with_docker.bash (deflated 62%)
-  adding: outputs.all-five/r4/gwconfig (deflated 27%)
-  adding: outputs.all-five/r4/run_docking_with_docker_on_cluster_node.bash (deflated 73%)
-  adding: outputs.all-five/r4/ad2_job.log (deflated 86%)
-  adding: outputs.all-five/r4/slurm_submit.bash (deflated 50%)
-  adding: outputs.all-five/r4/ad-abcde-4-67966.out (stored 0%)
-  adding: outputs.all-five/r4/ad-abcde-4-67966.err (deflated 70%)
-  adding: outputs.all-five/r4/docking.log (deflated 68%)
-  adding: outputs.all-five/r4/VC_log.txt (deflated 62%)
-  adding: outputs.all-five/r4/docking_output.pdbqt (deflated 87%)
-  adding: outputs.all-five/r5/ (stored 0%)
-  adding: outputs.all-five/r5/ad2.log (deflated 79%)
-  adding: outputs.all-five/r5/vcconfig (deflated 37%)
-  adding: outputs.all-five/r5/ad2config (deflated 44%)
-  adding: outputs.all-five/r5/protein.pdbqt (deflated 77%)
-  adding: outputs.all-five/r5/ligand.pdbqt (deflated 74%)
-  adding: outputs.all-five/r5/submit_docking_to_slurm_with_docker.bash (deflated 62%)
-  adding: outputs.all-five/r5/gwconfig (deflated 27%)
-  adding: outputs.all-five/r5/run_docking_with_docker_on_cluster_node.bash (deflated 73%)
-  adding: outputs.all-five/r5/ad2_job.log (deflated 86%)
-  adding: outputs.all-five/r5/slurm_submit.bash (deflated 50%)
-  adding: outputs.all-five/r5/ad-abcde-5-67967.out (stored 0%)
-  adding: outputs.all-five/r5/ad-abcde-5-67967.err (deflated 70%)
-  adding: outputs.all-five/r5/docking.log (deflated 69%)
-  adding: outputs.all-five/r5/VC_log.txt (deflated 62%)
-  adding: outputs.all-five/r5/docking_output.pdbqt (deflated 87%)
-  adding: outputs.all-five/monitor_and_analyze_stderr_stdout.log (deflated 85%)
-  adding: outputs.all-five/monitor.log (deflated 73%)
-  adding: outputs.all-five/docking_output.pdbqt (deflated 88%)
-  adding: outputs.all-five/docking_output.pdb (deflated 84%)
-  adding: outputs.all-five/allmodels.pdb (deflated 84%)
-  adding: outputs.all-five/cluster.txt (deflated 63%)
-  adding: outputs.all-five/cluster_histogram.txt (deflated 56%)
-  adding: outputs.all-five/script_histogram.gplt (deflated 44%)
-  adding: outputs.all-five/histogram_sorted.eps (deflated 81%)
-  adding: outputs.all-five/histogram_sorted.png (deflated 19%)
+docker compose --file ./docker-compose.yaml --project-name ee04a down
+ Container ee04a-webdev-aad2  Stopping
+ Container ee04a-webdev-aad2  Stopped
+ Container ee04a-webdev-aad2  Removing
+ Container ee04a-webdev-aad2  Removed
+ Network ee04a-webdev-aad2-net  Removing
+ Network ee04a-webdev-aad2-net  Removed
+/programs/website_aad2/bin/vmd
+/programs/website_aad2/lib/vmd/vmd_LINUXAMD64: /lib64/libGL.so.1: no version information available (required by /programs/website_aad2/lib/vmd/vmd_LINUXAMD64)
+Info) VMD for LINUXAMD64, version 1.9.3 (November 30, 2016)
+Info) http://www.ks.uiuc.edu/Research/vmd/                         
+Info) Email questions and bug reports to vmd@ks.uiuc.edu           
+Info) Please include this reference in published work using VMD:   
+Info)    Humphrey, W., Dalke, A. and Schulten, K., `VMD - Visual   
+Info)    Molecular Dynamics', J. Molec. Graphics 1996, 14.1, 33-38.
+Info) -------------------------------------------------------------
+Info) Multithreading available, 48 CPUs detected.
+Info)   CPU features: SSE2 AVX AVX2 FMA KNL:AVX-512F+CD+ER+PF 
+Info) Free system memory: 173GB (92%)
+Info) No CUDA accelerator devices available.
+Info) Dynamically loaded 2 plugins in directory:
+Info) /programs/website_aad2/lib/vmd/plugins/LINUXAMD64/molfile
+Info) Using plugin pdb for structure file docking_output.pdb
+Info) Using plugin pdb for coordinates from file docking_output.pdb
+Info) Determining bond structure from distance search ...
+Info) Finished with coordinate file docking_output.pdb.
+Info) Analyzing structure ...
+Info)    Atoms: 55
+Info)    Bonds: 58
+Info)    Angles: 0  Dihedrals: 0  Impropers: 0  Cross-terms: 0
+Info)    Bondtypes: 0  Angletypes: 0  Dihedraltypes: 0  Impropertypes: 0
+Info)    Residues: 4
+Info)    Waters: 0
+Info)    Segments: 1
+Info)    Fragments: 1   Protein: 0   Nucleic: 0
+0
+{{1 0 0 1.70139} {0 1 0 -0.0207196} {0 0 1 9.64509} {0 0 0 1}} {{0.99858 0.0470071 0.02504 0} {-0.0292129 0.0902926 0.995484 0} {0.044534 -0.994802 0.0915379 0} {0 0 0 1}} {{0.0498193 0 0 0} {0 0.0498193 0 0} {0 0 0.0498193 0} {0 0 0 1}} {{1 0 0 0} {0 1 0 0} {0 0 1 0} {0 0 0 1}}
+0
+Info) Using plugin pdb for structure file scfv_aligned.pdb
+Info) Using plugin pdb for coordinates from file scfv_aligned.pdb
+Info) Determining bond structure from distance search ...
+Info) Finished with coordinate file scfv_aligned.pdb.
+Info) Analyzing structure ...
+Info)    Atoms: 3507
+Info)    Bonds: 3552
+Info)    Angles: 0  Dihedrals: 0  Impropers: 0  Cross-terms: 0
+Info)    Bondtypes: 0  Angletypes: 0  Dihedraltypes: 0  Impropertypes: 0
+Info)    Residues: 229
+Info)    Waters: 0
+Info)    Segments: 1
+Info)    Fragments: 2   Protein: 2   Nucleic: 0
+1
+Info) In any publication of scientific results based in part or
+Info) completely on the use of the program STRIDE, please reference:
+Info)  Frishman,D & Argos,P. (1995) Knowledge-based secondary structure
+Info)  assignment. Proteins: structure, function and genetics, 23, 566-579.
+{{1 0 0 1.70139} {0 1 0 -0.0207196} {0 0 1 9.64509} {0 0 0 1}} {{0.99858 0.0470071 0.02504 0} {-0.0292129 0.0902926 0.995484 0} {0.044534 -0.994802 0.0915379 0} {0 0 0 1}} {{0.0498193 0 0 0} {0 0.0498193 0 0} {0 0 0.0498193 0} {0 0 0 1}} {{1 0 0 0} {0 1 0 0} {0 0 1 0} {0 0 0 1}}
+0 1
+1
+AD_image.dat
+Info) Rendering current scene to 'AD_image.dat' ...
+Info) Tachyon file generation finished
+Info) Rendering complete.
+Tachyon Parallel/Multiprocessor Ray Tracer   Version 0.99.1   
+Copyright 1994-2014,    John E. Stone <john.stone@gmail.com> 
+------------------------------------------------------------ 
+Scene Parsing Time:     0.2320 seconds
+Scene contains 72060 objects.
+Preprocessing Time:     0.0439 seconds
+Rendering Progress:         0% complete            Rendering Progress:         0% complete            Rendering Progress:         0% complete            Rendering Progress:         0% complete            Rendering Progress:         0% complete            Rendering Progress:         0% complete            Rendering Progress:         0% complete            Rendering Progress:         0% complete            Rendering Progress:         0% complete            Rendering Progress:         0% complete            Rendering Progress:         0% complete            Rendering Progress:         0% complete            Rendering Progress:         0% complete            Rendering Progress:         0% complete            Rendering Progress:         0% complete            Rendering Progress:         0% complete            Rendering Progress:         0% complete            Rendering Progress:         0% complete            Rendering Progress:         0% complete            Rendering Progress:         0% complete            Rendering Progress:         0% complete            Rendering Progress:         0% complete            Rendering Progress:         0% complete            Rendering Progress:         0% complete            Rendering Progress:         0% complete            Rendering Progress:         0% complete            Rendering Progress:         0% complete            Rendering Progress:         0% complete            Rendering Progress:         0% complete            Rendering Progress:         0% complete            Rendering Progress:         0% complete            Rendering Progress:         0% complete            Rendering Progress:         0% complete            Rendering Progress:         0% complete            Rendering Progress:         0% complete            Rendering Progress:         0% complete            Rendering Progress:         0% complete            Rendering Progress:         0% complete            Rendering Progress:         0% complete            Rendering Progress:         0% complete            Rendering Progress:         0% complete            Rendering Progress:         0% complete            Rendering Progress:         0% complete            Rendering Progress:         0% complete            Rendering Progress:         0% complete            Rendering Progress:         0% complete            Rendering Progress:         0% complete            Rendering Progress:         0% complete            Rendering Progress:         0% complete            Rendering Progress:         0% complete            Rendering Progress:         0% complete            Rendering Progress:         0% complete            Rendering Progress:         0% complete            Rendering Progress:         1% complete            Rendering Progress:         1% complete            Rendering Progress:         1% complete            Rendering Progress:         1% complete            Rendering Progress:         1% complete            Rendering Progress:         1% complete            Rendering Progress:         1% complete            Rendering Progress:         1% complete            Rendering Progress:         1% complete            Rendering Progress:         1% complete            Rendering Progress:         1% complete            Rendering Progress:         1% complete            Rendering Progress:         1% complete            Rendering Progress:         1% complete            Rendering Progress:         1% complete            Rendering Progress:         1% complete            Rendering Progress:         1% complete            Rendering Progress:         1% complete            Rendering Progress:         1% complete            Rendering Progress:         1% complete            Rendering Progress:         1% complete            Rendering Progress:         1% complete            Rendering Progress:         1% complete            Rendering Progress:         1% complete            Rendering Progress:         1% complete            Rendering Progress:         1% complete            Rendering Progress:         1% complete            Rendering Progress:         1% complete            Rendering Progress:         1% complete            Rendering Progress:         2% complete            Rendering Progress:         2% complete            Rendering Progress:         2% complete            Rendering Progress:         2% complete            Rendering Progress:         2% complete            Rendering Progress:         2% complete            Rendering Progress:         2% complete            Rendering Progress:         2% complete            Rendering Progress:         2% complete            Rendering Progress:         2% complete            Rendering Progress:         2% complete            Rendering Progress:         2% complete            Rendering Progress:         2% complete            Rendering Progress:         2% complete            Rendering Progress:         2% complete            Rendering Progress:         2% complete            Rendering Progress:         2% complete            Rendering Progress:         2% complete            Rendering Progress:         2% complete            Rendering Progress:         3% complete            Rendering Progress:         3% complete            Rendering Progress:         3% complete            Rendering Progress:         3% complete            Rendering Progress:         3% complete            Rendering Progress:         3% complete            Rendering Progress:         3% complete            Rendering Progress:         3% complete            Rendering Progress:         3% complete            Rendering Progress:         3% complete            Rendering Progress:         3% complete            Rendering Progress:         3% complete            Rendering Progress:         3% complete            Rendering Progress:         3% complete            Rendering Progress:         3% complete            Rendering Progress:         3% complete            Rendering Progress:         4% complete            Rendering Progress:         4% complete            Rendering Progress:         4% complete            Rendering Progress:         4% complete            Rendering Progress:         4% complete            Rendering Progress:         4% complete            Rendering Progress:         4% complete            Rendering Progress:         4% complete            Rendering Progress:         4% complete            Rendering Progress:         4% complete            Rendering Progress:         4% complete            Rendering Progress:         4% complete            Rendering Progress:         4% complete            Rendering Progress:         5% complete            Rendering Progress:         5% complete            Rendering Progress:         5% complete            Rendering Progress:         5% complete            Rendering Progress:         5% complete            Rendering Progress:         5% complete            Rendering Progress:         5% complete            Rendering Progress:         5% complete            Rendering Progress:         5% complete            Rendering Progress:         6% complete            Rendering Progress:         6% complete            Rendering Progress:         6% complete            Rendering Progress:         6% complete            Rendering Progress:         6% complete            Rendering Progress:         6% complete            Rendering Progress:         6% complete            Rendering Progress:         6% complete            Rendering Progress:         6% complete            Rendering Progress:         7% complete            Rendering Progress:         7% complete            Rendering Progress:         7% complete            Rendering Progress:         7% complete            Rendering Progress:         7% complete            Rendering Progress:         7% complete            Rendering Progress:         7% complete            Rendering Progress:         8% complete            Rendering Progress:         8% complete            Rendering Progress:         8% complete            Rendering Progress:         8% complete            Rendering Progress:         8% complete            Rendering Progress:         8% complete            Rendering Progress:         8% complete            Rendering Progress:         8% complete            Rendering Progress:         9% complete            Rendering Progress:         9% complete            Rendering Progress:         9% complete            Rendering Progress:         9% complete            Rendering Progress:         9% complete            Rendering Progress:         9% complete            Rendering Progress:         9% complete            Rendering Progress:         9% complete            Rendering Progress:        10% complete            Rendering Progress:        10% complete            Rendering Progress:        10% complete            Rendering Progress:        10% complete            Rendering Progress:        10% complete            Rendering Progress:        10% complete            Rendering Progress:        10% complete            Rendering Progress:        10% complete            Rendering Progress:        10% complete            Rendering Progress:        11% complete            Rendering Progress:        11% complete            Rendering Progress:        11% complete            Rendering Progress:        11% complete            Rendering Progress:        11% complete            Rendering Progress:        11% complete            Rendering Progress:        11% complete            Rendering Progress:        11% complete            Rendering Progress:        11% complete            Rendering Progress:        12% complete            Rendering Progress:        12% complete            Rendering Progress:        12% complete            Rendering Progress:        12% complete            Rendering Progress:        12% complete            Rendering Progress:        12% complete            Rendering Progress:        12% complete            Rendering Progress:        13% complete            Rendering Progress:        13% complete            Rendering Progress:        13% complete            Rendering Progress:        13% complete            Rendering Progress:        13% complete            Rendering Progress:        13% complete            Rendering Progress:        13% complete            Rendering Progress:        13% complete            Rendering Progress:        13% complete            Rendering Progress:        14% complete            Rendering Progress:        14% complete            Rendering Progress:        14% complete            Rendering Progress:        14% complete            Rendering Progress:        14% complete            Rendering Progress:        14% complete            Rendering Progress:        14% complete            Rendering Progress:        14% complete            Rendering Progress:        14% complete            Rendering Progress:        15% complete            Rendering Progress:        18% complete            Rendering Progress:        19% complete            Rendering Progress:        19% complete            Rendering Progress:        19% complete            Rendering Progress:        20% complete            Rendering Progress:        20% complete            Rendering Progress:        20% complete            Rendering Progress:        20% complete            Rendering Progress:        21% complete            Rendering Progress:        21% complete            Rendering Progress:        21% complete            Rendering Progress:        21% complete            Rendering Progress:        22% complete            Rendering Progress:        22% complete            Rendering Progress:        22% complete            Rendering Progress:        22% complete            Rendering Progress:        23% complete            Rendering Progress:        23% complete            Rendering Progress:        24% complete            Rendering Progress:        24% complete            Rendering Progress:        24% complete            Rendering Progress:        25% complete            Rendering Progress:        25% complete            Rendering Progress:        25% complete            Rendering Progress:        25% complete            Rendering Progress:        25% complete            Rendering Progress:        26% complete            Rendering Progress:        26% complete            Rendering Progress:        26% complete            Rendering Progress:        26% complete            Rendering Progress:        27% complete            Rendering Progress:        27% complete            Rendering Progress:        27% complete            Rendering Progress:        28% complete            Rendering Progress:        28% complete            Rendering Progress:        28% complete            Rendering Progress:        29% complete            Rendering Progress:        29% complete            Rendering Progress:        29% complete            Rendering Progress:        29% complete            Rendering Progress:        29% complete            Rendering Progress:        29% complete            Rendering Progress:        29% complete            Rendering Progress:        29% complete            Rendering Progress:        30% complete            Rendering Progress:        30% complete            Rendering Progress:        30% complete            Rendering Progress:        30% complete            Rendering Progress:        30% complete            Rendering Progress:        31% complete            Rendering Progress:        32% complete            Rendering Progress:        33% complete            Rendering Progress:        33% complete            Rendering Progress:        33% complete            Rendering Progress:        33% complete            Rendering Progress:        34% complete            Rendering Progress:        34% complete            Rendering Progress:        34% complete            Rendering Progress:        35% complete            Rendering Progress:        35% complete            Rendering Progress:        35% complete            Rendering Progress:        35% complete            Rendering Progress:        36% complete            Rendering Progress:        37% complete            Rendering Progress:        37% complete            Rendering Progress:        37% complete            Rendering Progress:        37% complete            Rendering Progress:        37% complete            Rendering Progress:        38% complete            Rendering Progress:        38% complete            Rendering Progress:        38% complete            Rendering Progress:        39% complete            Rendering Progress:        39% complete            Rendering Progress:        40% complete            Rendering Progress:        40% complete            Rendering Progress:        41% complete            Rendering Progress:        41% complete            Rendering Progress:        41% complete            Rendering Progress:        42% complete            Rendering Progress:        42% complete            Rendering Progress:        42% complete            Rendering Progress:        42% complete            Rendering Progress:        43% complete            Rendering Progress:        43% complete            Rendering Progress:        43% complete            Rendering Progress:        43% complete            Rendering Progress:        44% complete            Rendering Progress:        44% complete            Rendering Progress:        44% complete            Rendering Progress:        44% complete            Rendering Progress:        45% complete            Rendering Progress:        45% complete            Rendering Progress:        45% complete            Rendering Progress:        45% complete            Rendering Progress:        46% complete            Rendering Progress:        46% complete            Rendering Progress:        46% complete            Rendering Progress:        46% complete            Rendering Progress:        47% complete            Rendering Progress:        47% complete            Rendering Progress:        47% complete            Rendering Progress:        47% complete            Rendering Progress:        48% complete            Rendering Progress:        48% complete            Rendering Progress:        48% complete            Rendering Progress:        49% complete            Rendering Progress:        49% complete            Rendering Progress:        50% complete            Rendering Progress:        50% complete            Rendering Progress:        50% complete            Rendering Progress:        50% complete            Rendering Progress:        51% complete            Rendering Progress:        51% complete            Rendering Progress:        51% complete            Rendering Progress:        51% complete            Rendering Progress:        52% complete            Rendering Progress:        52% complete            Rendering Progress:        53% complete            Rendering Progress:        53% complete            Rendering Progress:        53% complete            Rendering Progress:        53% complete            Rendering Progress:        54% complete            Rendering Progress:        54% complete            Rendering Progress:        54% complete            Rendering Progress:        55% complete            Rendering Progress:        55% complete            Rendering Progress:        55% complete            Rendering Progress:        56% complete            Rendering Progress:        56% complete            Rendering Progress:        57% complete            Rendering Progress:        57% complete            Rendering Progress:        57% complete            Rendering Progress:        57% complete            Rendering Progress:        58% complete            Rendering Progress:        58% complete            Rendering Progress:        59% complete            Rendering Progress:        59% complete            Rendering Progress:        59% complete            Rendering Progress:        60% complete            Rendering Progress:        60% complete            Rendering Progress:        60% complete            Rendering Progress:        60% complete            Rendering Progress:        60% complete            Rendering Progress:        61% complete            Rendering Progress:        61% complete            Rendering Progress:        61% complete            Rendering Progress:        61% complete            Rendering Progress:        61% complete            Rendering Progress:        61% complete            Rendering Progress:        62% complete            Rendering Progress:        62% complete            Rendering Progress:        62% complete            Rendering Progress:        63% complete            Rendering Progress:        63% complete            Rendering Progress:        63% complete            Rendering Progress:        64% complete            Rendering Progress:        64% complete            Rendering Progress:        64% complete            Rendering Progress:        65% complete            Rendering Progress:        65% complete            Rendering Progress:        65% complete            Rendering Progress:        66% complete            Rendering Progress:        66% complete            Rendering Progress:        66% complete            Rendering Progress:        67% complete            Rendering Progress:        67% complete            Rendering Progress:        67% complete            Rendering Progress:        68% complete            Rendering Progress:        68% complete            Rendering Progress:        68% complete            Rendering Progress:        68% complete            Rendering Progress:        68% complete            Rendering Progress:        68% complete            Rendering Progress:        69% complete            Rendering Progress:        69% complete            Rendering Progress:        69% complete            Rendering Progress:        70% complete            Rendering Progress:        70% complete            Rendering Progress:        70% complete            Rendering Progress:        71% complete            Rendering Progress:        71% complete            Rendering Progress:        71% complete            Rendering Progress:        72% complete            Rendering Progress:        72% complete            Rendering Progress:        72% complete            Rendering Progress:        72% complete            Rendering Progress:        73% complete            Rendering Progress:        73% complete            Rendering Progress:        74% complete            Rendering Progress:        74% complete            Rendering Progress:        74% complete            Rendering Progress:        75% complete            Rendering Progress:        75% complete            Rendering Progress:        75% complete            Rendering Progress:        75% complete            Rendering Progress:        76% complete            Rendering Progress:        76% complete            Rendering Progress:        76% complete            Rendering Progress:        77% complete            Rendering Progress:        77% complete            Rendering Progress:        77% complete            Rendering Progress:        78% complete            Rendering Progress:        78% complete            Rendering Progress:        79% complete            Rendering Progress:        79% complete            Rendering Progress:        80% complete            Rendering Progress:        80% complete            Rendering Progress:        81% complete            Rendering Progress:        81% complete            Rendering Progress:        81% complete            Rendering Progress:        81% complete            Rendering Progress:        82% complete            Rendering Progress:        82% complete            Rendering Progress:        82% complete            Rendering Progress:        83% complete            Rendering Progress:        83% complete            Rendering Progress:        83% complete            Rendering Progress:        83% complete            Rendering Progress:        83% complete            Rendering Progress:        83% complete            Rendering Progress:        83% complete            Rendering Progress:        84% complete            Rendering Progress:        84% complete            Rendering Progress:        84% complete            Rendering Progress:        84% complete            Rendering Progress:        84% complete            Rendering Progress:        84% complete            Rendering Progress:        84% complete            Rendering Progress:        85% complete            Rendering Progress:        85% complete            Rendering Progress:        85% complete            Rendering Progress:        85% complete            Rendering Progress:        86% complete            Rendering Progress:        86% complete            Rendering Progress:        86% complete            Rendering Progress:        86% complete            Rendering Progress:        86% complete            Rendering Progress:        86% complete            Rendering Progress:        87% complete            Rendering Progress:        87% complete            Rendering Progress:        87% complete            Rendering Progress:        87% complete            Rendering Progress:        87% complete            Rendering Progress:        87% complete            Rendering Progress:        88% complete            Rendering Progress:        88% complete            Rendering Progress:        88% complete            Rendering Progress:        88% complete            Rendering Progress:        88% complete            Rendering Progress:        89% complete            Rendering Progress:        89% complete            Rendering Progress:        89% complete            Rendering Progress:        89% complete            Rendering Progress:        89% complete            Rendering Progress:        90% complete            Rendering Progress:        90% complete            Rendering Progress:        90% complete            Rendering Progress:        90% complete            Rendering Progress:        90% complete            Rendering Progress:        91% complete            Rendering Progress:        91% complete            Rendering Progress:        91% complete            Rendering Progress:        91% complete            Rendering Progress:        92% complete            Rendering Progress:        92% complete            Rendering Progress:        92% complete            Rendering Progress:        92% complete            Rendering Progress:        92% complete            Rendering Progress:        93% complete            Rendering Progress:        93% complete            Rendering Progress:        93% complete            Rendering Progress:        93% complete            Rendering Progress:        94% complete            Rendering Progress:        94% complete            Rendering Progress:        94% complete            Rendering Progress:        94% complete            Rendering Progress:        94% complete            Rendering Progress:        95% complete            Rendering Progress:        95% complete            Rendering Progress:        95% complete            Rendering Progress:        95% complete            Rendering Progress:        95% complete            Rendering Progress:        96% complete            Rendering Progress:        96% complete            Rendering Progress:        96% complete            Rendering Progress:        96% complete            Rendering Progress:        96% complete            Rendering Progress:        97% complete            Rendering Progress:        97% complete            Rendering Progress:        97% complete            Rendering Progress:        97% complete            Rendering Progress:        98% complete            Rendering Progress:        98% complete            Rendering Progress:        98% complete            Rendering Progress:        98% complete            Rendering Progress:        99% complete            Rendering Progress:        99% complete            Rendering Progress:        99% complete            Rendering Progress:        99% complete            Rendering Progress:        99% complete            Rendering Progress:       100% complete            
+  Ray Tracing Time:     0.1804 seconds
+    Image I/O Time:     0.0081 seconds
+Info) VMD for LINUXAMD64, version 1.9.3 (November 30, 2016)
+Info) Exiting normally.
+  adding: outputs/ (stored 0%)
+  adding: outputs/DManpa1-8DNeup5Acb2-4DFrufa2-OH_structure.pdb (deflated 77%)
+  adding: outputs/UPLOADED_2H1_PDB_MONOMER_.pdb (deflated 77%)
+  adding: outputs/glycan_ring_atoms.txt (deflated 39%)
+  adding: outputs/submit_docking_to_slurm_with_docker.bash (deflated 62%)
+  adding: outputs/gwconfig (deflated 27%)
+  adding: outputs/ad2config (deflated 45%)
+  adding: outputs/ad2_setup.log (deflated 47%)
+  adding: outputs/vcconfig (deflated 38%)
+  adding: outputs/ad2.log (deflated 96%)
+  adding: outputs/scfv_aligned.pdb (deflated 79%)
+  adding: outputs/protein.pdbqt (deflated 77%)
+  adding: outputs/glycan.pdb (deflated 77%)
+  adding: outputs/ligand.pdbqt (deflated 74%)
+  adding: outputs/r1/ (stored 0%)
+  adding: outputs/r1/ad2.log (deflated 88%)
+  adding: outputs/r1/vcconfig (deflated 36%)
+  adding: outputs/r1/ad2config (deflated 45%)
+  adding: outputs/r1/protein.pdbqt (deflated 77%)
+  adding: outputs/r1/ligand.pdbqt (deflated 74%)
+  adding: outputs/r1/submit_docking_to_slurm_with_docker.bash (deflated 62%)
+  adding: outputs/r1/gwconfig (deflated 27%)
+  adding: outputs/r1/run_docking_with_docker_on_cluster_node.bash (deflated 73%)
+  adding: outputs/r1/ad2_job.log (deflated 87%)
+  adding: outputs/r1/slurm_submit.bash (deflated 50%)
+  adding: outputs/r1/ad-abcde-1-68045.out (stored 0%)
+  adding: outputs/r1/ad-abcde-1-68045.err (deflated 66%)
+  adding: outputs/r1/docking.log (deflated 69%)
+  adding: outputs/r1/VC_log.txt (deflated 62%)
+  adding: outputs/r1/docking_output.pdbqt (deflated 87%)
+  adding: outputs/r2/ (stored 0%)
+  adding: outputs/r2/ad2.log (deflated 87%)
+  adding: outputs/r2/vcconfig (deflated 36%)
+  adding: outputs/r2/ad2config (deflated 45%)
+  adding: outputs/r2/protein.pdbqt (deflated 77%)
+  adding: outputs/r2/ligand.pdbqt (deflated 74%)
+  adding: outputs/r2/submit_docking_to_slurm_with_docker.bash (deflated 62%)
+  adding: outputs/r2/gwconfig (deflated 27%)
+  adding: outputs/r2/run_docking_with_docker_on_cluster_node.bash (deflated 73%)
+  adding: outputs/r2/ad2_job.log (deflated 87%)
+  adding: outputs/r2/slurm_submit.bash (deflated 50%)
+  adding: outputs/r2/ad-abcde-2-68046.out (stored 0%)
+  adding: outputs/r2/ad-abcde-2-68046.err (deflated 66%)
+  adding: outputs/r2/docking.log (deflated 69%)
+  adding: outputs/r2/VC_log.txt (deflated 62%)
+  adding: outputs/r2/docking_output.pdbqt (deflated 87%)
+  adding: outputs/r3/ (stored 0%)
+  adding: outputs/r3/ad2.log (deflated 87%)
+  adding: outputs/r3/vcconfig (deflated 36%)
+  adding: outputs/r3/ad2config (deflated 45%)
+  adding: outputs/r3/protein.pdbqt (deflated 77%)
+  adding: outputs/r3/ligand.pdbqt (deflated 74%)
+  adding: outputs/r3/submit_docking_to_slurm_with_docker.bash (deflated 62%)
+  adding: outputs/r3/gwconfig (deflated 27%)
+  adding: outputs/r3/run_docking_with_docker_on_cluster_node.bash (deflated 73%)
+  adding: outputs/r3/ad2_job.log (deflated 86%)
+  adding: outputs/r3/slurm_submit.bash (deflated 50%)
+  adding: outputs/r3/ad-abcde-3-68047.out (stored 0%)
+  adding: outputs/r3/ad-abcde-3-68047.err (deflated 66%)
+  adding: outputs/r3/docking.log (deflated 68%)
+  adding: outputs/r3/VC_log.txt (deflated 62%)
+  adding: outputs/r3/docking_output.pdbqt (deflated 87%)
+  adding: outputs/r4/ (stored 0%)
+  adding: outputs/r4/ad2.log (deflated 87%)
+  adding: outputs/r4/vcconfig (deflated 36%)
+  adding: outputs/r4/ad2config (deflated 45%)
+  adding: outputs/r4/protein.pdbqt (deflated 77%)
+  adding: outputs/r4/ligand.pdbqt (deflated 74%)
+  adding: outputs/r4/submit_docking_to_slurm_with_docker.bash (deflated 62%)
+  adding: outputs/r4/gwconfig (deflated 27%)
+  adding: outputs/r4/run_docking_with_docker_on_cluster_node.bash (deflated 73%)
+  adding: outputs/r4/ad2_job.log (deflated 86%)
+  adding: outputs/r4/slurm_submit.bash (deflated 50%)
+  adding: outputs/r4/ad-abcde-4-68048.out (stored 0%)
+  adding: outputs/r4/ad-abcde-4-68048.err (deflated 66%)
+  adding: outputs/r4/docking.log (deflated 69%)
+  adding: outputs/r4/VC_log.txt (deflated 62%)
+  adding: outputs/r4/docking_output.pdbqt (deflated 87%)
+  adding: outputs/r5/ (stored 0%)
+  adding: outputs/r5/ad2.log (deflated 88%)
+  adding: outputs/r5/vcconfig (deflated 36%)
+  adding: outputs/r5/ad2config (deflated 45%)
+  adding: outputs/r5/protein.pdbqt (deflated 77%)
+  adding: outputs/r5/ligand.pdbqt (deflated 74%)
+  adding: outputs/r5/submit_docking_to_slurm_with_docker.bash (deflated 62%)
+  adding: outputs/r5/gwconfig (deflated 27%)
+  adding: outputs/r5/run_docking_with_docker_on_cluster_node.bash (deflated 73%)
+  adding: outputs/r5/ad2_job.log (deflated 86%)
+  adding: outputs/r5/slurm_submit.bash (deflated 50%)
+  adding: outputs/r5/ad-abcde-5-68049.out (stored 0%)
+  adding: outputs/r5/ad-abcde-5-68049.err (deflated 66%)
+  adding: outputs/r5/docking.log (deflated 69%)
+  adding: outputs/r5/VC_log.txt (deflated 62%)
+  adding: outputs/r5/docking_output.pdbqt (deflated 87%)
+  adding: outputs/monitor_and_analyze_stderr_stdout.log (deflated 92%)
+  adding: outputs/monitor.log (deflated 84%)
+  adding: outputs/docking_output.pdbqt (deflated 88%)
+  adding: outputs/docking_output.pdb (deflated 84%)
+  adding: outputs/allmodels.pdb (deflated 84%)
+  adding: outputs/cluster.txt (deflated 58%)
+  adding: outputs/cluster_histogram.txt (deflated 46%)
+  adding: outputs/script_histogram.gplt (deflated 44%)
+  adding: outputs/histogram_sorted.eps (deflated 80%)
+  adding: outputs/histogram_sorted.png (deflated 25%)
+  adding: outputs/AD_image.vmd (deflated 61%)
+  adding: outputs/AD_image.dat (deflated 87%)
+  adding: outputs/AD_image.dat.tga (deflated 86%)
+  adding: outputs/AD_image.png (deflated 0%)

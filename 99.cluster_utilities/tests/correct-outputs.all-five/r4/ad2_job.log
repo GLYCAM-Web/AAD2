@@ -1,24 +1,26 @@
 ===== Begin Submission ====================================
-About to submit docking run for working directory: /programs/website_aad2/swarmtest/AAD2_Docker/image/AAD2/99.cluster_utilities/tests/outputs.all-five/r4
+About to submit docking run for working directory: /programs/website_aad2/swarmtest/AAD2_Docker/image/AAD2/99.cluster_utilities/tests/outputs/r4
 Writing submission file to slurm_submit.bash and submitting.
-Submitted batch job 67966
+Submitted batch job 68048
 ===== End Submission ======================================
-The local computing host is: node002
+The local computing host is: node004
 The command for using docker compose is >>>docker-compose<<<
 Using the following command to ensure that the required image is available.
 bash /programs/website_aad2/swarmtest/AAD2_Docker/bin/load_image.bash antibody-docking:2025-03-26-00-47-blf /programs/website_aad2/image_files
 The specified image should be available.
 The load process returned this information:
-The required image is already available. Not loading.
+Loading image from file:
+    /programs/website_aad2/image_files/antibody-docking.2025-03-26-00-47-blf.tar
+Loaded image: antibody-docking:2025-03-26-00-47-blf
 The command for using docker compose is >>>docker-compose<<<
 The AAD2_COMPOSE_COMMAND is:
 >>>bash -lc "cd /home/antibodydocking/workdir/ && run_AD_docking"<<<
 The local dir is:
->>>/programs/website_aad2/swarmtest/AAD2_Docker/image/AAD2/99.cluster_utilities/tests/outputs.all-five/r4<<<
+>>>/programs/website_aad2/swarmtest/AAD2_Docker/image/AAD2/99.cluster_utilities/tests/outputs/r4<<<
 Up:
 docker-compose --file ./docker-compose.yaml --project-name abcde-4 up
 Attaching to abcde-4-webdev-aad2
-Vina-Carb docking job started at: Fri Mar 28 03:26:22 UTC 2025
+Vina-Carb docking job started at: Fri Mar 28 22:56:57 UTC 2025
 VINA_CARB already defined as: /programs/src/VC_1_0
 
 Using this command:
@@ -149,28 +151,28 @@ abcde-4-webdev-aad2  |
 abcde-4-webdev-aad2  | mode |   affinity |   chi   |  affinity | dist from best mode
 abcde-4-webdev-aad2  |      | (kcal/mol) |  energy |  - chi    | rmsd l.b.| rmsd u.b.
 abcde-4-webdev-aad2  | -----+------------+---------+--------------------+------------
-abcde-4-webdev-aad2  |    1         -5.4      0.0      -5.4      0.000      0.000
-abcde-4-webdev-aad2  |    2         -5.2      0.0      -5.2     11.418     16.471
-abcde-4-webdev-aad2  |    3         -5.2      0.0      -5.2     15.786     19.740
-abcde-4-webdev-aad2  |    4         -5.2      0.0      -5.2      3.757      8.409
-abcde-4-webdev-aad2  |    5         -5.2      0.0      -5.2     15.262     19.303
-abcde-4-webdev-aad2  |    6         -5.2      0.0      -5.2     16.002     20.102
-abcde-4-webdev-aad2  |    7         -5.1      0.0      -5.1     13.884     17.597
-abcde-4-webdev-aad2  |    8         -5.1      0.0      -5.1      3.947      8.327
-abcde-4-webdev-aad2  |    9         -5.1      0.0      -5.1     12.100     17.393
-abcde-4-webdev-aad2  |   10         -5.1      0.0      -5.1      3.699      8.515
-abcde-4-webdev-aad2  |   11         -5.0      0.0      -5.0     16.011     20.072
-abcde-4-webdev-aad2  |   12         -5.0      0.0      -5.0      2.923      7.581
-abcde-4-webdev-aad2  |   13         -5.0      0.0      -5.0     16.957     20.606
-abcde-4-webdev-aad2  |   14         -5.0      0.0      -5.0     14.806     18.428
-abcde-4-webdev-aad2  |   15         -4.9      0.0      -4.9     17.212     21.064
-abcde-4-webdev-aad2  |   16         -4.8      0.0      -4.8     18.626     22.667
-abcde-4-webdev-aad2  |   17         -4.8      0.0      -4.8     16.094     19.757
-abcde-4-webdev-aad2  |   18         -4.8      0.0      -4.8     10.682     14.948
-abcde-4-webdev-aad2  |   19         -4.8      0.0      -4.8     12.908     16.518
-abcde-4-webdev-aad2  |   20         -4.8      0.0      -4.8     13.499     16.993
+abcde-4-webdev-aad2  |    1         -5.3      0.0      -5.3      0.000      0.000
+abcde-4-webdev-aad2  |    2         -5.3      0.0      -5.3      1.787      3.362
+abcde-4-webdev-aad2  |    3         -5.2      0.0      -5.2     15.758     19.784
+abcde-4-webdev-aad2  |    4         -5.2      0.0      -5.2     16.760     20.865
+abcde-4-webdev-aad2  |    5         -5.2      0.0      -5.2     14.060     18.041
+abcde-4-webdev-aad2  |    6         -5.2      0.0      -5.2     11.383     16.411
+abcde-4-webdev-aad2  |    7         -5.1      0.0      -5.1      3.530      8.298
+abcde-4-webdev-aad2  |    8         -5.1      0.0      -5.1     15.592     19.694
+abcde-4-webdev-aad2  |    9         -5.1      0.0      -5.1     15.226     19.301
+abcde-4-webdev-aad2  |   10         -5.1      0.0      -5.1      4.379      7.457
+abcde-4-webdev-aad2  |   11         -5.1      0.0      -5.1     16.730     20.538
+abcde-4-webdev-aad2  |   12         -5.1      0.0      -5.1     13.884     17.581
+abcde-4-webdev-aad2  |   13         -5.1      0.0      -5.1      4.033      8.434
+abcde-4-webdev-aad2  |   14         -5.1      0.0      -5.1     12.023     17.290
+abcde-4-webdev-aad2  |   15         -5.1      0.0      -5.1     14.562     18.122
+abcde-4-webdev-aad2  |   16         -5.0      0.0      -5.0     14.246     17.690
+abcde-4-webdev-aad2  |   17         -5.0      0.0      -5.0     17.687     21.321
+abcde-4-webdev-aad2  |   18         -5.0      0.0      -5.0      3.848      8.454
+abcde-4-webdev-aad2  |   19         -5.0      0.0      -5.0     14.636     18.181
+abcde-4-webdev-aad2  |   20         -5.0      0.0      -5.0      4.325      9.217
 abcde-4-webdev-aad2  | Writing output ... done.
-job ended at Fri Mar 28 03:27:20 UTC 2025
+job ended at Fri Mar 28 22:59:50 UTC 2025
 Job appears to have completed.
 abcde-4-webdev-aad2 exited with code 0
 Down:

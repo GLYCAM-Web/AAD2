@@ -1,35 +1,82 @@
-INFO: AD2 log of docking replica run started on Thu Mar 27 19:26:15 -08 2025
+INFO: AD2 log of docking replica run started on Fri Mar 28 14:56:24 -08 2025
 INFO: Setting random seed for replica 3 to 1840569422
-INFO: Using 8 CPUs and setting exhautiveness to match.
+INFO: Using 28 CPUs for the docking.
+INFO: Setting exhaustiveness to specified value (56).
 INFO: copying the indicated script for batch processing.
 INFO: copying the local config script for batch processing.
-Replica status requested on Thu Mar 27 19:26:21 -08 2025.
+Replica status requested on Fri Mar 28 14:56:30 -08 2025.
 Unable to complete status request. Try again in a few seconds.
-Replica status requested on Thu Mar 27 19:26:26 -08 2025.
+Replica status requested on Fri Mar 28 14:56:35 -08 2025.
 The job has started.
-Replica status requested on Thu Mar 27 19:26:32 -08 2025.
+Replica status requested on Fri Mar 28 14:56:41 -08 2025.
 The job has started.
-Replica status requested on Thu Mar 27 19:26:38 -08 2025.
+Replica status requested on Fri Mar 28 14:56:46 -08 2025.
 The job has started.
-Replica status requested on Thu Mar 27 19:26:43 -08 2025.
+Replica status requested on Fri Mar 28 14:56:52 -08 2025.
 The job has started.
-Replica status requested on Thu Mar 27 19:26:49 -08 2025.
+Replica status requested on Fri Mar 28 14:56:57 -08 2025.
 The job has started.
-Replica status requested on Thu Mar 27 19:26:54 -08 2025.
+Replica status requested on Fri Mar 28 14:57:03 -08 2025.
 The job has started.
-Replica status requested on Thu Mar 27 19:27:00 -08 2025.
+Replica status requested on Fri Mar 28 14:57:08 -08 2025.
 The job has started.
-Replica status requested on Thu Mar 27 19:27:05 -08 2025.
+Replica status requested on Fri Mar 28 14:57:14 -08 2025.
 The job has started.
-Replica status requested on Thu Mar 27 19:27:11 -08 2025.
+Replica status requested on Fri Mar 28 14:57:19 -08 2025.
 The job has started.
-Replica status requested on Thu Mar 27 19:27:16 -08 2025.
+Replica status requested on Fri Mar 28 14:57:25 -08 2025.
 The job has started.
-Replica status requested on Thu Mar 27 19:27:22 -08 2025.
+Replica status requested on Fri Mar 28 14:57:30 -08 2025.
 The job has started.
-Replica status requested on Thu Mar 27 19:27:27 -08 2025.
+Replica status requested on Fri Mar 28 14:57:36 -08 2025.
 The job has started.
-Replica status requested on Thu Mar 27 19:27:33 -08 2025.
+Replica status requested on Fri Mar 28 14:57:42 -08 2025.
 The job has started.
-Replica status requested on Thu Mar 27 19:27:39 -08 2025.
+Replica status requested on Fri Mar 28 14:57:47 -08 2025.
+The job has started.
+Replica status requested on Fri Mar 28 14:57:53 -08 2025.
+The job has started.
+Replica status requested on Fri Mar 28 14:57:58 -08 2025.
+The job has started.
+Replica status requested on Fri Mar 28 14:58:04 -08 2025.
+The job has started.
+Replica status requested on Fri Mar 28 14:58:09 -08 2025.
+The job has started.
+Replica status requested on Fri Mar 28 14:58:15 -08 2025.
+The job has started.
+Replica status requested on Fri Mar 28 14:58:20 -08 2025.
+The job has started.
+Replica status requested on Fri Mar 28 14:58:26 -08 2025.
+The job has started.
+Replica status requested on Fri Mar 28 14:58:32 -08 2025.
+The job has started.
+Replica status requested on Fri Mar 28 14:58:37 -08 2025.
+The job has started.
+Replica status requested on Fri Mar 28 14:58:43 -08 2025.
+The job has started.
+Replica status requested on Fri Mar 28 14:58:48 -08 2025.
+The job has started.
+Replica status requested on Fri Mar 28 14:58:54 -08 2025.
+The job has started.
+Replica status requested on Fri Mar 28 14:58:59 -08 2025.
+The job has started.
+Replica status requested on Fri Mar 28 14:59:05 -08 2025.
+The job has started.
+Replica status requested on Fri Mar 28 14:59:10 -08 2025.
+The job appears to have completed successfully.
+Replica status requested on Fri Mar 28 14:59:16 -08 2025.
+The job appears to have completed successfully.
+Replica status requested on Fri Mar 28 14:59:22 -08 2025.
+The job appears to have completed successfully.
+Replica status requested on Fri Mar 28 14:59:27 -08 2025.
+The job appears to have completed successfully.
+Replica status requested on Fri Mar 28 14:59:33 -08 2025.
+The job appears to have completed successfully.
+Replica status requested on Fri Mar 28 14:59:38 -08 2025.
+The job appears to have completed successfully.
+Replica status requested on Fri Mar 28 14:59:44 -08 2025.
+The job appears to have completed successfully.
+Replica status requested on Fri Mar 28 14:59:49 -08 2025.
+The job appears to have completed successfully.
+Replica status requested on Fri Mar 28 14:59:55 -08 2025.
 The job appears to have completed successfully.

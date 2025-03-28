@@ -1,6 +1,6 @@
-Starting the AD2 setup log at: Fri Mar 28 03:26:10 UTC 2025
+Starting the AD2 setup log at: Fri Mar 28 22:56:19 UTC 2025
 Setting the working directory to: /home/antibodydocking/workdir
-Found existing vcconfig. Not clobbering it.
+Generating a standard vcconfig.
 If you have set random number seeds, they will be put in place later in the process unless you
 have already made the subdirectories and placed vcconfig files there. In that case, these scripts will
 not overwrite them.

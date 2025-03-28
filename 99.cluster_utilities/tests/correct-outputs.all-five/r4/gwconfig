@@ -1,4 +1,4 @@
-DOCKING_REPLICA_BATCH_CPUS='16' # can differ from the cpus specified for vina-carb to use
+DOCKING_REPLICA_BATCH_CPUS='56' # can differ from the cpus specified for vina-carb to use
 ##AAD2_BASE_PATH="" # override if needed 
 ##AAD2_DOCKER_HOME="" # override if needed 
 SUBMIT_FILE_NAME="slurm_submit.bash"

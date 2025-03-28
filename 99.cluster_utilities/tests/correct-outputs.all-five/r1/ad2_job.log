@@ -1,7 +1,7 @@
 ===== Begin Submission ====================================
-About to submit docking run for working directory: /programs/website_aad2/swarmtest/AAD2_Docker/image/AAD2/99.cluster_utilities/tests/outputs.all-five/r1
+About to submit docking run for working directory: /programs/website_aad2/swarmtest/AAD2_Docker/image/AAD2/99.cluster_utilities/tests/outputs/r1
 Writing submission file to slurm_submit.bash and submitting.
-Submitted batch job 67963
+Submitted batch job 68045
 ===== End Submission ======================================
 The local computing host is: node001
 The command for using docker compose is >>>docker-compose<<<
@@ -14,11 +14,11 @@ The command for using docker compose is >>>docker-compose<<<
 The AAD2_COMPOSE_COMMAND is:
 >>>bash -lc "cd /home/antibodydocking/workdir/ && run_AD_docking"<<<
 The local dir is:
->>>/programs/website_aad2/swarmtest/AAD2_Docker/image/AAD2/99.cluster_utilities/tests/outputs.all-five/r1<<<
+>>>/programs/website_aad2/swarmtest/AAD2_Docker/image/AAD2/99.cluster_utilities/tests/outputs/r1<<<
 Up:
 docker-compose --file ./docker-compose.yaml --project-name abcde-1 up
 Attaching to abcde-1-webdev-aad2
-Vina-Carb docking job started at: Fri Mar 28 03:26:19 UTC 2025
+Vina-Carb docking job started at: Fri Mar 28 22:56:28 UTC 2025
 VINA_CARB already defined as: /programs/src/VC_1_0
 
 Using this command:
@@ -149,28 +149,28 @@ abcde-1-webdev-aad2  |
 abcde-1-webdev-aad2  | mode |   affinity |   chi   |  affinity | dist from best mode
 abcde-1-webdev-aad2  |      | (kcal/mol) |  energy |  - chi    | rmsd l.b.| rmsd u.b.
 abcde-1-webdev-aad2  | -----+------------+---------+--------------------+------------
-abcde-1-webdev-aad2  |    1         -5.5      0.0      -5.5      0.000      0.000
-abcde-1-webdev-aad2  |    2         -5.4      0.0      -5.4     17.475     20.749
-abcde-1-webdev-aad2  |    3         -5.4      0.0      -5.4      1.496      2.935
-abcde-1-webdev-aad2  |    4         -5.4      0.0      -5.4     15.139     19.628
-abcde-1-webdev-aad2  |    5         -5.3      0.0      -5.3      2.097      6.513
-abcde-1-webdev-aad2  |    6         -5.3      0.0      -5.3      2.283      7.890
-abcde-1-webdev-aad2  |    7         -5.3      0.0      -5.3      3.495      8.552
-abcde-1-webdev-aad2  |    8         -5.3      0.0      -5.3      9.906     13.910
-abcde-1-webdev-aad2  |    9         -5.2      0.0      -5.2      1.448      2.023
-abcde-1-webdev-aad2  |   10         -5.2      0.0      -5.2      2.637      6.537
-abcde-1-webdev-aad2  |   11         -5.2      0.0      -5.2     11.243     14.022
-abcde-1-webdev-aad2  |   12         -5.2      0.0      -5.2      2.568      6.824
-abcde-1-webdev-aad2  |   13         -5.2      0.0      -5.2      2.217      7.209
-abcde-1-webdev-aad2  |   14         -5.1      0.0      -5.1      2.452      6.964
-abcde-1-webdev-aad2  |   15         -5.1      0.0      -5.1      2.537      5.255
-abcde-1-webdev-aad2  |   16         -5.1      0.0      -5.1      2.522      4.798
-abcde-1-webdev-aad2  |   17         -5.1      0.0      -5.1      2.970      6.705
-abcde-1-webdev-aad2  |   18         -5.1      0.0      -5.1      7.245     11.843
-abcde-1-webdev-aad2  |   19         -5.0      0.0      -5.0      2.049      5.391
-abcde-1-webdev-aad2  |   20         -5.0      0.0      -5.0      8.397     13.339
+abcde-1-webdev-aad2  |    1         -5.4      0.0      -5.4      0.000      0.000
+abcde-1-webdev-aad2  |    2         -5.4      0.0      -5.4      2.735      7.329
+abcde-1-webdev-aad2  |    3         -5.4      0.0      -5.4     16.939     22.055
+abcde-1-webdev-aad2  |    4         -5.3      0.0      -5.3      2.571      6.143
+abcde-1-webdev-aad2  |    5         -5.3      0.0      -5.3      2.503      5.137
+abcde-1-webdev-aad2  |    6         -5.3      0.0      -5.3     16.214     20.769
+abcde-1-webdev-aad2  |    7         -5.3      0.0      -5.3     17.472     20.773
+abcde-1-webdev-aad2  |    8         -5.3      0.0      -5.3      1.169      1.455
+abcde-1-webdev-aad2  |    9         -5.3      0.0      -5.3      7.807     12.183
+abcde-1-webdev-aad2  |   10         -5.3      0.0      -5.3      1.525      2.915
+abcde-1-webdev-aad2  |   11         -5.3      0.0      -5.3      2.207      7.777
+abcde-1-webdev-aad2  |   12         -5.3      0.0      -5.3      2.332      7.538
+abcde-1-webdev-aad2  |   13         -5.2      0.0      -5.2      2.060      6.453
+abcde-1-webdev-aad2  |   14         -5.2      0.0      -5.2     15.163     19.637
+abcde-1-webdev-aad2  |   15         -5.2      0.0      -5.2      1.159      2.448
+abcde-1-webdev-aad2  |   16         -5.2      0.0      -5.2      3.506      8.551
+abcde-1-webdev-aad2  |   17         -5.2      0.0      -5.2      1.144      1.954
+abcde-1-webdev-aad2  |   18         -5.2      0.0      -5.2      4.305      9.063
+abcde-1-webdev-aad2  |   19         -5.2      0.0      -5.2      1.980      5.273
+abcde-1-webdev-aad2  |   20         -5.2      0.0      -5.2      9.843     13.860
 abcde-1-webdev-aad2  | Writing output ... done.
-job ended at Fri Mar 28 03:27:32 UTC 2025
+job ended at Fri Mar 28 22:59:07 UTC 2025
 Job appears to have completed.
 abcde-1-webdev-aad2 exited with code 0
 Down:
