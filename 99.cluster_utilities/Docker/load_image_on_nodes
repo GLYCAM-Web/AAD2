@@ -3,10 +3,9 @@
 # Submits a job to each Slurm node that is not marked as 'down' and 
 # loads the current AAD2_Docker image onto the node.
 
-# Must be run from a directory that contains ad2clustersettings
-
+# Must be run from a directory that contains ad2config
 ## 
-# The following can be overriden in ad2clustersettings if desired
+# The following can be overriden in ad2config if desired
 #
 # Command to get the list of nodes:
 Nodes_Info_Command="sinfo -N"
@@ -17,12 +16,20 @@ Partitions_To_Use="defq"
 # Node states to avoid 
 States_To_Avoid="down  drained  draining  fail  failing"
 #
+# Use the current dir as workdir unless overridden
+AAD2_WORKDIR="$(pwd)"
 ##
 
-if [ -e ad2clustersettings ] ; then 
-    source ad2clustersettings
+##
+#  ad2config must contain:
+#
+#  AAD2_DOCKER_HOME
+#  AAD2_CLI_BIN_PATH
+#  AAD2_IMAGE_FILE_PATH
+#
+if [ -e ad2config ] ; then 
+    source ad2config
 fi
-
 Nodes="$(${Nodes_Info_Command})"
 
 # Script to submit
@@ -37,22 +44,23 @@ submitMe="""#!/usr/bin/env bash
 #SBATCH --cpus-per-task=4
 
 module load docker
-module load runc
-export AAD2_DOCKER_HOME
+export PATH=${AAD2_CLI_BIN_PATH}:\$PATH
+export AAD2_DOCKER_HOME=\"${AAD2_DOCKER_HOME}\"
 ensure_image_is_present 
 """
+echo "counting"
 count=1
 while IFS= read -r line; do
   # Process the line here
-  #echo "$line"
+#  echo "$line"
   set -- $line
   theNode="${1}"
-  thePartition="${3}"
+  thePartition="${3/%\*}"
   theState="${4}"
   if [[ ${theState} == *"STATE"* ]] ; then
      continue
   fi
-  if [[ ${States_To_Avoid} == *"${theState}"* ]] ; then
+  if [[ "${States_To_Avoid}" == *"${theState}"* ]] ; then
      echo "Not processing node in state ${theState}"
      continue
   fi

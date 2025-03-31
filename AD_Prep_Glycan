@@ -1,0 +1,67 @@
+#!/usr/bin/env bash
+
+## Evaluate PDB files for use with Automated Antibody Docking
+
+UGAGE="""
+Usage:
+
+        AD_Prep_Glycan <working directory>
+	
+	The working directory should contain these things:
+
+	    - The file (or symlink) glycan.pdb
+	    - A finalized configuration file
+
+	Return:
+
+	    - If all goes well, the working directory should contain an updated:
+              - ligand.pdbqt
+              There might be other files present.	      
+
+"""
+if [ -z "${Log_File}" ] ; then
+    Log_File="ad2.log"
+fi
+WORKDIR="${1}"
+ERRORS="0"
+
+cd ${WORKDIR}
+if [ ! -e ad2config ] ; then
+    echo "ERROR: ad2config not found.  exiting"
+    exit 1
+fi 
+source ad2config
+
+if [ ! -e glycan.pdb ] ; then
+        echo "ERROR: no glycan.pdb file found. Exiting." >> ${Log_File}
+        exit 1
+fi
+
+# remake ligand.pdbqt to reflect choices after completing the evaluation
+case ${Glycan_Flexibility} in
+	"Rigid")  
+		GFlex=1
+		;;
+	"Partial")
+		GFlex=2
+		;;
+	"Flexible")
+		GFlex=3
+		;;
+	*)
+		echo "FATAL: Glycan flexibility not set or not actionable." >> ${Log_File} 2>&1
+                exit 1
+		;;
+esac
+generate_glycan_pdbqt ${GFlex}
+result="$?"
+if [ "${result}" != "0" ] ; then
+	echo "ERROR: There was a problem generating the glycan pdbqt file." >> ${Log_File}
+	ERRORS=$((ERRORS+1))
+fi
+
+echo "Finished AD_Prep_Glycan with ${ERRORS} error(s)."
+if [ "${ERRORS}" == "0" ] ; then
+   exit 0
+fi
+exit 1

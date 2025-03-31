@@ -84,19 +84,8 @@ else
         echo "INFO: Making symbolic link between provided glycan file and glycan.pdb." >> ${ADLOG}
 	ln -s ${Glycan_File_Name} glycan.pdb
 fi
-case ${Glycan_Flexibility} in
-	"Rigid")  
-		GFlex=1
-		;;
-	"Partial")
-		GFlex=2
-		;;
-	"Flexible")
-		GFlex=3
-		;;
-esac
 
-generate_glycan_pdbqt ${GFlex}
+generate_glycan_pdbqt 1 # For evaluation purposes, use the simplest generation of ligand.pdbqt
 if [ ${result} != "0" ] ; then
 	echo "ERROR: There was a problem generating the glycan pdbqt file." >> ${ADLOG}
 	ERRORS=$((ERRORS+1))

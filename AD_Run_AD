@@ -10,9 +10,8 @@ Usage:
 	The working directory should contain these things:
 
 	    - The antibody PDBQT file: protein.pdbqt
-	    - The glycan PDBQT file: ligand.pdbqt
+	    - The glycan.pdb file (or symlink)
 	    - A configuration file for AD2
-	    - If Use_Docker=True, there should also be a docker config file
 
 	Return:
 
@@ -44,6 +43,29 @@ fi
 WORKDIR="${1}"
 cd ${WORKDIR}
 source ad2config
+
+# remake ligand.pdbqt to reflect choices after completing the evaluation
+case ${Glycan_Flexibility} in
+	"Rigid")  
+		GFlex=1
+		;;
+	"Partial")
+		GFlex=2
+		;;
+	"Flexible")
+		GFlex=3
+		;;
+	*)
+		echo "FATAL: Glycan flexibility not set or not actionable." >> ${Log_File} 2>&1
+                exit 1
+		;;
+esac
+generate_glycan_pdbqt ${GFlex}
+if [ ${result} != "0" ] ; then
+	echo "ERROR: There was a problem generating the glycan pdbqt file." >> ${ADLOG}
+	ERRORS=$((ERRORS+1))
+        exit 1
+fi
 
 ## Set up the working directory and sub-directories
 prepare_AD_docking_directory ${Number_of_Replicas}

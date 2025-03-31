@@ -26,6 +26,7 @@ onlyS=" 1.prepare_antibody/align_antibody/align  \
     5.analyze_results/reorderpdb \
     5.analyze_results/write_output \
     AD_Evaluate  \
+    AD_Prep_Glycan  \
     AD_Run_AD  \
     AD_Run_Core_Serial  \
     AD_Analyze "

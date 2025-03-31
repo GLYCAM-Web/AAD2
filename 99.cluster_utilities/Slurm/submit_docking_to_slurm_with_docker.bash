@@ -72,7 +72,7 @@ export PATH=${AAD2_CLI_BIN_PATH}/bin:\$PATH
 echo \"The local computing host is: \$(hostname)\" >> ${WJOB_LOG}
 export AAD2_DOCKER_HOME
 module load docker >> ${WJOB_LOG}
-module load runc >> ${WJOB_LOG}
+#module load runc >> ${WJOB_LOG}
 ensure_image_is_present >> ${WJOB_LOG}
 cd ${AAD2_DOCKER_HOME} 
 export CONTAINER_NAME_PREFIX=${CONTAINER_NAME_PREFIX}

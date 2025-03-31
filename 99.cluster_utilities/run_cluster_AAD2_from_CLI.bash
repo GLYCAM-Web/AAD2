@@ -22,9 +22,18 @@ $(pwd)
 The script will run this command:
 ${COMMAND}"
 eval ${COMMAND}
+
 #
-# for website workflows, copy in the updated ad2config with flexibility and replicas info
-#
+# prep the glycan again using the info in ad2config
+COMMAND="bash bin/run_aad2_command.bash ${WD} AD_Prep_Glycan"
+echo "The cwd is:
+$(pwd)
+The script will run this command:
+${COMMAND}"
+eval ${COMMAND}
+
+source ${AAD2_DOCKER_HOME}/settings.bash
+echo "The AAD2_IMAGE_NAME:AAD2_TAG_NAME is: ${AAD2_IMAGE_NAME}:${AAD2_TAG_NAME}"
 
 cd ${WD}
 # The following will spawn a monitoring script and run AD_Analyze once all jobs complete

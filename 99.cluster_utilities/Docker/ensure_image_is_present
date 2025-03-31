@@ -10,7 +10,9 @@ if [ -z "${AAD2_DOCKER_HOME}" ] ; then
 	exit 1
 fi
 
-source "${AAD2_DOCKER_HOME}/settings.bash"  
+cd ${AAD2_DOCKER_HOME}
+
+source "settings.bash"  
 # Doing this source gives us the following: AAD2_IMAGE_NAME AAD2_TAG_NAME
 
 # Combine name and tag into convenient string
@@ -20,7 +22,7 @@ AAD2_IMAGE_TAG_COMBO="${AAD2_IMAGE_NAME}:${AAD2_TAG_NAME}"
 # Name of the file for the current image
 AAD2_IMAGE_FILE_NAME="${AAD2_IMAGE_FILE_PATH}/${AAD2_IMAGE_TAG_COMBO//:/$'.'}.tar"
 
-COMMAND="bash ${AAD2_DOCKER_HOME}/bin/load_image.bash ${AAD2_IMAGE_TAG_COMBO} ${AAD2_IMAGE_FILE_PATH}"
+COMMAND="bash bin/load_image.bash ${AAD2_IMAGE_TAG_COMBO} ${AAD2_IMAGE_FILE_PATH}"
 
 echo "Using the following command to ensure that the required image is available."
 echo ${COMMAND}
