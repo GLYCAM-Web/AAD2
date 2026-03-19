@@ -25,6 +25,7 @@ fi
 #    DOCKING_REPLICA_BATCH_CPUS # can differ from AD2_Docking_CPUS
 #    SUBMIT_FILE_NAME
 #    CLUSTER_EXE_NAME
+#    PARTITION
 #    AAD2_BIN_PATH # can be overridden if need be
 #    AAD2_DOCKER_HOME # can be overridden if need be
 # The likely name:  gwconfig # GLYCAM-Web configuration file
@@ -83,6 +84,7 @@ echo "${runMe}" > "${CLUSTER_EXE_NAME}"
 # Script to submit
 submitMe="""#!/usr/bin/env bash
 #SBATCH --chdir=${WORKDIR}
+#SBATCH --partition=${PARTITION}
 #SBATCH --error=%x-%A.err
 #SBATCH --output=%x-%A.out
 #SBATCH --get-user-env
