@@ -10,8 +10,7 @@
 # Command to get the list of nodes:
 Nodes_Info_Command="sinfo -N"
 #
-# Partitions to avoid 
-Partitions_To_Use="defq"
+Partition_To_Use="aCPU"
 #
 # Node states to avoid 
 States_To_Avoid="down  drained  draining  fail  failing"
@@ -35,6 +34,7 @@ Nodes="$(${Nodes_Info_Command})"
 # Script to submit
 submitMe="""#!/usr/bin/env bash
 #SBATCH --chdir=${AAD2_WORKDIR}
+#SBATCH --partition=${Partition_To_Use}
 #SBATCH --error=%x-%A.err
 #SBATCH --output=%x-%A.out
 #SBATCH --get-user-env
@@ -64,7 +64,7 @@ while IFS= read -r line; do
      echo "Not processing node in state ${theState}"
      continue
   fi
-  if [[ "${Partitions_To_Use}" == *"${thePartition}"* ]] ; then
+  if [[ "${Partition_To_Use}" == "${thePartition}" ]] ; then
      echo "Processing ${theNode}."
 #     if [ "${count}" -ge "3" ] ; then
 #        continue
