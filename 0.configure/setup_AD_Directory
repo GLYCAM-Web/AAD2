@@ -17,6 +17,18 @@ When fully set up, the working directory should contain these things:
 
     - A VC configuration file
 
+Depending on user preferences it can also contain:
+
+    - One or more user-supplied files.
+
+      These files will also be copied into the replica run directories.
+      If you require different behavior, submit a feature request.
+
+      If the files are not supplied before setup is run, an error message will be issued,
+      but execution will not be stopped.
+
+      If the files are not supplied before the script 'prepare_AD_docking_directory' is run,
+      the execution will stop, and an error message will be logged.
 """
 
 UGAGE="""
@@ -82,7 +94,20 @@ VMD_LIB=\"\" # Path to the 'vmd' lib directory, e.g., /programs/lib
 
 AAD2_CLI_BIN_PATH=\"\"  # The path for AAD2 executables used outside a container
 
-## This may be set if desired. Leave unset if unsure.
+## These may be set if desired. Leave unset if unsure.
+#
+#Extra_Files=\"\" # space-separated list of extra files
+#  These will be copied into each replica ('rN') subdirectory.
+#  It is the user's responsibility to place them in the working directory.
+#  The scripts do not interact with them otherwise.
+#
+#  Example:
+#          Extra_Files=\"batch_options.bash  submission_script.bash  docking_wrapper.bash\"
+#
+#          See 99.cluster_utilities/sample_files for sample files.
+#
+#          See 99.cluser_utilities/Slurm for a sample all-in-one that does not need the
+#          Extra_Files to be provided (it writes them from the script).
 #
 #AD2_Random_Seeds=(
 #	[1]=\"112345\"
@@ -112,6 +137,8 @@ Image=\"\"
 ## These might be needed if Use_Docker is True
 #
 export AAD2_IMAGE_FILE_PATH=\"\"  # If you might need to load the image from a file
+#
+# See also 'Extra_Files', above.
 
 """
 

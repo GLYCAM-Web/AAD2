@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+DOCKING_REPLICA_BATCH_CPUS='16' # can differ from the cpus specified for vina-carb to use
+##AAD2_BASE_PATH="" # override if needed - is defined elsewhere normally
+##AAD2_DOCKER_HOME="" # override if needed - is defined elsewhere normally
+PARTITION="wCPU"
+SUBMIT_FILE_NAME="sbatch_submission_script.bash"
+CLUSTER_EXE_NAME="run_docking_with_docker_on_cluster_node.bash"
+
+pUUID='abcdef0123456789' # this setting is for testing. use the correct ones
+
+# ad2config following contains
+#    Log_File
+#    AAD2_CLI_BIN_PATH
+#    AD2_Docking_Local_Script
+source ad2config   
+echo "sourced ad2config"
+
+if [ -z "${Log_File}" ] ; then
+	Log_File='ad2.log'
+fi
+
+if [ -z "${DOCKING_REPLICA_JOB_LOG}" ] ; then
+	JOB_LOG='ad2_job.log'
+else
+	JOB_LOG="${DOCKING_REPLICA_JOB_LOG}"
+fi
+
+export WORKDIR="$(pwd)"
+tmpdirname="$(basename ${WORKDIR})"
+repNum="${tmpdirname#"r"}"
+export CONTAINER_NAME_PREFIX="${pUUID:0:5}-${repNum}"
+export WJOB_LOG="${WORKDIR}/${JOB_LOG}"
+export JOB_LOG
+export Log_File

@@ -1,6 +1,6 @@
 # Cluster Utilities for AAD2
 
-**This code is changing rapidly. These docs may be incomplete or out of date.** 
+**This code is no longer changing rapidly, but these docs may still be incomplete or out of date.** 
 
 These utilities should help you to use AAD2 on a cluster.  They manage the process of running some 
 parts of the code on the head node, then sending some to compute nodes, and then running more on 
@@ -15,6 +15,23 @@ environmental requirements to the head node. But, it is possible that they might
 If you are able to use Docker with your cluster, there are also utils for that. What you will find here
 are wrappers for the actual scripts that can be found in the 
 [`AAD2_Docker` repo on GitHub](https://github.com/GLYCAM-Web/AAD2_Docker).
+
+## Scripts that you must provide or update
+
+When running on a cluster, it is necessary to provide AAD2 with a mechanism for submitting jobs. 
+
+Example files for running on a Slurm cluster can be found in:
+
+`AAD2/99.cluster_utilities/sample_files`
+and
+`AAD2/99.cluster_utilities/Slurm`
+
+## Special notes about using Docker
+
+HPC cluster admins might not be comfortable giving the compute nodes access to the internet. For this 
+reason, it might not be possible to pull or build images on the nodes. There are utilities in the
+[`AAD2_Docker` repo on GitHub](https://github.com/GLYCAM-Web/AAD2_Docker) for managing the images when 
+there is no internet access on the compute nodes.
 
 ## Workflows
 
