@@ -88,6 +88,20 @@ while [ "${i}" -le "${Number_of_Replicas}" ] ; do
 		echo "INFO: copying the local config script for batch processing." >> ${Log_File}
 		cp ../${AD2_Docking_Local_Script} .
 	fi
+	#  copy any extra files that are specified
+	if [ ! -z "${AD2_Extra_Files}" ] ; then
+		for file in "${AD2_Extra_Files}" ; do
+			if [ ! -e "../${file}" ] ; then
+				echo "ERROR: File in AD2_Extra_Files not found. Exiting." >> ${Log_File}
+				echo "       The name given is: ${file}" >> ${Log_File}
+				echo "       ${AD2_Extra_Files} contains: '${AD2_Extra_Files}'" >> ${Log_File}
+				exit 1
+			fi
+			echo "INFO: copying AD2 Extra File, '${file}', to the run directory." >> ${Log_File}
+			cp ../${file} .
+		done
+	fi
+	
         cd ../
 	i=$((i+1))
 done
