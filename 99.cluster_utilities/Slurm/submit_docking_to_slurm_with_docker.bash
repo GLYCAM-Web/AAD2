@@ -69,11 +69,11 @@ source ad2config
 source ${AD2_Docking_Local_Script}
 
 cd ${WORKDIR} 
-export PATH=${AAD2_CLI_BIN_PATH}/bin:\$PATH
+export PATH=${AAD2_CLI_BIN_PATH}:\$PATH
 echo \"The local computing host is: \$(hostname)\" >> ${WJOB_LOG}
 export AAD2_DOCKER_HOME
-module load docker >> ${WJOB_LOG}
-#module load runc >> ${WJOB_LOG}
+#module load docker >> ${WJOB_LOG}  # Uncomment if you need modules
+##module load runc >> ${WJOB_LOG}  # Uncomment if you need modules
 ensure_image_is_present >> ${WJOB_LOG}
 cd ${AAD2_DOCKER_HOME} 
 export CONTAINER_NAME_PREFIX=${CONTAINER_NAME_PREFIX}
